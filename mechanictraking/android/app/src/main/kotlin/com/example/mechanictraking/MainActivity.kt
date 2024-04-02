@@ -1,4 +1,4 @@
-package com.example.mechanictraking
+package com.example.mechanictracking
 
 import io.flutter.embedding.android.FlutterActivity
 
