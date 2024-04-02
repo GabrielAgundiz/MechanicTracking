@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white.withOpacity(1), // Fondo de la barra de navegación inferior
         items: const <BottomNavigationBarItem>[    // Elementos de la barra de navegación inferior
           BottomNavigationBarItem(
-            icon: Icon(Icons.store),    // Icono del elemento
+            icon: Icon(Icons.home),    // Icono del elemento
             label: 'Inicio',   // Etiqueta del elemento
           ),
          
