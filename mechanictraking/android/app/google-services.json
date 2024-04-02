@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "854986044418",
+    "project_id": "mechanictracking",
+    "storage_bucket": "mechanictracking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854986044418:android:75d49e31d147f9dc8ca31b",
+        "android_client_info": {
+          "package_name": "com.example.mechanictracking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY7i4LQoMNRIwM7EOdbnFhXZSDzwCqWQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
