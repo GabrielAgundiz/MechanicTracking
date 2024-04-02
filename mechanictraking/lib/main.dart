@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         // Oculta la etiqueta de depuración en la esquina superior derecha
         debugShowCheckedModeBanner: false,
         // Establece el título de la aplicación
-        title: 'FoodBuddy',
+        title: 'Mechanic Tracking',
         // Establece el tema de la aplicación
         theme: ThemeData(
           // Establece el color principal de la aplicación
