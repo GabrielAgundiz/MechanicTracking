@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io'; // Importación de la biblioteca para operaciones de entrada/salida
 import 'package:firebase_auth/firebase_auth.dart'; // Importación de la biblioteca de autenticación de Firebase
 import 'package:cloud_firestore/cloud_firestore.dart'; // Importación de la biblioteca Firestore de Firebase
-import 'package:mechanictracking/screens/notifies.dart'; // Importación de la pantalla de notificaciones
+import 'package:mechanictracking/screens/user/notifies.dart'; // Importación de la pantalla de notificaciones
 import 'package:image_picker/image_picker.dart'; // Importación de la biblioteca para seleccionar imágenes desde el dispositivo
 
 class ProfilePage extends StatefulWidget {

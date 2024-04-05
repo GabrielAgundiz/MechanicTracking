@@ -5,7 +5,7 @@ import 'package:mechanictracking/screens/recovery.dart'; // Importa la pantalla 
 import 'package:firebase_auth/firebase_auth.dart'; // Importa la autenticación de Firebase.
 import 'package:email_validator/email_validator.dart'; // Importa el paquete email_validator para validar correos electrónicos.
 import 'package:mechanictracking/widgets/utils.dart'; // Importa utilidades personalizadas.
-import 'package:mechanictracking/screens/home.dart'; // Importa la pantalla de inicio de la aplicación.
+import 'package:mechanictracking/screens/user/home.dart'; // Importa la pantalla de inicio de la aplicación.
 
 class LoginPage extends StatefulWidget {
   @override
