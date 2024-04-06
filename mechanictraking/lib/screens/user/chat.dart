@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/chatabout.dart';
-import 'package:mechanictracking/widgets/chatsample.dart';
+import 'package:mechanictracking/screens/user/widgets/chatsample.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
