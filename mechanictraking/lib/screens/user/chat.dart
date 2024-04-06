@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/screens/user/chatabout.dart';
 import 'package:mechanictracking/widgets/chatsample.dart';
 
 class ChatPage extends StatelessWidget {
@@ -32,14 +33,26 @@ class ChatPage extends StatelessWidget {
               ],
             ),
           ),
-          actions: const [
-            Padding(
-              padding: EdgeInsets.only(top: 8, right: 20),
-              child: Icon(Icons.call, color: Colors.white, size: 26),
+          actions: [
+            GestureDetector(
+              onTap: () {},
+              child: const Padding(
+                padding: EdgeInsets.only(top: 8, right: 20),
+                child: Icon(Icons.call, color: Colors.white, size: 26),
+              ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 8, right: 20),
-              child: Icon(Icons.info, color: Colors.white, size: 26),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AboutChatPage(),
+                    ));
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(top: 8, right: 20),
+                child: Icon(Icons.info, color: Colors.white, size: 26),
+              ),
             ),
           ],
         ),
@@ -88,9 +101,10 @@ class ChatPage extends StatelessWidget {
             Spacer(),
             Padding(
               padding: EdgeInsets.only(right: 10),
-              child: Icon(Icons.send,
-              size: 30,
-              color: Colors.green[400],
+              child: Icon(
+                Icons.send,
+                size: 30,
+                color: Colors.green[400],
               ),
             ),
           ],
