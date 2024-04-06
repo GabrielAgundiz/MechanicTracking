@@ -41,6 +41,7 @@ dependencies:
   firebase_core: ^2.27.0
   email_validator: ^2.1.16
   image_picker: ^1.0.7
+  custom_clippers: ^2.0.0
 
 dev_dependencies:
   flutter_test:

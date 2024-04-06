@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/feed.dart';    // Importando la pantalla de alimentación
+import 'package:mechanictracking/screens/user/messages.dart';
 import 'package:mechanictracking/screens/user/profile.dart';
 import 'package:mechanictracking/screens/user/schedule.dart';  // Importando la pantalla de perfil
 
@@ -18,6 +19,7 @@ class _HomePageState extends State<HomePage> {
     final screens = [    // Lista de las pantallas a mostrar
       FeedPage(),
       SchedulePage(),
+      MessagesPage(),
       ProfilePage()
     ];
 
@@ -48,6 +50,10 @@ class _HomePageState extends State<HomePage> {
          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),    // Icono del elemento
             label: 'Citas',   // Etiqueta del elemento
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Mensajes',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
