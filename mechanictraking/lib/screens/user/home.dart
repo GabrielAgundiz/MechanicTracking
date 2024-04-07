@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/feed.dart';    // Importando la pantalla de alimentación
 import 'package:mechanictracking/screens/user/messages.dart';
 import 'package:mechanictracking/screens/user/profile.dart';
-import 'package:mechanictracking/screens/user/schedule.dart';  // Importando la pantalla de perfil
+import 'package:mechanictracking/screens/user/schedule.dart';
+import 'package:mechanictracking/screens/user/tracking.dart';  // Importando la pantalla de perfil
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final screens = [    // Lista de las pantallas a mostrar
       FeedPage(),
+      TrackingPage(),
       SchedulePage(),
       MessagesPage(),
       ProfilePage()
@@ -46,6 +48,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),    // Icono del elemento
             label: 'Inicio',   // Etiqueta del elemento
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.content_paste_search),    // Icono del elemento
+            label: 'Seguimiento',   // Etiqueta del elemento
           ),
          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),    // Icono del elemento
