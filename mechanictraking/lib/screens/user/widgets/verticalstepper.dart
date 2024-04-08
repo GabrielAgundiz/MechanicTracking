@@ -6,7 +6,10 @@ class VerticalStepper extends StatefulWidget {
   List<Step> steps;
   double dashLength;
   Color iconColor;
-  VerticalStepper({required this.steps, required this.dashLength,this.iconColor = Colors.grey});
+  VerticalStepper(
+      {required this.steps,
+      required this.dashLength,
+      this.iconColor = Colors.grey});
 
   @override
   _VerticalStepperState createState() => _VerticalStepperState();
@@ -24,7 +27,7 @@ class _VerticalStepperState extends State<VerticalStepper> {
               top: 23,
               left: 27,
               child: DottedLine(
-                dashLength: widget.dashLength?? 5,
+                dashLength: widget.dashLength ?? 5,
                 direction: Axis.vertical,
                 lineLength: double.infinity,
                 dashColor: Colors.black,
@@ -49,7 +52,7 @@ class _VerticalStepperState extends State<VerticalStepper> {
                 direction: Axis.vertical,
                 lineLength: 22,
                 dashColor: Colors.black,
-                dashLength: this.widget.dashLength,
+                dashLength: widget.dashLength,
               ),
             ),
             Container(
@@ -107,7 +110,7 @@ class _StepState extends State<Step> {
                 ]),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                         color: Colors.black12,
                         offset: Offset(0.0, 1.5),
@@ -118,7 +121,10 @@ class _StepState extends State<Step> {
             ),
           ],
         ),
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 69.0),

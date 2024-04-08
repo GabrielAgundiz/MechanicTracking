@@ -9,29 +9,118 @@ class TrackDetailsPage extends StatelessWidget {
   List<step.Step> steps = [
     step.Step(
       shimmer: false,
-      title: "Testing",
-      iconStyle: Colors.green,
+      title: "Automovil en Taller",
+      iconStyle: Colors.grey,
       content: Align(
         alignment: Alignment.centerLeft,
-        child: Text("Testing"),
+        child: Column(
+          children: [
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "05/04/2024 11:35 AM",
+                textAlign: TextAlign.left,
+                style: TextStyle(color: Colors.black54),
+              ),
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "El automovil entro a reparacion en el taller.",
+                textAlign: TextAlign.left,
+              ),
+            ),
+            SizedBox(height: 10,),
+          ],
+        ),
       ),
     ),
     step.Step(
       shimmer: false,
-      title: "Testing",
+      title: "Automovil en Revision",
       iconStyle: Colors.green,
       content: Align(
         alignment: Alignment.centerLeft,
-        child: Text("Testing"),
+        child: Column(
+          children: [
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "05/04/2024 08:35 AM",
+                textAlign: TextAlign.left,
+                style: TextStyle(color: Colors.black54),
+              ),
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "El automovil se encuentra a revision.",
+                textAlign: TextAlign.left,
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 63),
+                child: InkWell(
+                  onTap: () {},
+                  child: Container(
+                    width: 115,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.green[300],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Diagnostico",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+          ],
+        ),
       ),
     ),
     step.Step(
       shimmer: false,
-      title: "Testing",
-      iconStyle: Colors.blue,
+      title: "Automovil Recibido",
+      iconStyle: Colors.green,
       content: Align(
         alignment: Alignment.centerLeft,
-        child: Text("Testing"),
+        child: Column(
+          children: [
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "05/04/2024 11:35 AM",
+                textAlign: TextAlign.left,
+                style: TextStyle(color: Colors.black54),
+              ),
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "El automovil entro a reparacion en el taller.",
+                textAlign: TextAlign.left,
+              ),
+            ),
+            SizedBox(height: 10,),
+          ],
+        ),
       ),
     )
   ];
@@ -49,7 +138,7 @@ class TrackDetailsPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -68,7 +157,7 @@ class TrackDetailsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               VerticalStepper(steps: steps, dashLength: 2)
