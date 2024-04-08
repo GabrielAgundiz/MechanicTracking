@@ -24,7 +24,7 @@ class ProfileData extends StatelessWidget {
               flex: 3,
               child: Text(
                 title,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -32,7 +32,7 @@ class ProfileData extends StatelessWidget {
               flex: 5,
               child: Text(
                 value,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black54),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
