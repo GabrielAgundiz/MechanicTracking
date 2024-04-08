@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/screens/user/trackdetails.dart';
 
 class ActualTracking extends StatelessWidget {
   const ActualTracking({super.key});
@@ -11,7 +12,7 @@ class ActualTracking extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Proximas Citas",
+            "Proximos Servicios",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
@@ -106,7 +107,9 @@ class ActualTracking extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => TrackDetailsPage(),));
+                        },
                         child: Container(
                           width: 300,
                           padding: EdgeInsets.symmetric(vertical: 12),
