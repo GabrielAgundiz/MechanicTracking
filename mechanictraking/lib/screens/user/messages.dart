@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/chat.dart';
+import 'package:mechanictracking/screens/user/home.dart';
 
 class MessagesPage extends StatelessWidget {
   List imgs = [
@@ -33,6 +34,17 @@ class MessagesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      HomePage()), // Navega a la página de registro.
+            );
+          },
+        ),
         title: const Text(
           'Mensajes',
           style: TextStyle(fontWeight: FontWeight.bold),

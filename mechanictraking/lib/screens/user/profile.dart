@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io'; // Importación de la biblioteca para operaciones de entrada/salida
 import 'package:firebase_auth/firebase_auth.dart'; // Importación de la biblioteca de autenticación de Firebase
 import 'package:cloud_firestore/cloud_firestore.dart'; // Importación de la biblioteca Firestore de Firebase
+import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/notifies.dart'; // Importación de la pantalla de notificaciones
 import 'package:image_picker/image_picker.dart'; // Importación de la biblioteca para seleccionar imágenes desde el dispositivo
 
@@ -36,6 +37,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      HomePage()), // Navega a la página de registro.
+            );
+          },
+        ),
         title: const Text(
             'Perfil', style: TextStyle(fontWeight: FontWeight.bold),), // Título de la barra de la aplicación, que muestra "Perfil"
         actions: <Widget>[

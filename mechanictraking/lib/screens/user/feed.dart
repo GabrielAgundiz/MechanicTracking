@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mechanictracking/screens/login.dart';
+
 // Página de alimentación (Feed)
 class FeedPage extends StatefulWidget {
   @override
@@ -11,8 +13,19 @@ class _FeedPageState extends State<FeedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      LoginPage()), // Navega a la página de registro.
+            );
+          },
+        ),
         title: const Text(
-          'Feed',
+          'Inicio',
           style: TextStyle(fontWeight: FontWeight.bold),
         ), // Título de la barra de aplicación
       ),

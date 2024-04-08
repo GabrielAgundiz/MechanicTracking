@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/widgets/actualtracking.dart';
 
 class TrackingPage extends StatefulWidget {
@@ -21,6 +22,17 @@ class _TrackingPageState extends State<TrackingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      HomePage()), // Navega a la página de registro.
+            );
+          },
+        ),
         title: const Text(
           'Seguimiento',
           style: TextStyle(fontWeight: FontWeight.bold),
