@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/feed.dart';    // Importando la pantalla de alimentación
 import 'package:mechanictracking/screens/user/messages.dart';
 import 'package:mechanictracking/screens/user/profile.dart';
+import 'package:mechanictracking/screens/user/profile2.dart';
 import 'package:mechanictracking/screens/user/schedule.dart';
 import 'package:mechanictracking/screens/user/tracking.dart';  // Importando la pantalla de perfil
 
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
       TrackingPage(),
       SchedulePage(),
       MessagesPage(),
-      ProfilePage()
+      ProfilePage2()
     ];
 
     Color selectedColor = Colors.green[400]!;  // Color del elemento seleccionado en la barra de navegación inferior
