@@ -81,7 +81,7 @@ class ProfilePage2 extends StatelessWidget {
                   height: 16,
                 ),
                 const SectionHeading(
-                  title: "Informacion Personal",
+                  title: "Informacion de Usuario",
                   showActionButton: false,
                 ),
                 const SizedBox(
