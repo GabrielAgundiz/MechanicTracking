@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/screens/user/citeform.dart';
 import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/widgets/upcoming.dart';
 
@@ -13,7 +14,7 @@ class _SchedulePageState extends State<SchedulePage> {
   int _buttonIndex = 0;
   final _ScheduleWidgets = [
     UpcomingSchedule(),
-   
+
     //CompletedWidget
     Container(),
     //CanceledWidget
@@ -85,8 +86,8 @@ class _SchedulePageState extends State<SchedulePage> {
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: _buttonIndex == 0
-                                ? Colors.black
-                                : Colors.black38,
+                                  ? Colors.black
+                                  : Colors.black38,
                             )),
                       ),
                     ),
@@ -110,8 +111,8 @@ class _SchedulePageState extends State<SchedulePage> {
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: _buttonIndex == 1
-                                ? Colors.black
-                                : Colors.black38,
+                                  ? Colors.black
+                                  : Colors.black38,
                             )),
                       ),
                     ),
@@ -153,6 +154,23 @@ class _SchedulePageState extends State<SchedulePage> {
           ),
         ),
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: FloatingActionButton(
+          backgroundColor: Colors.green[400],
+          onPressed: () {
+            Navigator.push(
+              // Navega a la página de notificaciones (NotifiesPage)
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      CiteForm()), // Crea una ruta para la página de notificaciones
+            );
+          },
+          child: Icon(Icons.add, color: Colors.white),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }

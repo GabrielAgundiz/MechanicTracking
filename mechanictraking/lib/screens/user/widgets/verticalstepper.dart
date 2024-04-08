@@ -9,7 +9,9 @@ class VerticalStepper extends StatefulWidget {
   VerticalStepper(
       {required this.steps,
       required this.dashLength,
+      
       this.iconColor = Colors.grey});
+ 
 
   @override
   _VerticalStepperState createState() => _VerticalStepperState();

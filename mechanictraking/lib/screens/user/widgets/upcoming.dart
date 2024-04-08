@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/screens/user/schedule.dart';
 
 class UpcomingSchedule extends StatelessWidget {
   const UpcomingSchedule({super.key});
@@ -110,7 +111,9 @@ class UpcomingSchedule extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          
+                        },
                         child: Container(
                           width: 150,
                           padding: EdgeInsets.symmetric(vertical: 12),
@@ -153,12 +156,16 @@ class UpcomingSchedule extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15,),
+                  const SizedBox(
+                    height: 15,
+                  ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
         ],
       ),
     );

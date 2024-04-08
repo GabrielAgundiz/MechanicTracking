@@ -31,6 +31,7 @@ class ProfileData extends StatelessWidget {
             Expanded(
               flex: 5,
               child: Text(
+                maxLines: 2,
                 value,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.black54),
                 overflow: TextOverflow.ellipsis,

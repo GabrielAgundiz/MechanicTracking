@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/notifies.dart';
 import 'package:mechanictracking/screens/user/widgets/circularimage.dart';
 import 'package:mechanictracking/screens/user/widgets/profiledata.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+import 'package:flutter/services.dart';
 
-class ProfilePage2 extends StatelessWidget {
-  const ProfilePage2({super.key});
+class ProfilePage2 extends StatefulWidget {
+  ProfilePage2({super.key});
 
   @override
+  _ProfilePage2State createState() => _ProfilePage2State();
+}
+
+class _ProfilePage2State extends State<ProfilePage2> {
+  String? _photoUrl;
+  Map<String, dynamic>? _userData;
+  @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final client = FirebaseFirestore.instance
+        .collection('client')
+        .doc(user?.uid)
+        .snapshots();
+    final picker = ImagePicker();
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -17,29 +36,21 @@ class ProfilePage2 extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      HomePage()), // Navega a la página de registro.
+              MaterialPageRoute(builder: (context) => HomePage()),
             );
           },
         ),
         title: const Text(
           'Perfil',
           style: TextStyle(fontWeight: FontWeight.bold),
-        ), // Título de la barra de la aplicación, que muestra "Perfil"
+        ),
         actions: <Widget>[
-          // Lista de acciones en la barra de la aplicación
           IconButton(
-            // Botón de icono
-            icon: const Icon(Icons.notifications), // Icono de notificaciones
+            icon: const Icon(Icons.notifications),
             onPressed: () {
-              // Acción cuando se presiona el botón de notificaciones
               Navigator.push(
-                // Navega a la página de notificaciones (NotifiesPage)
                 context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        NotifiesPage()), // Crea una ruta para la página de notificaciones
+                MaterialPageRoute(builder: (context) => NotifiesPage()),
               );
             },
           )
@@ -53,59 +64,219 @@ class ProfilePage2 extends StatelessWidget {
             ),
             child: Column(
               children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    children: [
-                      CircularImage(
-                        image:
-                            "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
-                        width: 140,
-                        height: 140,
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Cambiar foto de perfil',
-                          style: TextStyle(color: Colors.green),
+                StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                  stream: client,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+
+                    return Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            children: [
+                              CircularImage(
+                                image: _userData?['image'] ??
+                                    'https://static.vecteezy.com/system/resources/previews/019/879/198/non_2x/user-icon-on-transparent-background-free-png.png',
+                                width: 140,
+                                height: 140,
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  final pickedFile = await picker.pickImage(
+                                      source: ImageSource
+                                          .gallery); // Permite al usuario seleccionar una foto de la galería
+                                  if (pickedFile != null) {
+                                    setState(() {
+                                      _photoUrl = pickedFile
+                                          .path; // Actualiza la URL de la foto seleccionada
+                                    });
+                                  }
+                                },
+                                child: const Text(
+                                  'Cambiar foto de perfil',
+                                  style: TextStyle(color: Colors.green),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        const Divider(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        const SectionHeading(
+                          title: "Informacion de Usuario",
+                          showActionButton: false,
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        ProfileData(
+                            title: 'Nombre',
+                            value: _userData?['name'] ?? 'N/A',
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  String? newName;
+                                  return AlertDialog(
+                                    title: const Text('Editar nombre'),
+                                    content: TextField(
+                                      onChanged: (value) {
+                                        newName = value;
+                                      },
+                                      decoration: const InputDecoration(
+                                          hintText: 'Nombre'),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text('Cancelar'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          if (newName != _userData?['name']) {
+                                            setState(() {
+                                              _userData!['name'] = newName;
+                                            });
+                                          }
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Guardar'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }),
+                        ProfileData(
+                            title: 'User ID',
+                            value: _userData?['uid'] ?? 'N/A',
+                            icon: Icons.copy,
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(
+                                  text: _userData?['uid'] ?? 'N/A'));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Los datos se han copiado'),
+                                ),
+                              );
+                            }),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        const Divider(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        const SectionHeading(
+                          title: "Informacion Personal",
+                          showActionButton: false,
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        ProfileData(
+                            title: 'E-mail:',
+                            value: _userData?['email'] ?? 'N/A',
+                            icon: Icons.copy,
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(
+                                  text: _userData?['email'] ?? 'N/A'));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Los datos se han copiado'),
+                                ),
+                              );
+                            }),
+                        ProfileData(
+                            title: 'Telefono',
+                            value: _userData?['phone'] ?? 'N/A',
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  String? newPhone;
+                                  return AlertDialog(
+                                    title: const Text('Editar telefono'),
+                                    content: TextField(
+                                      onChanged: (value) {
+                                        newPhone = value;
+                                      },
+                                      decoration: const InputDecoration(
+                                          hintText: 'Telefono'),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text('Cancelar'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          if (newPhone != _userData?['phone']) {
+                                            setState(() {
+                                              _userData!['phone'] = newPhone;
+                                            });
+                                          }
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Guardar'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }),
+                        ProfileData(
+                            title: 'Direccion',
+                            value: _userData?['address'] ?? 'N/A',
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  String? newAddress;
+                                  return AlertDialog(
+                                    title: const Text('Editar direccion'),
+                                    content: TextField(
+                                      onChanged: (value) {
+                                        newAddress = value;
+                                      },
+                                      decoration: const InputDecoration(
+                                          hintText: 'Direccion'),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text('Cancelar'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          if (newAddress !=
+                                              _userData?['address']) {
+                                            setState(() {
+                                              _userData!['address'] =
+                                                  newAddress;
+                                            });
+                                          }
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Guardar'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }),
+                      ],
+                    );
+                  },
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 16,
-                ),
-                const SectionHeading(
-                  title: "Informacion de Usuario",
-                  showActionButton: false,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                ProfileData(title: 'Nombre', value: 'Gabriel Agundiz', onPressed: (){}),
-                ProfileData(title: 'User ID', value: '45123213', icon: Icons.copy, onPressed: (){}),
-                const SizedBox(
-                  height: 8,
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 16,
-                ),
-                const SectionHeading(
-                  title: "Informacion Personal",
-                  showActionButton: false,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                ProfileData(title: 'E-mail:', value: 'usuario@gmail.com', onPressed: (){}),
-                ProfileData(title: 'Telefono', value: '810000000', onPressed: (){}),
-                ProfileData(title: 'Direccion', value: 'Monterrey #345, N.L.', onPressed: (){}),
               ],
             ),
           ),
@@ -114,4 +285,3 @@ class ProfilePage2 extends StatelessWidget {
     );
   }
 }
-
