@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:mechanictracking/screens/user/widgets/image_gallery.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
-class DiagnosticPage extends StatefulWidget {
-  const DiagnosticPage({super.key});
+class ScheduleDetailsPage extends StatefulWidget {
+  const ScheduleDetailsPage({super.key});
 
   @override
-  State<DiagnosticPage> createState() => _DiagnosticPageState();
+  State<ScheduleDetailsPage> createState() => _ScheduleDetailsPageState();
 }
 
-class _DiagnosticPageState extends State<DiagnosticPage> {
+class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Diagnostico',
+          'Detalles',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Column(
             children: [
               const SectionHeading(
-                title: "Diagnostico del automovil",
+                title: "Detalles de la cita",
                 showActionButton: false,
               ),
               const SizedBox(
@@ -67,7 +66,37 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
                   Expanded(
                     flex: 3,
                     child: Text(
-                      "Reparacion:",
+                      "Motivo:",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Text(
+                      maxLines: 20,
+                      "Descripcion del motivo",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.black54),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 14,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      "Fecha:",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -79,7 +108,7 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      "Nombre de la reparacion",
+                      "12/01/2023",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -97,7 +126,7 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
                   Expanded(
                     flex: 3,
                     child: Text(
-                      "Descripcion:",
+                      "Hora:",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -108,8 +137,8 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
                   Expanded(
                     flex: 5,
                     child: Text(
-                      maxLines: 15,
-                      "Descripcion y justificacion de la reparacion",
+                      maxLines: 2,
+                      "10:30 AM",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -127,7 +156,7 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
                   Expanded(
                     flex: 3,
                     child: Text(
-                      "Costo:",
+                      "Estado:",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -138,8 +167,8 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
                   Expanded(
                     flex: 5,
                     child: Text(
-                      maxLines: 15,
-                      "Costo de la reparacion MXN",
+                      maxLines: 2,
+                      "Confirmado",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -149,50 +178,6 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 18,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      "Imagenes adjuntas:",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Text(
-                      maxLines: 15,
-                      "",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: Colors.black54),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 14,
-              ),
-            /*  ImageGallery(
-                imageUrls: [
-                  'https://indiepropub.com/wp-content/uploads/2022/05/reparacion-taller.jpg',
-                  'https://indiepropub.com/wp-content/uploads/2022/05/reparacion-taller.jpg',
-                  'https://indiepropub.com/wp-content/uploads/2022/05/reparacion-taller.jpg',
-                  'https://indiepropub.com/wp-content/uploads/2022/05/reparacion-taller.jpg',
-                  'https://indiepropub.com/wp-content/uploads/2022/05/reparacion-taller.jpg',
-                  'https://indiepropub.com/wp-content/uploads/2022/05/reparacion-taller.jpg',
-                  // Add more image URLs here
-                ],
-              ),*/
             ],
           ),
         ),

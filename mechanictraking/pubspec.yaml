@@ -43,6 +43,7 @@ dependencies:
   image_picker: ^1.0.7
   custom_clippers: ^2.0.0
   dotted_line: ^3.2.2
+  photo_view: ^0.14.0
 
 dev_dependencies:
   flutter_test:

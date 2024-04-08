@@ -22,7 +22,7 @@ class _CiteFormState extends State<CiteForm> {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (picked!= null && picked!= _selectedDate) {
+    if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
       });
@@ -34,7 +34,7 @@ class _CiteFormState extends State<CiteForm> {
       context: context,
       initialTime: _selectedTime,
     );
-    if (picked!= null && picked!= _selectedTime) {
+    if (picked != null && picked != _selectedTime) {
       setState(() {
         _selectedTime = picked;
       });
@@ -63,14 +63,22 @@ class _CiteFormState extends State<CiteForm> {
                     showActionButton: false,
                   ),
                   const SizedBox(
-                    height: 24,
+                    height: 30,
                   ),
-                  const Text("Ingresa el modelo de automovil:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "Ingresa el modelo de automovil:",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                   const SizedBox(
                     height: 6,
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(hintText: 'Modelo del automóvil', hintStyle: TextStyle(fontSize: 14)),
+                    decoration: const InputDecoration(
+                        hintText: 'Modelo del automóvil',
+                        hintStyle: TextStyle(fontSize: 14)),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, ingrese un modelo';
@@ -82,12 +90,20 @@ class _CiteFormState extends State<CiteForm> {
                   const SizedBox(
                     height: 24,
                   ),
-                  const Text("Ingresa el motivo:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "Ingresa el motivo:",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                   const SizedBox(
                     height: 6,
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(hintText: 'Motivo de la cita', hintStyle: TextStyle(fontSize: 14)),
+                    decoration: const InputDecoration(
+                        hintText: 'Motivo de la cita',
+                        hintStyle: TextStyle(fontSize: 14)),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, ingrese un motivo';
@@ -99,7 +115,13 @@ class _CiteFormState extends State<CiteForm> {
                   const SizedBox(
                     height: 24,
                   ),
-                  const Text("Ingresa el dia y hora:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      child: const Text(
+                        "Ingresa el dia y hora:",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )),
                   const SizedBox(
                     height: 6,
                   ),
@@ -162,7 +184,8 @@ class _CiteFormState extends State<CiteForm> {
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('La cita se ha agendado correctamente'),
+                                content: Text(
+                                    'La cita se ha agendado correctamente'),
                               ),
                             );
                           }

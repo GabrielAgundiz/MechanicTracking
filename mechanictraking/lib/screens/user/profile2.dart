@@ -7,7 +7,6 @@ import 'package:mechanictracking/screens/user/widgets/profiledata.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:io';
 import 'package:flutter/services.dart';
 
 class ProfilePage2 extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/schedule.dart';
+import 'package:mechanictracking/screens/user/scheduledetails.dart';
 
 class UpcomingSchedule extends StatelessWidget {
   const UpcomingSchedule({super.key});
@@ -95,7 +96,7 @@ class UpcomingSchedule extends StatelessWidget {
                               shape: BoxShape.circle,
                             ),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Text(
                             "Confirmado",
                             style: TextStyle(color: Colors.black54),
@@ -111,12 +112,10 @@ class UpcomingSchedule extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: () {
-                          
-                        },
+                        onTap: () {},
                         child: Container(
                           width: 150,
-                          padding: EdgeInsets.symmetric(vertical: 12),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                           decoration: BoxDecoration(
                             color: Colors.grey[100],
                             borderRadius: BorderRadius.circular(10),
@@ -134,10 +133,17 @@ class UpcomingSchedule extends StatelessWidget {
                         ),
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ScheduleDetailsPage()), // Navega a la página de registro.
+                          );
+                        },
                         child: Container(
                           width: 150,
-                          padding: EdgeInsets.symmetric(vertical: 12),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                           decoration: BoxDecoration(
                             color: Colors.green[300],
                             borderRadius: BorderRadius.circular(10),
