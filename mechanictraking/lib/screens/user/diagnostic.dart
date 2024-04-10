@@ -22,7 +22,7 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Column(
             children: [
               const SectionHeading(
@@ -179,10 +179,11 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
                   ),
                 ],
               ),
+              
               const SizedBox(
                 height: 14,
               ),
-            /*  ImageGallery(
+            /* ImageGallery(
                 imageUrls: [
                   'https://indiepropub.com/wp-content/uploads/2022/05/reparacion-taller.jpg',
                   'https://indiepropub.com/wp-content/uploads/2022/05/reparacion-taller.jpg',
