@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/login.dart';
 import 'package:mechanictracking/screens/user/citeform.dart';
-import 'package:mechanictracking/screens/user/widgets/completeSchedule.dart';
 import 'package:mechanictracking/screens/user/widgets/upcoming.dart';
 
 class SchedulePage extends StatefulWidget {
@@ -17,7 +16,7 @@ class _SchedulePageState extends State<SchedulePage> {
     UpcomingSchedule(),
 
     //CompletedWidget
-    CompleteSchedule("mWJIPxmUfO593KyCwNr0"),
+    Container(),
     //CanceledWidget
     Container(),
   ];
@@ -83,7 +82,7 @@ class _SchedulePageState extends State<SchedulePage> {
                               ? Colors.green[300]
                               : Colors.grey[100],
                         ),
-                        child: Text("Próximas",
+                        child: Text("Proximas",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,

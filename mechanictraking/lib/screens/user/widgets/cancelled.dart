@@ -4,8 +4,8 @@ import 'package:mechanictracking/screens/user/scheduledetails.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
 import 'package:intl/intl.dart';
 
-class UpcomingSchedule extends StatelessWidget {
-  const UpcomingSchedule({super.key});
+class CancelledSchedule extends StatelessWidget {
+  const CancelledSchedule({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class UpcomingSchedule extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Proximas Citas",
+            "Citas Canceladas",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
@@ -135,13 +135,13 @@ class _CardAppointmentState extends State<CardAppointment> {
                 Container(
                   padding: const EdgeInsets.all(5),
                   decoration: const BoxDecoration(
-                    color: Colors.yellow,
+                    color: Colors.red,
                     shape: BoxShape.circle,
                   ),
                 ),
                 const SizedBox(width: 5),
                 const Text(
-                  "Pendiente",
+                  "Cancelado",
                   style: TextStyle(color: Colors.black54),
                 ),
               ],
@@ -155,27 +155,6 @@ class _CardAppointmentState extends State<CardAppointment> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
-              onTap: () {},
-              child: Container(
-                width: 150,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Cancelar",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            InkWell(
               onTap: () {
                 Navigator.push(
                   context,
@@ -185,7 +164,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                 );
               },
               child: Container(
-                width: 150,
+                width: 300,
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: Colors.green[300],
@@ -211,9 +190,4 @@ class _CardAppointmentState extends State<CardAppointment> {
       ],
     );
   }
-  /*
-  _openScheduleDetails(Appointment appointment, BuildContext context){
-    Navigator.push(context,MaterialPageRoute(builder: builder:(context)=> ScheduleDetailsPage(appointment)),);
-  }*/
 }
-
