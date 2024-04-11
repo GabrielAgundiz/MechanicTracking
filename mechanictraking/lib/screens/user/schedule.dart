@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/screens/login.dart';
 import 'package:mechanictracking/screens/user/citeform.dart';
 import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/widgets/upcoming.dart';
@@ -32,7 +33,8 @@ class _SchedulePageState extends State<SchedulePage> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      HomePage()), // Navega a la página de registro.
+                     // HomePage()), // Navega a la página de registro.
+                     LoginPage()),
             );
           },
         ),
