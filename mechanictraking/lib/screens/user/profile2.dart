@@ -69,7 +69,8 @@ class _ProfilePage2State extends State<ProfilePage2> {
                     if (!snapshot.hasData) {
                       return const CircularProgressIndicator();
                     }
-
+                    // Actualiza el valor de _userData con los datos del usuario
+                    _userData = snapshot.data!.data();
                     return Column(
                       children: [
                         SizedBox(
