@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/user/scheduledetails.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
+import 'package:intl/intl.dart';
 
 class UpcomingSchedule extends StatelessWidget {
   const UpcomingSchedule({super.key});
@@ -80,12 +81,16 @@ class _CardAppointmentState extends State<CardAppointment> {
     if (_appointment == null) {
       return Center(child: CircularProgressIndicator());
     }
+
+    String formattedDateTime = DateFormat('dd \'de\' MMMM \'de\' yyyy')
+        .format(_appointment!.date);
+
     return Column(
       children: [
         ListTile(
           title: Text(
             _appointment!.auto, //signo porque puede ser nulo
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Text(_appointment!.motivo),
           trailing: CircleAvatar(
@@ -106,14 +111,14 @@ class _CardAppointmentState extends State<CardAppointment> {
           children: [
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.calendar_month,
                   color: Colors.black54,
                 ),
-                SizedBox(width: 5), //TODO vrificar como mostrar la informacion
+                const SizedBox(width: 5), //TODO vrificar como mostrar la informacion
                 Text(
-                  "12/01/2023",
-                  style: TextStyle(color: Colors.black54),
+                  DateFormat('dd/MM/yyyy').format(_appointment!.date),
+                  style: const TextStyle(color: Colors.black54),
                 ),
               ],
             ),
@@ -125,7 +130,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  "10:30 AM",
+                  DateFormat.jm().format(_appointment!.date),
                   style: TextStyle(
                     color: Colors.black54,
                   ),
@@ -135,9 +140,9 @@ class _CardAppointmentState extends State<CardAppointment> {
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                    color: Colors.yellow,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -162,7 +167,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     "Cancelar",
                     style: TextStyle(
@@ -190,7 +195,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                   color: Colors.green[300],
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     "Ver detalles",
                     style: TextStyle(

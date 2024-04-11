@@ -19,10 +19,10 @@ class NotifiesPage extends StatefulWidget {
 class _NotifiesPageState extends State<NotifiesPage> {
   final List<String> notifications = [
     // Lista de notificaciones.
-    '45m ago - Notifies 1',
-    '45m ago - Notifies 2',
-    '1h ago - Notifies 3',
-    '1d ago - Notifies 4',
+    '45m ago - Su automovil entro a reparacion',
+    '45m ago - Su automovil paso a revision',
+    '1h ago - Su automovil fue recibido',
+    '1d ago - Falta un dia para su cita',
   ];
 
   @override
