@@ -14,7 +14,7 @@ class UpcomingSchedule extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Proximas Citas",
             style: TextStyle(
               fontSize: 18,
@@ -79,11 +79,8 @@ class _CardAppointmentState extends State<CardAppointment> {
   @override
   Widget build(BuildContext context) {
     if (_appointment == null) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
-
-    String formattedDateTime = DateFormat('dd \'de\' MMMM \'de\' yyyy')
-        .format(_appointment!.date);
 
     return Column(
       children: [
@@ -115,7 +112,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                   Icons.calendar_month,
                   color: Colors.black54,
                 ),
-                const SizedBox(width: 5), //TODO vrificar como mostrar la informacion
+                const SizedBox(width: 5),
                 Text(
                   DateFormat('dd/MM/yyyy').format(_appointment!.date),
                   style: const TextStyle(color: Colors.black54),
@@ -124,14 +121,14 @@ class _CardAppointmentState extends State<CardAppointment> {
             ),
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.access_time_filled,
                   color: Colors.black54,
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Text(
                   DateFormat.jm().format(_appointment!.date),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black54,
                   ),
                 ),
@@ -147,7 +144,10 @@ class _CardAppointmentState extends State<CardAppointment> {
                   ),
                 ),
                 const SizedBox(width: 5),
-                StatusWidget(_appointment!.status),
+                const Text(
+                  "Pendiente",
+                  style: TextStyle(color: Colors.black54),
+                ),
               ],
             ),
           ],

@@ -169,7 +169,7 @@ class _SchedulePageState extends State<SchedulePage> {
                       CiteForm()), // Crea una ruta para la página de notificaciones
             );
           },
-          child: Icon(Icons.add, color: Colors.white),
+          child: const Icon(Icons.add, color: Colors.white),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,

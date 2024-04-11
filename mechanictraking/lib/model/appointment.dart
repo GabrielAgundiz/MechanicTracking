@@ -5,7 +5,7 @@ class Appointment {
   final String auto;
   final DateTime date;
   final String motivo;
-  final bool status;
+  final String status;
 
   Appointment(this.id, this.auto, this.date, this.motivo, this.status);
 
@@ -15,7 +15,7 @@ class Appointment {
           json['automovil'] as String,
           (json['date'] as Timestamp).toDate(),
           json['motivo'] as String,
-          json['status'] as bool,
+          json['status'] as String,
         );
 
   toJson() {
