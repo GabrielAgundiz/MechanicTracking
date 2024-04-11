@@ -9,6 +9,7 @@ class CiteForm extends StatefulWidget {
 }
 
 class _CiteFormState extends State<CiteForm> {
+  //estado de la cita
   final _formKey = GlobalKey<FormState>();
   String _model = '';
   String _reason = '';
@@ -69,7 +70,8 @@ class _CiteFormState extends State<CiteForm> {
                     alignment: Alignment.centerLeft,
                     child: const Text(
                       "Ingresa el modelo de automovil:",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(
@@ -94,7 +96,8 @@ class _CiteFormState extends State<CiteForm> {
                     alignment: Alignment.centerLeft,
                     child: const Text(
                       "Ingresa el motivo:",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(
