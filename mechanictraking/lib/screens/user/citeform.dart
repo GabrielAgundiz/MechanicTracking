@@ -51,7 +51,7 @@ class _CiteFormState extends State<CiteForm> {
       'automovil': _model,
       'date': dateTime,
       'motivo': _reason,
-      'estatus': 'Pendiente',
+      'status': 'Pendiente',
     });
     Navigator.pop(context);
     ScaffoldMessenger.of(context).showSnackBar(
