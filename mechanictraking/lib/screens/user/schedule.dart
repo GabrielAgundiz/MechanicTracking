@@ -16,10 +16,11 @@ class _SchedulePageState extends State<SchedulePage> {
   int _buttonIndex = 0;
   final _ScheduleWidgets = [
     UpcomingSchedule(),
+
     //CompletedWidget
-    CompletedSchedule(),
+    Container(),
     //CanceledWidget
-    CancelledSchedule(),
+    Container(),
   ];
 
   @override
@@ -33,8 +34,8 @@ class _SchedulePageState extends State<SchedulePage> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                     // HomePage()), // Navega a la página de registro.
-                     LoginPage()),
+                      // HomePage()), // Navega a la página de registro.
+                      LoginPage()),
             );
           },
         ),
