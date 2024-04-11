@@ -1,14 +1,20 @@
+import 'dart:io';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/login.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 // Función principal que se ejecuta cuando se inicia la aplicación
 Future main() async {
-  // Asegura que el binding de WidgetsFlutter esté inicializado antes de hacer cualquier cosa más
   WidgetsFlutterBinding.ensureInitialized();
-  // Inicializa la aplicación de Firebase
-  await Firebase.initializeApp();
-  // Ejecuta la aplicación MyApp
+  Platform.isAndroid
+      ? await Firebase.initializeApp(
+          options: FirebaseOptions(
+              apiKey: "AIzaSyCY7i4LQoMNRIwM7EOdbnFhXZSDzwCqWQo",
+              appId: "1:854986044418:android:75d49e31d147f9dc8ca31b",
+              messagingSenderId: "854986044418",
+              projectId: "mechanictracking"))
+      : await Firebase.initializeApp();
   runApp(MyApp());
 }
 
