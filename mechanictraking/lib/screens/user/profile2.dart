@@ -116,45 +116,50 @@ class _ProfilePage2State extends State<ProfilePage2> {
                         ),
                         const SizedBox(
                           height: 8,
-                        ), 
+                        ),
                         ProfileData(
-                            title: 'Nombre',
-                            value: _userData?['name'] ?? 'N/A',
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  String? newName;
-                                  return AlertDialog(
-                                    title: const Text('Editar nombre'),
-                                    content: TextField(
-                                      onChanged: (value) {
-                                        newName = value;
-                                      },
-                                      decoration: const InputDecoration(
-                                          hintText: 'Nombre'),
+                          title: 'Nombre',
+                          value: _userData?['name'] ?? 'N/A',
+                          onPressed: () async {
+                            String? newName;
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Editar nombre'),
+                                  content: TextField(
+                                    onChanged: (value) {
+                                      newName = value;
+                                    },
+                                    decoration: const InputDecoration(
+                                        hintText: 'Nombre'),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text('Cancelar'),
                                     ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text('Cancelar'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          if (newName != _userData?['name']) {
-                                            setState(() {
-                                              _userData!['name'] = newName;
-                                            });
-                                          }
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Guardar'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }),
+                                    TextButton(
+                                      onPressed: () async {
+                                        if (newName != _userData?['name']) {
+                                          await FirebaseFirestore.instance
+                                              .collection('client')
+                                              .doc(user?.uid)
+                                              .update({'name': newName});
+                                          setState(() {
+                                            _userData!['name'] = newName;
+                                          });
+                                        }
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Guardar'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
                         ProfileData(
                             title: 'User ID',
                             value: _userData?['uid'] ?? 'N/A',
@@ -196,83 +201,92 @@ class _ProfilePage2State extends State<ProfilePage2> {
                               );
                             }),
                         ProfileData(
-                            title: 'Telefono',
-                            value: _userData?['phone'] ?? 'N/A',
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  String? newPhone;
-                                  return AlertDialog(
-                                    title: const Text('Editar telefono'),
-                                    content: TextField(
-                                      onChanged: (value) {
-                                        newPhone = value;
-                                      },
-                                      decoration: const InputDecoration(
-                                          hintText: 'Telefono'),
+                          title: 'Telefono',
+                          value: _userData?['phone'] ?? 'N/A',
+                          onPressed: () async {
+                            String? newPhone;
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Editar telefono'),
+                                  content: TextField(
+                                    onChanged: (value) {
+                                      newPhone = value;
+                                    },
+                                    decoration: const InputDecoration(
+                                        hintText: 'Telefono'),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text('Cancelar'),
                                     ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text('Cancelar'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          if (newPhone != _userData?['phone']) {
-                                            setState(() {
-                                              _userData!['phone'] = newPhone;
-                                            });
-                                          }
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Guardar'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }),
+                                    TextButton(
+                                      onPressed: () async {
+                                        if (newPhone != _userData?['phone']) {
+                                          await FirebaseFirestore.instance
+                                              .collection('client')
+                                              .doc(user?.uid)
+                                              .update({'phone': newPhone});
+                                          setState(() {
+                                            _userData!['phone'] = newPhone;
+                                          });
+                                        }
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Guardar'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
                         ProfileData(
-                            title: 'Direccion',
-                            value: _userData?['address'] ?? 'N/A',
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  String? newAddress;
-                                  return AlertDialog(
-                                    title: const Text('Editar direccion'),
-                                    content: TextField(
-                                      onChanged: (value) {
-                                        newAddress = value;
-                                      },
-                                      decoration: const InputDecoration(
-                                          hintText: 'Direccion'),
+                          title: 'Direccion',
+                          value: _userData?['address'] ?? 'N/A',
+                          onPressed: () async {
+                            String? newAddress;
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Editar direccion'),
+                                  content: TextField(
+                                    onChanged: (value) {
+                                      newAddress = value;
+                                    },
+                                    decoration: const InputDecoration(
+                                        hintText: 'Direccion'),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text('Cancelar'),
                                     ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text('Cancelar'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          if (newAddress !=
-                                              _userData?['address']) {
-                                            setState(() {
-                                              _userData!['address'] =
-                                                  newAddress;
-                                            });
-                                          }
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Guardar'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }),
+                                    TextButton(
+                                      onPressed: () async {
+                                        if (newAddress !=
+                                            _userData?['address']) {
+                                          await FirebaseFirestore.instance
+                                              .collection('client')
+                                              .doc(user?.uid)
+                                              .update({'address': newAddress});
+                                          setState(() {
+                                            _userData!['address'] = newAddress;
+                                          });
+                                        }
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Guardar'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ],
                     );
                   },
