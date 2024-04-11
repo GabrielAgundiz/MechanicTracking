@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/login.dart';
 import 'package:mechanictracking/screens/user/citeform.dart';
 import 'package:mechanictracking/screens/user/home.dart';
+import 'package:mechanictracking/screens/user/widgets/cancelled.dart';
+import 'package:mechanictracking/screens/user/widgets/completed.dart';
 import 'package:mechanictracking/screens/user/widgets/upcoming.dart';
 
 class SchedulePage extends StatefulWidget {
@@ -15,11 +17,10 @@ class _SchedulePageState extends State<SchedulePage> {
   int _buttonIndex = 0;
   final _ScheduleWidgets = [
     UpcomingSchedule(),
-
     //CompletedWidget
-    Container(),
+    CompletedSchedule(),
     //CanceledWidget
-    Container(),
+    CancelledSchedule(),
   ];
 
   @override
