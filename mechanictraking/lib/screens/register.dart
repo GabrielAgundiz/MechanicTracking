@@ -4,7 +4,6 @@ import 'package:mechanictracking/screens/login.dart'; // Importa la pantalla de 
 import 'package:firebase_auth/firebase_auth.dart'; // Importa la autenticación de Firebase.
 import 'package:email_validator/email_validator.dart'; // Importa un paquete para validar direcciones de correo electrónico.
 import 'package:mechanictracking/widgets/utils.dart'; // Importa utilidades personalizadas.
-import 'package:firebase_core/firebase_core.dart'; // Importa la inicialización de Firebase.
 import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Cloud Firestore para la base de datos.
 
 class RegisterPage extends StatefulWidget {

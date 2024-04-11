@@ -211,9 +211,5 @@ class _CardAppointmentState extends State<CardAppointment> {
       ],
     );
   }
-  /*
-  _openScheduleDetails(Appointment appointment, BuildContext context){
-    Navigator.push(context,MaterialPageRoute(builder: builder:(context)=> ScheduleDetailsPage(appointment)),);
-  }*/
 }
 

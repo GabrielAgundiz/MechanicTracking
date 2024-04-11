@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mechanictracking/screens/user/galleryscreen.dart';
-import 'package:mechanictracking/screens/user/widgets/image_gallery.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
 class DiagnosticPage extends StatefulWidget {
