@@ -116,7 +116,7 @@ class _ProfilePage2State extends State<ProfilePage2> {
                         ),
                         const SizedBox(
                           height: 8,
-                        ),
+                        ), 
                         ProfileData(
                             title: 'Nombre',
                             value: _userData?['name'] ?? 'N/A',
