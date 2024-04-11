@@ -18,9 +18,9 @@ class _SchedulePageState extends State<SchedulePage> {
     UpcomingSchedule(),
 
     //CompletedWidget
-    Container(),
+    CompletedSchedule(),
     //CanceledWidget
-    Container(),
+    CancelledSchedule(),
   ];
 
   @override
