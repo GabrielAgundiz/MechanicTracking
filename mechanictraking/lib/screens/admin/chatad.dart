@@ -83,12 +83,12 @@ class ChatPageAD extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 8),
               child: Icon(Icons.add, size: 30),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 30),
+              padding: const EdgeInsets.only(left: 30),
               child: Container(
                 alignment: Alignment.centerRight,
                 width: 270,
@@ -98,9 +98,9 @@ class ChatPageAD extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
-              padding: EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.only(right: 10),
               child: Icon(
                 Icons.send,
                 size: 30,
