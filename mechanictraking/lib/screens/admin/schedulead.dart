@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/screens/admin/widgets/cancelledad.dart';
+import 'package:mechanictracking/screens/admin/widgets/completedad.dart';
+import 'package:mechanictracking/screens/admin/widgets/upcomingad.dart';
 import 'package:mechanictracking/screens/login.dart';
-import 'package:mechanictracking/screens/user/citeform.dart';
-import 'package:mechanictracking/screens/user/widgets/cancelled.dart';
-import 'package:mechanictracking/screens/user/widgets/completed.dart';
-import 'package:mechanictracking/screens/user/widgets/upcoming.dart';
 
-class SchedulePage extends StatefulWidget {
-  const SchedulePage({super.key});
+class SchedulePageAD extends StatefulWidget {
+  const SchedulePageAD({super.key});
 
   @override
-  State<SchedulePage> createState() => _SchedulePageState();
+  State<SchedulePageAD> createState() => _SchedulePageADState();
 }
 
-class _SchedulePageState extends State<SchedulePage> {
+class _SchedulePageADState extends State<SchedulePageAD> {
   int _buttonIndex = 0;
   final _ScheduleWidgets = [
-    UpcomingSchedule(),
+    UpcomingScheduleAD(),
     //CompletedWidget
-    CompletedSchedule(),
+    CompletedScheduleAD(),
     //CanceledWidget
-    CancelledSchedule(),
+    CancelledScheduleAD(),
   ];
 
   @override
@@ -156,23 +155,6 @@ class _SchedulePageState extends State<SchedulePage> {
           ),
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: FloatingActionButton(
-          backgroundColor: Colors.green[400],
-          onPressed: () {
-            Navigator.push(
-              // Navega a la página de notificaciones (NotifiesPage)
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      CiteForm()), // Crea una ruta para la página de notificaciones
-            );
-          },
-          child: const Icon(Icons.add, color: Colors.white),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }

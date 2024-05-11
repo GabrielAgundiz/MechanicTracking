@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mechanictracking/screens/user/chat.dart';
-import 'package:mechanictracking/screens/user/home.dart';
+import 'package:mechanictracking/screens/admin/chatad.dart';
+import 'package:mechanictracking/screens/admin/homead.dart';
 
-class MessagesPage extends StatelessWidget {
+class MessagesPageAD extends StatelessWidget {
   List imgs = [
     {
       "url":
@@ -41,7 +41,7 @@ class MessagesPage extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      HomePage()), // Navega a la página de registro.
+                      HomePageAD()), // Navega a la página de registro.
             );
           },
         ),
@@ -207,7 +207,7 @@ class MessagesPage extends StatelessWidget {
                   return ListTile(
                     minVerticalPadding: 16,
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(),));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPageAD(),));
                     },
                     leading: CircleAvatar(
                       radius: 30,

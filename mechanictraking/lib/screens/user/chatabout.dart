@@ -16,7 +16,7 @@ class AboutChatPage extends StatelessWidget {
     },
     {
       "url":
-          "https://cervantesgas.com.ar/wp-content/uploads/requisitos-esenciales-para-convertirte-en-mecanico-automotriz.jpg"
+          "https://www.deceroacien.com.mx/u/fotografias/m/2023/6/2/f960x540-21552_95627_5050.jpg"
     },
     {
       "url":

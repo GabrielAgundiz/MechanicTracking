@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mechanictracking/screens/user/messages.dart';
+import 'package:mechanictracking/screens/admin/messagesad.dart';
+import 'package:mechanictracking/screens/admin/schedulead.dart';
 
 class HomePageAD extends StatefulWidget {
   const HomePageAD({super.key});
@@ -15,8 +16,8 @@ class _HomePageADState extends State<HomePageAD> {
   @override
   Widget build(BuildContext context) {
     final screens = [
-      // Lista de las pantallas a mostrar
-      MessagesPage(),
+      SchedulePageAD(),
+      MessagesPageAD(),
     ];
 
     Color selectedColor = Colors.green[
@@ -47,10 +48,10 @@ class _HomePageADState extends State<HomePageAD> {
         backgroundColor: Colors.white
             .withOpacity(1), // Fondo de la barra de navegación inferior
         items: const <BottomNavigationBarItem>[
-          //      BottomNavigationBarItem(
-          //        icon: Icon(Icons.calendar_month), // Icono del elemento
-          //        label: 'Citas', // Etiqueta del elemento
-          //       ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month), // Icono del elemento
+            label: 'Citas', // Etiqueta del elemento
+          ),
           //     BottomNavigationBarItem(
           //       icon: Icon(Icons.content_paste_search), // Icono del elemento
           //       label: 'Seguimiento', // Etiqueta del elemento
