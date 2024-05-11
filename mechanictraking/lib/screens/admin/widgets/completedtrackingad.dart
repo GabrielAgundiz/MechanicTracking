@@ -12,7 +12,7 @@ class CompletedTrackingAD extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Proximos Servicios",
+            "Servicios Completados",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
