@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:mechanictracking/screens/user/home.dart';
-import 'package:mechanictracking/screens/user/widgets/actualtracking.dart';
-import 'package:mechanictracking/screens/user/widgets/completedtracking.dart';
+import 'package:mechanictracking/screens/admin/homead.dart';
+import 'package:mechanictracking/screens/admin/widgets/actualtrackingad.dart';
+import 'package:mechanictracking/screens/admin/widgets/completedtrackingad.dart';
 
-class TrackingPage extends StatefulWidget {
-  const TrackingPage({super.key});
+class TrackingPageAD extends StatefulWidget {
+  const TrackingPageAD({super.key});
 
   @override
-  State<TrackingPage> createState() => _TrackingPageState();
+  State<TrackingPageAD> createState() => _TrackingPageADState();
 }
 
-class _TrackingPageState extends State<TrackingPage> {
+class _TrackingPageADState extends State<TrackingPageAD> {
   int _buttonIndex = 0;
   final _ScheduleWidgets = [
-    ActualTracking(),
-    //CompletedWidget
-    CompletedTracking(),
+    ActualTrackingAD(),
+    CompletedTrackingAD(),
     
   ];
 
@@ -30,7 +29,7 @@ class _TrackingPageState extends State<TrackingPage> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      HomePage()), // Navega a la página de registro.
+                      HomePageAD()), // Navega a la página de registro.
             );
           },
         ),
