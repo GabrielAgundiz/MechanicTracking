@@ -1,11 +1,11 @@
+import 'package:email_validator/email_validator.dart'; // Importa el paquete email_validator para validar correos electrónicos.
+import 'package:firebase_auth/firebase_auth.dart'; // Importa la autenticación de Firebase.
 import 'package:flutter/material.dart'; // Importa el paquete flutter material.
 import 'package:google_fonts/google_fonts.dart'; // Importa el paquete google_fonts para fuentes personalizadas.
-import 'package:mechanictracking/screens/register.dart'; // Importa la pantalla de registro.
 import 'package:mechanictracking/screens/recovery.dart'; // Importa la pantalla de recuperación de contraseña.
-import 'package:firebase_auth/firebase_auth.dart'; // Importa la autenticación de Firebase.
-import 'package:email_validator/email_validator.dart'; // Importa el paquete email_validator para validar correos electrónicos.
-import 'package:mechanictracking/widgets/utils.dart'; // Importa utilidades personalizadas.
+import 'package:mechanictracking/screens/register.dart'; // Importa la pantalla de registro.
 import 'package:mechanictracking/screens/user/home.dart'; // Importa la pantalla de inicio de la aplicación.
+import 'package:mechanictracking/widgets/utils.dart'; // Importa utilidades personalizadas.
 
 class LoginPage extends StatefulWidget {
   @override
@@ -66,9 +66,32 @@ class _LoginPageState extends State<LoginPage> {
       );
     } on FirebaseAuthException catch (e) {
       print(e);
-
-      Utils.showSnackBar(
-          e.message); // Muestra un mensaje de error en forma de Snackbar.
+      Navigator.pop(context); // Cerrar el diálogo de carga.
+      if (e.code == 'wrong-password') {
+        showDialog(
+          context: context,
+          builder: (context) {
+            Future.delayed(const Duration(seconds: 9), () {
+              Navigator.of(context).pop(
+                  true); // Cerrar el diálogo de error después de un segundo.
+            });
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Contraseña incorrecta. Inténtalo de nuevo.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Cerrar el diálogo de error.
+                  },
+                  child: const Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        Utils.showSnackBar(e.message ?? 'Error desconocido');
+      }
     }
   }
 
