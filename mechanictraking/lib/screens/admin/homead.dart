@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/admin/messagesad.dart';
 import 'package:mechanictracking/screens/admin/schedulead.dart';
+import 'package:mechanictracking/screens/admin/trackingad.dart';
 
 class HomePageAD extends StatefulWidget {
   const HomePageAD({super.key});
@@ -17,6 +18,7 @@ class _HomePageADState extends State<HomePageAD> {
   Widget build(BuildContext context) {
     final screens = [
       SchedulePageAD(),
+      TrackingPageAD(),
       MessagesPageAD(),
     ];
 
@@ -52,10 +54,10 @@ class _HomePageADState extends State<HomePageAD> {
             icon: Icon(Icons.calendar_month), // Icono del elemento
             label: 'Citas', // Etiqueta del elemento
           ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.content_paste_search), // Icono del elemento
-          //       label: 'Seguimiento', // Etiqueta del elemento
-          //     ),
+               BottomNavigationBarItem(
+                 icon: Icon(Icons.content_paste_search), // Icono del elemento
+                 label: 'Seguimiento', // Etiqueta del elemento
+               ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
             label: 'Mensajes',

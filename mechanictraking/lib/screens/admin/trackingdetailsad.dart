@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mechanictracking/screens/user/citeform.dart';
+import 'package:mechanictracking/screens/admin/trackformad.dart';
 import 'package:mechanictracking/screens/user/diagnostic.dart';
 import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart';
 import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart'
@@ -179,9 +179,10 @@ class TrackDetailsPageAD extends StatelessWidget {
             ],
           ),
         ),
+        
       ),
        floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: 20),
         child: FloatingActionButton(
           backgroundColor: Colors.green[400],
           onPressed: () {
@@ -190,7 +191,7 @@ class TrackDetailsPageAD extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      CiteForm()), // Crea una ruta para la página de notificaciones
+                      TrackFormAD()), // Crea una ruta para la página de notificaciones
             );
           },
           child: const Icon(Icons.add, color: Colors.white),

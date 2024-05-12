@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/screens/admin/trackingdetailsad.dart';
 import 'package:mechanictracking/screens/user/trackdetails.dart';
 
 class ActualTrackingAD extends StatelessWidget {
@@ -108,7 +109,7 @@ class ActualTrackingAD extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => TrackDetailsPage(),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => TrackDetailsPageAD(),));
                         },
                         child: Container(
                           width: 300,

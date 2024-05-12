@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/screens/admin/homead.dart';
 import 'package:mechanictracking/screens/login.dart';
 import 'package:mechanictracking/screens/user/citeform.dart';
 import 'package:mechanictracking/screens/user/widgets/cancelled.dart';
@@ -34,7 +35,7 @@ class _SchedulePageState extends State<SchedulePage> {
               MaterialPageRoute(
                   builder: (context) =>
                       // HomePage()), // Navega a la página de registro.
-                      LoginPage()),
+                      HomePageAD()),
             );
           },
         ),
