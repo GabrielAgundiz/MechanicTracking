@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/admin/homead.dart';
-import 'package:mechanictracking/screens/login.dart';
 import 'package:mechanictracking/screens/user/citeform.dart';
 import 'package:mechanictracking/screens/user/widgets/cancelled.dart';
 import 'package:mechanictracking/screens/user/widgets/completed.dart';
@@ -66,8 +65,10 @@ class _SchedulePageState extends State<SchedulePage> {
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                height:
+                    56, // Altura fija para el contenedor que contiene los botones.
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
                     InkWell(
                       onTap: () {
@@ -94,6 +95,7 @@ class _SchedulePageState extends State<SchedulePage> {
                             )),
                       ),
                     ),
+                    SizedBox(width: 10), // Espaciado entre los botones
                     InkWell(
                       onTap: () {
                         setState(() {
@@ -119,6 +121,7 @@ class _SchedulePageState extends State<SchedulePage> {
                             )),
                       ),
                     ),
+                    SizedBox(width: 10), // Espaciado entre los botones
                     InkWell(
                       onTap: () {
                         setState(() {
