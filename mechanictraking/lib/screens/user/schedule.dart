@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mechanictracking/screens/admin/homead.dart';
 import 'package:mechanictracking/screens/login.dart';
 import 'package:mechanictracking/screens/user/citeform.dart';
 import 'package:mechanictracking/screens/user/widgets/cancelled.dart';
@@ -28,18 +27,6 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      // HomePage()), // Navega a la página de registro.
-                      HomePageAD()),
-            );
-          },
-        ),
         title: const Text(
           'Citas',
           style: TextStyle(fontWeight: FontWeight.bold),
