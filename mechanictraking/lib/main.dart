@@ -1,7 +1,10 @@
 import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/login.dart';
+import 'package:mechanictracking/screens/user/home.dart';
 
 // Función principal que se ejecuta cuando se inicia la aplicación
 Future main() async {
@@ -36,6 +39,19 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         // Establece la página de inicio de sesión como la pantalla de inicio de la aplicación
-        home: LoginPage(),
+        home: AuthenticationWrapper(),
       );
+}
+
+class AuthenticationWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final User? firebaseUser = FirebaseAuth.instance.currentUser;
+
+    if (firebaseUser != null) {
+      return HomePage();
+    } else {
+      return LoginPage();
+    }
+  }
 }

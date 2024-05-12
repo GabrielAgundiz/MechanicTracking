@@ -71,7 +71,7 @@ flutter {
 }
 
 dependencies {
-        implementation platform('com.google.firebase:firebase-bom:32.7.4')
+    implementation platform('com.google.firebase:firebase-bom:32.7.4')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.android.gms:play-services-measurement-api:21.5.1'

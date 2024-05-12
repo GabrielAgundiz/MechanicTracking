@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mechanictracking/screens/admin/homead.dart';
+import 'package:mechanictracking/screens/login.dart';
 import 'package:mechanictracking/screens/user/citeform.dart';
 import 'package:mechanictracking/screens/user/widgets/cancelled.dart';
 import 'package:mechanictracking/screens/user/widgets/completed.dart';
@@ -26,22 +27,25 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      // HomePage()), // Navega a la página de registro.
-                      HomePageAD()),
-            );
-          },
-        ),
         title: const Text(
           'Citas',
           style: TextStyle(fontWeight: FontWeight.bold),
-        ), // Título de la barra de aplicación
+        ),
+        actions: <Widget>[
+          // Verifica si el usuario está autenticado
+          if (FirebaseAuth.instance.currentUser != null)
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                // Implementa la función de cierre de sesión
+                FirebaseAuth.instance.signOut();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
+        ], // Título de la barra de aplicación
       ),
       body: SafeArea(
         child: SingleChildScrollView(
