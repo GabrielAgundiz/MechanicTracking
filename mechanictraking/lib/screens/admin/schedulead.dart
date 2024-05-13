@@ -64,97 +64,91 @@ class _SchedulePageADState extends State<SchedulePageAD> {
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Container(
-                  padding: const EdgeInsets.all(5),
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            _buttonIndex = 0;
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: _buttonIndex == 0
-                                ? Colors.green[300]
-                                : Colors.grey[100],
-                          ),
-                          child: Text("Proximas",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: _buttonIndex == 0
-                                    ? Colors.black
-                                    : Colors.black38,
-                              )),
+                height:
+                    56, // Altura fija para el contenedor que contiene los botones.
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _buttonIndex = 0;
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: _buttonIndex == 0
+                              ? Colors.green[300]
+                              : Colors.grey[100],
                         ),
-                      ),
-                      SizedBox(width: 10), // Espaciado entre los botones
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            _buttonIndex = 1;
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: _buttonIndex == 1
-                                ? Colors.green[300]
-                                : Colors.grey[100],
-                          ),
-                          child: Text("Completadas",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: _buttonIndex == 1
-                                    ? Colors.black
-                                    : Colors.black38,
-                              )),
-                        ),
-                      ),
-                      SizedBox(width: 10), // Espaciado entre los botones
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            _buttonIndex = 2;
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: _buttonIndex == 2
-                                ? Colors.green[300]
-                                : Colors.grey[100],
-                          ),
-                          child: Text(
-                            "Canceladas",
+                        child: Text("Proximas",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: _buttonIndex == 2
+                              color: _buttonIndex == 0
                                   ? Colors.black
                                   : Colors.black38,
-                            ),
+                            )),
+                      ),
+                    ),
+                    const SizedBox(width: 10), // Espaciado entre los botones
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _buttonIndex = 1;
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: _buttonIndex == 1
+                              ? Colors.green[300]
+                              : Colors.grey[100],
+                        ),
+                        child: Text("Completadas",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: _buttonIndex == 1
+                                  ? Colors.black
+                                  : Colors.black38,
+                            )),
+                      ),
+                    ),
+                    SizedBox(width: 10), // Espaciado entre los botones
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _buttonIndex = 2;
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: _buttonIndex == 2
+                              ? Colors.green[300]
+                              : Colors.grey[100],
+                        ),
+                        child: Text(
+                          "Canceladas",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: _buttonIndex == 2
+                                ? Colors.black
+                                : Colors.black38,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
