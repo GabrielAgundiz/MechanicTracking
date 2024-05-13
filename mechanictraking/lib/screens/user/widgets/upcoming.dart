@@ -1,52 +1,94 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
+import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/scheduledetails.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
-import 'package:intl/intl.dart';
 
-class UpcomingSchedule extends StatelessWidget {
+class UpcomingSchedule extends StatefulWidget {
   const UpcomingSchedule({super.key});
 
   @override
+  State<UpcomingSchedule> createState() => _UpcomingScheduleState();
+}
+
+class _UpcomingScheduleState extends State<UpcomingSchedule> {
+  late String userId;
+  @override
+  void initState() {
+    super.initState();
+    getUserId();
+  }
+
+  Future<void> getUserId() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        userId = user.uid;
+      });
+    } else {
+      userId = '';
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Proximas Citas",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 15),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  spreadRadius: 2,
+    return FutureBuilder<List<Appointment>>(
+      future: AppointmentService().getAllAppointmentId(userId, "Pendiente"),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          List<Appointment> appointments = snapshot.data ?? [];
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Proximas Citas",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 4,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: appointments.length,
+                      itemBuilder: (context, index) {
+                        return CardAppointment(appointments[index].id);
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
               ],
             ),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: const CardAppointment(
-                  "mWJIPxmUfO593KyCwNr0"), //widget de info de las citas
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
+          );
+        }
+      },
     );
   }
 }
@@ -78,17 +120,24 @@ class _CardAppointmentState extends State<CardAppointment> {
   }
 
   Future<void> _cancelCite() async {
-  await FirebaseFirestore.instance
-      .collection('citas')
-      .doc(_appointment!.id)
-      .update({'status': 'Cancelado'});
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(_appointment!.id)
+        .update({'status': 'Cancelado'});
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
-      content: Text('La cita se ha cancelado correctamente'),
-    ),
-  );
-}
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('La cita se ha cancelado correctamente'),
+      ),
+    );
+    setState(() {});
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

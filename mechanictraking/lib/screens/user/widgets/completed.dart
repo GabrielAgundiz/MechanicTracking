@@ -1,51 +1,92 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/user/scheduledetails.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
-import 'package:intl/intl.dart';
 
-class CompletedSchedule extends StatelessWidget {
+class CompletedSchedule extends StatefulWidget {
   const CompletedSchedule({super.key});
 
   @override
+  State<CompletedSchedule> createState() => _CompletedScheduleState();
+}
+
+class _CompletedScheduleState extends State<CompletedSchedule> {
+  late String userId;
+  @override
+  void initState() {
+    super.initState();
+    getUserId();
+  }
+
+  Future<void> getUserId() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        userId = user.uid;
+      });
+    } else {
+      userId = '';
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Citas Completadas",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 15),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  spreadRadius: 2,
+    return FutureBuilder<List<Appointment>>(
+      future: AppointmentService().getAllAppointmentId(userId, "Completado"),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          List<Appointment> appointments = snapshot.data ?? [];
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Citas Completadas",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 4,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: appointments.length,
+                      itemBuilder: (context, index) {
+                        return CardAppointment(appointments[index].id);
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
               ],
             ),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: const CardAppointment(
-                  "mWJIPxmUfO593KyCwNr0"), //widget de info de las citas
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
+          );
+        }
+      },
     );
   }
 }
@@ -191,7 +232,7 @@ class _CardAppointmentState extends State<CardAppointment> {
       return const Column(
         children: [
           Text(
-            "Aun no tiene citas completadas",
+            "Aun no tiene citas canceladas",
             style: TextStyle(color: Colors.black54),
           )
         ],

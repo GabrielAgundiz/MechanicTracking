@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
 class CiteForm extends StatefulWidget {
@@ -10,7 +12,26 @@ class CiteForm extends StatefulWidget {
 }
 
 class _CiteFormState extends State<CiteForm> {
-  //estado de la cita
+  late String userId;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserId();
+  }
+
+  Future<void> getUserId() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        userId = user.uid;
+      });
+    } else {
+      userId = '';
+    }
+  }
+
+  // Estado de la cita
   final _formKey = GlobalKey<FormState>();
   String _model = '';
   String _reason = '';
@@ -44,23 +65,30 @@ class _CiteFormState extends State<CiteForm> {
   }
 
   Future<void> _saveCite() async {
-  if (_formKey.currentState!.validate()) {
-    _formKey.currentState!.save();
-    final dateTime = _selectedDate.add(Duration(hours: _selectedTime.hour, minutes: _selectedTime.minute));
-    await FirebaseFirestore.instance.collection('citas').add({
-      'automovil': _model,
-      'date': dateTime,
-      'motivo': _reason,
-      'status': 'Pendiente',
-    });
-    Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('La cita se ha agendado correctamente'),
-      ),
-    );
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      final dateTime = _selectedDate.add(
+          Duration(hours: _selectedTime.hour, minutes: _selectedTime.minute));
+      await FirebaseFirestore.instance.collection('citas').add({
+        'userId': userId,
+        'automovil': _model,
+        'date': dateTime,
+        'motivo': _reason,
+        'status': 'Pendiente',
+      });
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('La cita se ha agendado correctamente'),
+        ),
+      );
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -139,12 +167,13 @@ class _CiteFormState extends State<CiteForm> {
                     height: 24,
                   ),
                   Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        "Ingresa el dia y hora:",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      )),
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "Ingresa el día y hora:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                   const SizedBox(
                     height: 6,
                   ),
@@ -201,7 +230,11 @@ class _CiteFormState extends State<CiteForm> {
                         ),
                       ),
                       InkWell(
-                        onTap: _saveCite,
+                        onTap: () async {
+                          await _saveCite();
+                          setState(
+                              () {}); // Actualiza la pantalla después de guardar la cita
+                        },
                         child: Container(
                           width: 150,
                           padding: const EdgeInsets.symmetric(vertical: 12),

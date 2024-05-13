@@ -9,15 +9,15 @@ class Appointment {
 
   Appointment(this.id, this.auto, this.date, this.motivo, this.status);
 
-  Appointment.fromJson(String id, Map<String, dynamic> json)
-      : this(
-          id,
-          json['automovil'] as String,
-          (json['date'] as Timestamp).toDate(),
-          json['motivo'] as String,
-          json['status'] as String,
-        );
-
+  factory Appointment.fromJson(String id, Map<String, dynamic> json) {
+    return Appointment(
+      id,
+      json['automovil'] as String,
+      (json['date'] as Timestamp).toDate(),
+      json['motivo'] as String,
+      json['status'] as String,
+    );
+  }
   toJson() {
     return {
       'id': id,
