@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart'; // Importa un paquete para validar direcciones de correo electrónico.
+import 'package:firebase_auth/firebase_auth.dart'; // Importa la autenticación de Firebase.
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mechanictracking/screens/login.dart'; // Importa la pantalla de inicio de sesión.
-import 'package:firebase_auth/firebase_auth.dart'; // Importa la autenticación de Firebase.
-import 'package:email_validator/email_validator.dart'; // Importa un paquete para validar direcciones de correo electrónico.
 import 'package:mechanictracking/widgets/utils.dart'; // Importa utilidades personalizadas.
-import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Cloud Firestore para la base de datos.
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>(); // Clave global para el formulario.
   bool obscureText =
       true; // Variable para controlar la visibilidad de la contraseña.
-
+  bool _isAdmin = false;
   @override
   void dispose() {
     _emailController.dispose(); // Limpia el controlador de correo electrónico.
@@ -199,6 +199,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     const SizedBox(height: 40.0),
+                    CheckboxListTile(
+                      title: Text('Registrarse como administrador'),
+                      value: _isAdmin,
+                      onChanged: (value) {
+                        setState(() {
+                          _isAdmin = value!;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 40.0),
                     ElevatedButton(
                       // Botón para registrarse.
                       style: ElevatedButton.styleFrom(
@@ -213,40 +223,47 @@ class _RegisterPageState extends State<RegisterPage> {
                           const Text('Registrarse'), // Texto dentro del botón.
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          // Valida el formulario antes de continuar.
                           try {
                             final UserCredential userCredential =
                                 await FirebaseAuth.instance
                                     .createUserWithEmailAndPassword(
-                              email: _emailController.text
-                                  .trim(), // Obtiene el correo electrónico del controlador y elimina espacios en blanco.
-                              password: _passwordController.text
-                                  .trim(), // Obtiene la contraseña del controlador y elimina espacios en blanco.
+                              email: _emailController.text.trim(),
+                              password: _passwordController.text.trim(),
                             );
                             final User? user = userCredential.user;
 
-                            await FirebaseFirestore.instance
-                                .collection('client')
-                                .doc(user?.uid)
-                                .set({
-                              'uid': user!.uid,
-                              'name': _nameController.text,
-                              'email': _emailController.text,
-                              'password': _passwordController
-                                  .text, // Elimina el campo de contraseña de Firestore
-                            });
+                            // Almacena la información del usuario en la colección correspondiente
+                            if (_isAdmin) {
+                              await FirebaseFirestore.instance
+                                  .collection('admin')
+                                  .doc(user?.uid)
+                                  .set({
+                                'uid': user!.uid,
+                                'name': _nameController.text,
+                                'email': _emailController.text,
+                                'password': _passwordController.text
+                              });
+                            } else {
+                              await FirebaseFirestore.instance
+                                  .collection('client')
+                                  .doc(user?.uid)
+                                  .set({
+                                'uid': user!.uid,
+                                'name': _nameController.text,
+                                'email': _emailController.text,
+                                'password': _passwordController.text
+                              });
+                            }
 
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      LoginPage()), // Navega a la pantalla de inicio de sesión.
+                                  builder: (context) => LoginPage()),
                             );
                           } on FirebaseAuthException catch (e) {
                             print(e);
 
-                            Utils.showSnackBar(e
-                                .message); // Muestra un mensaje de error en forma de Snackbar.
+                            Utils.showSnackBar(e.message);
                           }
                         }
                       },
