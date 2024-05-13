@@ -58,17 +58,14 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: appointments.length,
-                      itemBuilder: (context, index) {
-                        return CardAppointment(appointments[index].id);
-                      },
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxHeight:18000), // adjust the height as needed
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: appointments.map((appointment) => CardAppointment(appointment.id)).toList(),
+                      ),
                     ),
                   ),
-                
                 const SizedBox(
                   height: 20,
                 ),
