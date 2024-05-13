@@ -6,17 +6,19 @@ class Appointment {
   final DateTime date;
   final String motivo;
   final String status;
+  final String userId;
 
-  Appointment(this.id, this.auto, this.date, this.motivo, this.status);
+  Appointment(
+      this.id, this.auto, this.date, this.motivo, this.status, this.userId);
 
   Appointment.fromJson(String id, Map<String, dynamic> json)
       : this(
-          id,
-          json['automovil'] as String,
-          (json['date'] as Timestamp).toDate(),
-          json['motivo'] as String,
-          json['status'] as String,
-        );
+            id,
+            json['automovil'] as String,
+            (json['date'] as Timestamp).toDate(),
+            json['motivo'] as String,
+            json['status'] as String,
+            json['userId'] as String);
 
   toJson() {
     return {
@@ -25,6 +27,7 @@ class Appointment {
       'date': date.toIso8601String(),
       'motivo': motivo,
       'status': status,
+      'userId': userId,
     };
   }
 }

@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
 class CiteForm extends StatefulWidget {
@@ -44,23 +45,29 @@ class _CiteFormState extends State<CiteForm> {
   }
 
   Future<void> _saveCite() async {
-  if (_formKey.currentState!.validate()) {
-    _formKey.currentState!.save();
-    final dateTime = _selectedDate.add(Duration(hours: _selectedTime.hour, minutes: _selectedTime.minute));
-    await FirebaseFirestore.instance.collection('citas').add({
-      'automovil': _model,
-      'date': dateTime,
-      'motivo': _reason,
-      'status': 'Pendiente',
-    });
-    Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('La cita se ha agendado correctamente'),
-      ),
-    );
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      final User? user = FirebaseAuth.instance.currentUser;
+      final String userId = user!.uid;
+
+      final dateTime = _selectedDate.add(
+          Duration(hours: _selectedTime.hour, minutes: _selectedTime.minute));
+      await FirebaseFirestore.instance.collection('citas').add({
+        'userId': userId,
+        'automovil': _model,
+        'date': dateTime,
+        'motivo': _reason,
+        'status': 'Pendiente',
+      });
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('La cita se ha agendado correctamente'),
+        ),
+      );
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
