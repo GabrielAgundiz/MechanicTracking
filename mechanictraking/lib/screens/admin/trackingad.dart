@@ -15,14 +15,13 @@ class _TrackingPageADState extends State<TrackingPageAD> {
   final _ScheduleWidgets = [
     ActualTrackingAD(),
     CompletedTrackingAD(),
-    
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         leading: IconButton(
+        leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(
@@ -60,8 +59,9 @@ class _TrackingPageADState extends State<TrackingPageAD> {
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                height: 56,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
                     InkWell(
                       onTap: () {
@@ -83,8 +83,8 @@ class _TrackingPageADState extends State<TrackingPageAD> {
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: _buttonIndex == 0
-                                ? Colors.black
-                                : Colors.black38,
+                                  ? Colors.black
+                                  : Colors.black38,
                             )),
                       ),
                     ),
@@ -108,12 +108,11 @@ class _TrackingPageADState extends State<TrackingPageAD> {
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: _buttonIndex == 1
-                                ? Colors.black
-                                : Colors.black38,
+                                  ? Colors.black
+                                  : Colors.black38,
                             )),
                       ),
                     ),
-                    
                   ],
                 ),
               ),

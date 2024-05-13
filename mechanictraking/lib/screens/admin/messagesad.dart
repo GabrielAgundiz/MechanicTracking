@@ -77,8 +77,7 @@ class MessagesPageAD extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: 300,
+                      Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: TextFormField(
@@ -179,8 +178,10 @@ class MessagesPageAD extends StatelessWidget {
                   }),
                 ),
               ),
-              SizedBox(height: 10,),
-               const Padding(
+              SizedBox(
+                height: 10,
+              ),
+              const Padding(
                 padding: EdgeInsets.all(8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,7 +200,7 @@ class MessagesPageAD extends StatelessWidget {
                   ],
                 ),
               ),
-                      ListView.builder(
+              ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: 6,
                 shrinkWrap: true,
@@ -207,7 +208,11 @@ class MessagesPageAD extends StatelessWidget {
                   return ListTile(
                     minVerticalPadding: 16,
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPageAD(),));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatPageAD(),
+                          ));
                     },
                     leading: CircleAvatar(
                       radius: 30,
