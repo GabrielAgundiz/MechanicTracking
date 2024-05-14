@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/user/diagnostic.dart';
-import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart';
 import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart'
     as step;
+import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart';
 
 class TrackDetailsPage extends StatelessWidget {
-  TrackDetailsPage({super.key});
+  final Appointment _appointment;
+  TrackDetailsPage(this._appointment, {super.key});
 
   List<step.Step> steps = [
     step.Step(
@@ -68,36 +70,35 @@ class TrackDetailsPage extends StatelessWidget {
               alignment: Alignment.center,
               child: Padding(
                 padding: const EdgeInsets.only(right: 63),
-                child: Builder(
-                  builder: (context) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => DiagnosticPage()),
-                        );
-                      },
-                      child: Container(
-                        width: 115,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                          color: Colors.green[300],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Diagnostico",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                child: Builder(builder: (context) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DiagnosticPage()),
+                      );
+                    },
+                    child: Container(
+                      width: 115,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.green[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Diagnostico",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
                           ),
                         ),
                       ),
-                    );
-                  }
-                ),
+                    ),
+                  );
+                }),
               ),
             ),
             const SizedBox(
@@ -160,14 +161,14 @@ class TrackDetailsPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Automovil",
+                      _appointment.auto,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    Text("Descripcion Servicio"),
+                    Text(_appointment.motivo),
                   ],
                 ),
               ),
