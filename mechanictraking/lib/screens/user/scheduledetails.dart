@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
-class ScheduleDetailsPage extends StatefulWidget {
-  const ScheduleDetailsPage({super.key});
-
-  @override
-  State<ScheduleDetailsPage> createState() => _ScheduleDetailsPageState();
-}
-
-class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
+class ScheduleDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +29,7 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
                   Expanded(
                     flex: 3,
                     child: Text(
-                      "Automovil:",
+                      "IInanan",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
