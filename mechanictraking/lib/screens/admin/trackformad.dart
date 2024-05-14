@@ -314,6 +314,30 @@ class _TrackFormADState extends State<TrackFormAD> {
                               const SizedBox(
                                 height: 50,
                               ),
+                              Container(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        const Text(
+                          "¿El servicio ha finalizado?",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Checkbox(
+                          value:
+                              _includeDiagnostic, // Add a boolean variable to store the checkbox state
+                          onChanged: (value) {
+                            setState(() {
+                              _includeDiagnostic = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                             ],
                           ),
                         )
