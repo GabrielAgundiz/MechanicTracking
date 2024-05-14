@@ -58,14 +58,16 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxHeight:18000), // adjust the height as needed
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: appointments.map((appointment) => CardAppointment(appointment.id)).toList(),
-                      ),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 18000),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: appointments
+                          .map((appointment) => CardAppointment(appointment.id))
+                          .toList(),
                     ),
                   ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -274,13 +276,30 @@ class _CardAppointmentState extends State<CardAppointment> {
         ),
       );
     } else {
-      return const Column(
-        children: [
-          Text(
-            "No tiene citas pendientes",
-            style: TextStyle(color: Colors.black54),
-          )
-        ],
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                spreadRadius: 2,
+              ),
+            ],
+          ),
+          child: const Column(
+            children: [
+              Text(
+                "Aun no tiene citas canceladas",
+                style: TextStyle(color: Colors.black54),
+              )
+            ],
+          ),
+        ),
       );
     }
   }

@@ -1,52 +1,69 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mechanictracking/model/appointment.dart';
-import 'package:mechanictracking/screens/admin/scheduledetailsad.dart';
-import 'package:mechanictracking/services/appointment_service.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:mechanictracking/model/appointment.dart';
+import 'package:mechanictracking/screens/user/home.dart';
+import 'package:mechanictracking/screens/user/scheduledetails.dart';
+import 'package:mechanictracking/services/appointment_service.dart';
 
-class UpcomingScheduleAD extends StatelessWidget {
+class UpcomingScheduleAD extends StatefulWidget {
   const UpcomingScheduleAD({super.key});
 
   @override
+  State<UpcomingScheduleAD> createState() => _UpcomingScheduleADState();
+}
+
+class _UpcomingScheduleADState extends State<UpcomingScheduleAD> {
+  late String userId;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Proximas Citas",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 15),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  spreadRadius: 2,
+    return FutureBuilder<List<Appointment>>(
+      future: AppointmentService().getAllAppointmentId(userId, "Pendiente"),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          List<Appointment> appointments = snapshot.data ?? [];
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Proximas Citas",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 18000),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: appointments
+                          .map((appointment) => CardAppointment(appointment.id))
+                          .toList(),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
               ],
             ),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: const CardAppointment(
-                  "mWJIPxmUfO593KyCwNr0"), //widget de info de las citas
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
+          );
+        }
+      },
     );
   }
 }
@@ -78,158 +95,199 @@ class _CardAppointmentState extends State<CardAppointment> {
   }
 
   Future<void> _cancelCite() async {
-  await FirebaseFirestore.instance
-      .collection('citas')
-      .doc(_appointment!.id)
-      .update({'status': 'Cancelado'});
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(_appointment!.id)
+        .update({'status': 'Cancelado'});
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
-      content: Text('La cita se ha cancelado correctamente'),
-    ),
-  );
-}
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('La cita se ha cancelado correctamente'),
+      ),
+    );
+    setState(() {});
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     if (_appointment == null) {
       return const Center(child: CircularProgressIndicator());
     } else if (_appointment!.status == "Pendiente") {
-      return Column(
-        children: [
-          ListTile(
-            title: Text(
-              _appointment!.auto, //signo porque puede ser nulo
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text(_appointment!.motivo),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Divider(
-              thickness: 1,
-              height: 20,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.calendar_month,
-                    color: Colors.black54,
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    DateFormat('dd/MM/yyyy').format(_appointment!.date),
-                    style: const TextStyle(color: Colors.black54),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.access_time_filled,
-                    color: Colors.black54,
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    DateFormat.jm().format(_appointment!.date),
-                    style: const TextStyle(
-                      color: Colors.black54,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: const BoxDecoration(
-                      color: Colors.yellow,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  const Text(
-                    "Pendiente",
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                ],
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                spreadRadius: 2,
               ),
             ],
           ),
-          const SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Column(
             children: [
-              InkWell(
-                onTap: _cancelCite,
-                child: Container(
-                  width: 150,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Cancelar",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
+              ListTile(
+                title: Text(
+                  _appointment!.auto, //signo porque puede ser nulo
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(_appointment!.motivo),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Divider(
+                  thickness: 1,
+                  height: 20,
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ScheduleDetailsPageAD()), // Navega a la página de registro.
-                  );
-                },
-                child: Container(
-                  width: 150,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.green[300],
-                    borderRadius: BorderRadius.circular(10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.calendar_month,
+                        color: Colors.black54,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        DateFormat('dd/MM/yyyy').format(_appointment!.date),
+                        style: const TextStyle(color: Colors.black54),
+                      ),
+                    ],
                   ),
-                  child: const Center(
-                    child: Text(
-                      "Ver detalles",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.access_time_filled,
+                        color: Colors.black54,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        DateFormat.jm().format(_appointment!.date),
+                        style: const TextStyle(
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: const BoxDecoration(
+                          color: Colors.yellow,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      const Text(
+                        "Pendiente",
+                        style: TextStyle(color: Colors.black54),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: _cancelCite,
+                    child: Container(
+                      width: 150,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Cancelar",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ScheduleDetailsPage()), // Navega a la página de registro.
+                      );
+                    },
+                    child: Container(
+                      width: 150,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.green[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Ver detalles",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
               ),
             ],
           ),
-          const SizedBox(
-            height: 15,
-          ),
-        ],
+        ),
       );
     } else {
-      return const Column(
-        children: [
-          Text(
-            "No tiene citas pendientes",
-            style: TextStyle(color: Colors.black54),
-          )
-        ],
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                spreadRadius: 2,
+              ),
+            ],
+          ),
+          child: const Column(
+            children: [
+              Text(
+                "Aun no tiene citas canceladas",
+                style: TextStyle(color: Colors.black54),
+              )
+            ],
+          ),
+        ),
       );
     }
   }
