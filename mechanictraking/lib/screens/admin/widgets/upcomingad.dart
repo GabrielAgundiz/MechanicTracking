@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
@@ -19,12 +20,24 @@ class _UpcomingScheduleADState extends State<UpcomingScheduleAD> {
   @override
   void initState() {
     super.initState();
+    getUserId();
+  }
+
+  Future<void> getUserId() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        userId = user.uid;
+      });
+    } else {
+      userId = '';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Appointment>>(
-      future: AppointmentService().getAllAppointmentId(userId, "Pendiente"),
+      future: AppointmentService().getAllAppointments(userId, "Pendiente"),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -45,14 +58,11 @@ class _UpcomingScheduleADState extends State<UpcomingScheduleAD> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 18000),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: appointments
-                          .map((appointment) => CardAppointment(appointment.id))
-                          .toList(),
-                    ),
+                SingleChildScrollView(
+                  child: Column(
+                    children: appointments.map((appointment) {
+                      return CardAppointment(appointment.id, appointment);
+                    }).toList(),
                   ),
                 ),
                 const SizedBox(
@@ -69,7 +79,8 @@ class _UpcomingScheduleADState extends State<UpcomingScheduleAD> {
 
 class CardAppointment extends StatefulWidget {
   final String appointmentId;
-  const CardAppointment(this.appointmentId, {super.key});
+  final Appointment appointment_1;
+  const CardAppointment(this.appointmentId, this.appointment_1, {super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -92,6 +103,8 @@ class _CardAppointmentState extends State<CardAppointment> {
       _appointment = appointment;
     });
   }
+
+  void setAppointment(Appointment appointment) {}
 
   Future<void> _cancelCite() async {
     await FirebaseFirestore.instance
@@ -258,30 +271,13 @@ class _CardAppointmentState extends State<CardAppointment> {
         ),
       );
     } else {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          child: const Column(
-            children: [
-              Text(
-                "Aun no tiene citas canceladas",
-                style: TextStyle(color: Colors.black54),
-              )
-            ],
-          ),
-        ),
+      return const Column(
+        children: [
+          Text(
+            "No tiene citas pendientes",
+            style: TextStyle(color: Colors.black54),
+          )
+        ],
       );
     }
   }

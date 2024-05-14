@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
@@ -17,12 +18,24 @@ class _CompletedScheduleADState extends State<CompletedScheduleAD> {
   @override
   void initState() {
     super.initState();
+    getUserId();
+  }
+
+  Future<void> getUserId() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        userId = user.uid;
+      });
+    } else {
+      userId = '';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Appointment>>(
-      future: AppointmentService().getAllAppointmentId(userId, "Completado"),
+      future: AppointmentService().getAllAppointments(userId, "Completado"),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -47,9 +60,9 @@ class _CompletedScheduleADState extends State<CompletedScheduleAD> {
                   constraints: const BoxConstraints(maxHeight: 18000),
                   child: SingleChildScrollView(
                     child: Column(
-                      children: appointments
-                          .map((appointment) => CardAppointment(appointment.id))
-                          .toList(),
+                      children: appointments.map((appointment) {
+                        return CardAppointment(appointment.id, appointment);
+                      }).toList(),
                     ),
                   ),
                 ),
@@ -67,7 +80,8 @@ class _CompletedScheduleADState extends State<CompletedScheduleAD> {
 
 class CardAppointment extends StatefulWidget {
   final String appointmentId;
-  const CardAppointment(this.appointmentId, {super.key});
+  final Appointment appointment_1;
+  const CardAppointment(this.appointmentId, this.appointment_1, {super.key});
 
   @override
   State<StatefulWidget> createState() {
