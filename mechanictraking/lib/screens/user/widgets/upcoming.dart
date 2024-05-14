@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/user/home.dart';
@@ -276,30 +275,13 @@ class _CardAppointmentState extends State<CardAppointment> {
         ),
       );
     } else {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          child: const Column(
-            children: [
-              Text(
-                "Aun no tiene citas canceladas",
-                style: TextStyle(color: Colors.black54),
-              )
-            ],
-          ),
-        ),
+      return const Column(
+        children: [
+          Text(
+            "No tiene citas pendientes",
+            style: TextStyle(color: Colors.black54),
+          )
+        ],
       );
     }
   }
