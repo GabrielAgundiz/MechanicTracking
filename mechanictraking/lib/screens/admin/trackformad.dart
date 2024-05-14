@@ -314,7 +314,11 @@ class _TrackFormADState extends State<TrackFormAD> {
                               const SizedBox(
                                 height: 50,
                               ),
-                              Container(
+                            ],
+                          ),
+                        )
+                      : Container(),
+                  Container(
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
@@ -336,12 +340,8 @@ class _TrackFormADState extends State<TrackFormAD> {
                     ),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 50,
                   ),
-                            ],
-                          ),
-                        )
-                      : Container(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
