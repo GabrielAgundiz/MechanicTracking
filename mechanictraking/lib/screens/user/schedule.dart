@@ -71,6 +71,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 ),
                 height:
                     56, // Altura fija para el contenedor que contiene los botones.
+                width: MediaQuery.of(context).size.width,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [

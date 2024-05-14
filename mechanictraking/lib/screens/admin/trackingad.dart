@@ -60,6 +60,7 @@ class _TrackingPageADState extends State<TrackingPageAD> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 height: 56,
+                width: MediaQuery.of(context).size.width,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
