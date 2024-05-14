@@ -16,9 +16,7 @@ class _CancelledScheduleADState extends State<CancelledScheduleAD> {
   @override
   void initState() {
     super.initState();
- 
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -185,12 +183,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ScheduleDetailsPage()), // Navega a la página de registro.
-                      );
+                      _openAppointmentDetails(context, _appointment);
                     },
                     child: Container(
                       width: 300,
@@ -247,5 +240,13 @@ class _CardAppointmentState extends State<CardAppointment> {
         ),
       );
     }
+  }
+
+  void _openAppointmentDetails(BuildContext context, Appointment? appointment) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ScheduleDetailsPage(appointment!)),
+    );
   }
 }

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
 class ScheduleDetailsPage extends StatelessWidget {
+  final Appointment _appointment;
+
+  const ScheduleDetailsPage(this._appointment, {super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +34,7 @@ class ScheduleDetailsPage extends StatelessWidget {
                   Expanded(
                     flex: 3,
                     child: Text(
-                      "IInanan",
+                      "Modelo",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -41,7 +46,7 @@ class ScheduleDetailsPage extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      "Modelo del automovil",
+                      _appointment.auto,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -71,7 +76,7 @@ class ScheduleDetailsPage extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       maxLines: 20,
-                      "Descripcion del motivo",
+                      _appointment.motivo,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -101,7 +106,7 @@ class ScheduleDetailsPage extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      "12/01/2023",
+                      DateFormat('dd/MM/yyyy').format(_appointment.date),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -131,7 +136,7 @@ class ScheduleDetailsPage extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      "10:30 AM",
+                      DateFormat.jm().format(_appointment.date),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -161,7 +166,7 @@ class ScheduleDetailsPage extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      "Confirmado",
+                      _appointment.status,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium

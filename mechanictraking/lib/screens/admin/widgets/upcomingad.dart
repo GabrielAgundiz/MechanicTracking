@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/user/home.dart';
-import 'package:mechanictracking/screens/user/scheduledetails.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
+
+import '../../user/scheduledetails.dart';
 
 class UpcomingScheduleAD extends StatefulWidget {
   const UpcomingScheduleAD({super.key});
@@ -227,12 +227,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ScheduleDetailsPage()), // Navega a la página de registro.
-                      );
+                      _openAppointmentDetails(context, _appointment);
                     },
                     child: Container(
                       width: 150,
@@ -289,5 +284,13 @@ class _CardAppointmentState extends State<CardAppointment> {
         ),
       );
     }
+  }
+
+  void _openAppointmentDetails(BuildContext context, Appointment? appointment) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ScheduleDetailsPage(appointment!)),
+    );
   }
 }

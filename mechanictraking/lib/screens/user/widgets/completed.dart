@@ -55,14 +55,11 @@ class _CompletedScheduleState extends State<CompletedSchedule> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 18000),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: appointments
-                          .map((appointment) => CardAppointment(appointment.id))
-                          .toList(),
-                    ),
+                SingleChildScrollView(
+                  child: Column(
+                    children: appointments.map((appointment) {
+                      return CardAppointment(appointment.id, appointment);
+                    }).toList(),
                   ),
                 ),
                 const SizedBox(
@@ -79,7 +76,8 @@ class _CompletedScheduleState extends State<CompletedSchedule> {
 
 class CardAppointment extends StatefulWidget {
   final String appointmentId;
-  const CardAppointment(this.appointmentId, {super.key});
+  final Appointment appointment_1;
+  const CardAppointment(this.appointmentId, this.appointment_1, {super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -196,12 +194,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ScheduleDetailsPage()), // Navega a la página de registro.
-                      );
+                      _openAppointmentDetails(context, _appointment);
                     },
                     child: Container(
                       width: 300,
@@ -258,5 +251,13 @@ class _CardAppointmentState extends State<CardAppointment> {
         ),
       );
     }
+  }
+
+  void _openAppointmentDetails(BuildContext context, Appointment? appointment) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ScheduleDetailsPage(appointment!)),
+    );
   }
 }
