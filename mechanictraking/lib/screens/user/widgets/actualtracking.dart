@@ -48,7 +48,7 @@ class _ActualTrackingState extends State<ActualTracking> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Proximos Servicios",
+                  "Servicios Actuales",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,

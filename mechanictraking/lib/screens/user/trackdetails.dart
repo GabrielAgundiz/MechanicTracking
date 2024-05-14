@@ -157,7 +157,7 @@ class TrackDetailsPage extends StatelessWidget {
                 height: 20,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 120),
+                padding: EdgeInsets.symmetric(horizontal: 60),
                 child: Column(
                   children: [
                     Text(

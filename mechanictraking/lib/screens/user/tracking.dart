@@ -65,55 +65,61 @@ class _TrackingPageState extends State<TrackingPage> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _buttonIndex = 0;
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 50),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: _buttonIndex == 0
-                              ? Colors.green[300]
-                              : Colors.grey[100],
-                        ),
-                        child: Text("Proximos",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              _buttonIndex = 0;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 60),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
                               color: _buttonIndex == 0
-                                  ? Colors.black
-                                  : Colors.black38,
-                            )),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _buttonIndex = 1;
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 50),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: _buttonIndex == 1
-                              ? Colors.green[300]
-                              : Colors.grey[100],
+                                  ? Colors.green[300]
+                                  : Colors.grey[100],
+                            ),
+                            child: Text("Actuales",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: _buttonIndex == 0
+                                      ? Colors.black
+                                      : Colors.black38,
+                                )),
+                          ),
                         ),
-                        child: Text("Completados",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              _buttonIndex = 1;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 50),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
                               color: _buttonIndex == 1
-                                  ? Colors.black
-                                  : Colors.black38,
-                            )),
-                      ),
+                                  ? Colors.green[300]
+                                  : Colors.grey[100],
+                            ),
+                            child: Text("Completados",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: _buttonIndex == 1
+                                      ? Colors.black
+                                      : Colors.black38,
+                                )),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
