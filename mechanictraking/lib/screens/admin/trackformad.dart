@@ -21,6 +21,23 @@ class _TrackFormADState extends State<TrackFormAD> {
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = const TimeOfDay(hour: 8, minute: 0);
 
+  late TextEditingController _progresoController;
+  late TextEditingController _reasonController;
+
+  @override
+  void initState() {
+    super.initState();
+    _progresoController = TextEditingController();
+    _reasonController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _progresoController.dispose();
+    _reasonController.dispose();
+    super.dispose();
+  }
+
   Future<void> _selectDate() async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -52,12 +69,15 @@ class _TrackFormADState extends State<TrackFormAD> {
       _formKey.currentState!.save();
       final dateTime = _selectedDate.add(
           Duration(hours: _selectedTime.hour, minutes: _selectedTime.minute));
-      await FirebaseFirestore.instance.collection('citas').add({
-        'progreso': _progreso,
-        'date_update': dateTime,
-        'reason': _reason,
-        'status': 'Pendiente',
-      });
+      await FirebaseFirestore.instance
+          .collection('citas')
+          .doc(widget._appointment.id)
+          .set({
+        'progreso': _progresoController.text,
+        //'date_update': dateTime,
+        'reason': _reasonController.text,
+        //'status': 'Pendiente',
+      }, SetOptions(merge: true));
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -71,8 +91,9 @@ class _TrackFormADState extends State<TrackFormAD> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Actualizar',
+        title: Text(
+          //'Actualizar',
+          widget._appointment.id,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -112,7 +133,7 @@ class _TrackFormADState extends State<TrackFormAD> {
                       }
                       return null;
                     },
-                    onSaved: (value) => _progreso = value!,
+                    controller: _progresoController,
                   ),
                   const SizedBox(
                     height: 24,
@@ -138,7 +159,7 @@ class _TrackFormADState extends State<TrackFormAD> {
                       }
                       return null;
                     },
-                    onSaved: (value) => _reason = value!,
+                    controller: _reasonController,
                   ),
                   const SizedBox(
                     height: 24,
@@ -188,13 +209,14 @@ class _TrackFormADState extends State<TrackFormAD> {
                                 decoration: InputDecoration(
                                     hintText: widget._appointment.auto,
                                     hintStyle: TextStyle(fontSize: 14)),
-                                validator: (value) {
+                                readOnly: true,
+                                /*validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Por favor, ingrese un motivo';
                                   }
                                   return null;
                                 },
-                                onSaved: (value) => _reason = value!,
+                                onSaved: (value) => _reason = value!,*/
                               ),
                               const SizedBox(
                                 height: 20,
@@ -212,16 +234,17 @@ class _TrackFormADState extends State<TrackFormAD> {
                                 height: 6,
                               ),
                               TextFormField(
-                                decoration: const InputDecoration(
-                                    hintText: 'Nombre de la reparacion',
+                                decoration: InputDecoration(
+                                    hintText: widget._appointment.motivo,
                                     hintStyle: TextStyle(fontSize: 14)),
-                                validator: (value) {
+                                readOnly: true,
+                                /*validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Por favor, ingrese un motivo';
                                   }
                                   return null;
                                 },
-                                onSaved: (value) => _reason = value!,
+                                onSaved: (value) => _reason = value!,*/
                               ),
                               const SizedBox(
                                 height: 20,
