@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/admin/trackformad.dart';
 import 'package:mechanictracking/screens/user/diagnostic.dart';
-import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart';
 import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart'
     as step;
+import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart';
 
 class TrackDetailsPageAD extends StatelessWidget {
-  TrackDetailsPageAD({super.key});
+  final Appointment _appointment;
+  TrackDetailsPageAD(this._appointment, {super.key});
 
   List<step.Step> steps = [
     step.Step(
@@ -69,36 +71,35 @@ class TrackDetailsPageAD extends StatelessWidget {
               alignment: Alignment.center,
               child: Padding(
                 padding: const EdgeInsets.only(right: 63),
-                child: Builder(
-                  builder: (context) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => DiagnosticPage()),
-                        );
-                      },
-                      child: Container(
-                        width: 115,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                          color: Colors.green[300],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Diagnostico",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                child: Builder(builder: (context) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DiagnosticPage()),
+                      );
+                    },
+                    child: Container(
+                      width: 115,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.green[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Diagnostico",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
                           ),
                         ),
                       ),
-                    );
-                  }
-                ),
+                    ),
+                  );
+                }),
               ),
             ),
             const SizedBox(
@@ -161,14 +162,14 @@ class TrackDetailsPageAD extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Automovil",
+                      _appointment.auto,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    Text("Descripcion Servicio"),
+                    Text(_appointment.motivo),
                   ],
                 ),
               ),
@@ -179,25 +180,26 @@ class TrackDetailsPageAD extends StatelessWidget {
             ],
           ),
         ),
-        
       ),
-       floatingActionButton: Padding(
+      floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: FloatingActionButton(
           backgroundColor: Colors.green[400],
           onPressed: () {
-            Navigator.push(
-              // Navega a la página de notificaciones (NotifiesPage)
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      TrackFormAD()), // Crea una ruta para la página de notificaciones
-            );
+            _openTrackingDetailsForm(context, _appointment);
           },
           child: const Icon(Icons.add, color: Colors.white),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+    );
+  }
+
+  void _openTrackingDetailsForm(
+      BuildContext context, Appointment? appointment) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TrackFormAD(appointment!)),
     );
   }
 }

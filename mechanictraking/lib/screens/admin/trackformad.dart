@@ -1,19 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
 class TrackFormAD extends StatefulWidget {
-  const TrackFormAD({super.key});
+  final Appointment _appointment;
+  TrackFormAD(this._appointment, {super.key});
 
   @override
   State<TrackFormAD> createState() => _TrackFormADState();
 }
 
 class _TrackFormADState extends State<TrackFormAD> {
+  Appointment? _appointment;
   //estado de la cita
   final _formKey = GlobalKey<FormState>();
   bool _includeDiagnostic = false;
-  String _model = '';
+  String _progreso = '';
   String _reason = '';
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = const TimeOfDay(hour: 8, minute: 0);
@@ -50,9 +53,9 @@ class _TrackFormADState extends State<TrackFormAD> {
       final dateTime = _selectedDate.add(
           Duration(hours: _selectedTime.hour, minutes: _selectedTime.minute));
       await FirebaseFirestore.instance.collection('citas').add({
-        'automovil': _model,
-        'date': dateTime,
-        'motivo': _reason,
+        'progreso': _progreso,
+        'date_update': dateTime,
+        'reason': _reason,
         'status': 'Pendiente',
       });
       Navigator.pop(context);
@@ -105,11 +108,11 @@ class _TrackFormADState extends State<TrackFormAD> {
                         hintStyle: TextStyle(fontSize: 14)),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor, ingrese un modelo';
+                        return 'Por favor, ingrese un estado';
                       }
                       return null;
                     },
-                    onSaved: (value) => _model = value!,
+                    onSaved: (value) => _progreso = value!,
                   ),
                   const SizedBox(
                     height: 24,
@@ -182,8 +185,8 @@ class _TrackFormADState extends State<TrackFormAD> {
                                 height: 6,
                               ),
                               TextFormField(
-                                decoration: const InputDecoration(
-                                    hintText: 'Modelo del Automovil',
+                                decoration: InputDecoration(
+                                    hintText: widget._appointment.auto,
                                     hintStyle: TextStyle(fontSize: 14)),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {

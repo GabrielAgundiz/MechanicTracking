@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
-import 'package:mechanictracking/screens/user/trackdetails.dart';
+import 'package:mechanictracking/screens/admin/trackingdetailsad.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
 
 class ActualTrackingAD extends StatefulWidget {
@@ -105,7 +105,7 @@ class _CardAppointmentState extends State<CardAppointment> {
   Widget build(BuildContext context) {
     if (_appointment == null) {
       return const Center(child: CircularProgressIndicator());
-    } else if (_appointment!.status == "Completado") {
+    } else if (_appointment!.status == "Pendiente") {
       return Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Container(
@@ -245,7 +245,7 @@ class _CardAppointmentState extends State<CardAppointment> {
   void _openTrackingDetails(BuildContext context, Appointment? appointment) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => TrackDetailsPage(appointment!)),
+      MaterialPageRoute(builder: (context) => TrackDetailsPageAD(appointment!)),
     );
   }
 }

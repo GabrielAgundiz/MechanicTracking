@@ -34,7 +34,7 @@ class _CompletedTrackingADState extends State<CompletedTrackingAD> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Appointment>>(
-      future: AppointmentService().getAllAppointments(userId, "Completado"),
+      future: AppointmentService().getAllAppointments(userId, "Finalizado"),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -105,7 +105,7 @@ class _CardAppointmentState extends State<CardAppointment> {
   Widget build(BuildContext context) {
     if (_appointment == null) {
       return const Center(child: CircularProgressIndicator());
-    } else if (_appointment!.status == "Completado") {
+    } else if (_appointment!.status == "Finalizado") {
       return Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Container(
