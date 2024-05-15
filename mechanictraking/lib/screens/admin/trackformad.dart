@@ -94,7 +94,7 @@ class _TrackFormADState extends State<TrackFormAD> {
         title: Text(
           //'Actualizar',
           widget._appointment.id,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: SafeArea(
@@ -208,7 +208,7 @@ class _TrackFormADState extends State<TrackFormAD> {
                               TextFormField(
                                 decoration: InputDecoration(
                                     hintText: widget._appointment.auto,
-                                    hintStyle: TextStyle(fontSize: 14)),
+                                    hintStyle: const TextStyle(fontSize: 14)),
                                 readOnly: true,
                                 /*validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -236,7 +236,7 @@ class _TrackFormADState extends State<TrackFormAD> {
                               TextFormField(
                                 decoration: InputDecoration(
                                     hintText: widget._appointment.motivo,
-                                    hintStyle: TextStyle(fontSize: 14)),
+                                    hintStyle: const TextStyle(fontSize: 14)),
                                 readOnly: true,
                                 /*validator: (value) {
                                   if (value == null || value.isEmpty) {
