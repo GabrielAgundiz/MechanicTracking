@@ -37,6 +37,7 @@ class ProfileData extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
+            SizedBox(width: 8,),
             Icon(icon, size: 18,color: Colors.green,),
           ],
         ),
