@@ -91,7 +91,7 @@ class _SchedulePageADState extends State<SchedulePageAD> {
                               ? Colors.green[300]
                               : Colors.grey[100],
                         ),
-                        child: Text("Proximas",
+                        child: Text("Próximas",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,

@@ -247,7 +247,7 @@ class _CardAppointmentState extends State<CardAppointment> {
           child: const Column(
             children: [
               Text(
-                "Aun no tiene citas canceladas",
+                "Aún no tiene citas canceladas",
                 style: TextStyle(color: Colors.black54),
               )
             ],

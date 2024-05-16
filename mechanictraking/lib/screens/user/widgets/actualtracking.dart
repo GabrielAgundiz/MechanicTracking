@@ -55,13 +55,45 @@ class _ActualTrackingState extends State<ActualTracking> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                SingleChildScrollView(
-                  child: Column(
-                    children: appointments.map((appointment) {
-                      return CardAppointment(appointment.id, appointment);
-                    }).toList(),
-                  ),
-                ),
+                 appointments.length > 0
+                    ? SingleChildScrollView(
+                        child: Column(
+                          children: appointments.map((appointment) {
+                            return CardAppointment(appointment.id, appointment);
+                          }).toList(),
+                        ),
+                      )
+                    : Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 45,
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 4,
+                                  spreadRadius: 2,
+                                ),
+                              ],
+                            ),
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Aún no tiene servicios activos",
+                                  style: TextStyle(color: Colors.black54),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ]),
                 const SizedBox(
                   height: 20,
                 ),

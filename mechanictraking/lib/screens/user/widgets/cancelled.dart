@@ -63,14 +63,37 @@ class _CancelledScheduleState extends State<CancelledSchedule> {
                           }).toList(),
                         ),
                       )
-                    : const Column(
-                        children: [
-                          Text(
-                            "No hay citas pendientes",
-                            style: TextStyle(color: Colors.black54),
-                          )
-                        ],
-                      ),
+                    : Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 45,
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 4,
+                                  spreadRadius: 2,
+                                ),
+                              ],
+                            ),
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Aún no tiene citas canceladas",
+                                  style: TextStyle(color: Colors.black54),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ]),
                 const SizedBox(
                   height: 20,
                 ),
