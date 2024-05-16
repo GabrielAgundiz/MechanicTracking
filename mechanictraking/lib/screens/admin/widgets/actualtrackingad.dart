@@ -34,7 +34,7 @@ class _ActualTrackingADState extends State<ActualTrackingAD> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Appointment>>(
-      future: AppointmentService().getAllAppointments(userId, "Pendiente"),
+      future: AppointmentService().getAllAppointments1(userId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -48,7 +48,7 @@ class _ActualTrackingADState extends State<ActualTrackingAD> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Servicios Completados",
+                  "Servicios Pendientes",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -87,11 +87,24 @@ class CardAppointment extends StatefulWidget {
 
 class _CardAppointmentState extends State<CardAppointment> {
   Appointment? _appointment; //state local
+  late String userId;
+
+  Future<void> getUserId() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        userId = user.uid;
+      });
+    } else {
+      userId = '';
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     _getAppointment(widget.appointmentId);
+    getUserId();
   }
 
   void _getAppointment(String appointmentId) async {
@@ -101,11 +114,20 @@ class _CardAppointmentState extends State<CardAppointment> {
     });
   }
 
+  Future<List<Appointment>> _getAppointments(String userId) async {
+    var appointments =
+        await AppointmentService().getAllAppointments(userId, "Pendiente");
+    return appointments;
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Appointment> appointments = [];
+
     if (_appointment == null) {
       return const Center(child: CircularProgressIndicator());
     } else if (_appointment!.status == "Pendiente") {
+      appointments.add(_appointment!);
       return Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Container(
@@ -231,14 +253,18 @@ class _CardAppointmentState extends State<CardAppointment> {
         ),
       );
     } else {
-      return const Column(
-        children: [
-          Text(
-            "No tiene citas pendientes",
-            style: TextStyle(color: Colors.black54),
-          )
-        ],
-      );
+      if (appointments.isEmpty) {
+        return const Column(
+          children: [
+            Text(
+              "",
+              style: TextStyle(color: Colors.black54),
+            )
+          ],
+        );
+      } else {
+        return SizedBox.shrink(); //
+      }
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
+import 'package:mechanictracking/services/appointment_service.dart';
 
 class CiteForm extends StatefulWidget {
   const CiteForm({super.key});
@@ -64,18 +65,74 @@ class _CiteFormState extends State<CiteForm> {
     }
   }
 
+  Future<String> IdCiti(String userId) async {
+    var citiId =
+        await AppointmentService().getAppointmentTraking(userId, "Pendiente");
+    return citiId.id;
+  }
+
   Future<void> _saveCite() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       final dateTime = _selectedDate.add(
           Duration(hours: _selectedTime.hour, minutes: _selectedTime.minute));
-      await FirebaseFirestore.instance.collection('citas').add({
+      DocumentReference appointmentRef =
+          await FirebaseFirestore.instance.collection('citas').add({
         'userId': userId,
         'automovil': _model,
         'date': dateTime,
         'motivo': _reason,
         'status': 'Pendiente',
+        'status2': 'Pendiente',
+        'reason': 'Evaluando proceso',
+        'reason2': 'Evaluando proceso',
+        'progreso': 'Pendiente de evaluar',
+        'progreso2': '',
+        'date_update': dateTime,
+        'costo': "",
+        'descriptionService': "",
       });
+
+      // Crear la subcolección 'citasDiagnostico' dentro del documento de la nueva cita
+      await appointmentRef.collection('citasDiagnostico').doc('Aceptado').set({
+        'progreso2': "",
+        'date_update': dateTime,
+        'reason2': "",
+        'costo': "",
+        'descriptionService': "",
+        'status2': '',
+      }, SetOptions(merge: true));
+      await appointmentRef
+          .collection('citasDiagnostico')
+          .doc('Completado')
+          .set({
+        'progreso2': "",
+        'date_update': dateTime,
+        'reason2': "",
+        'costo': "",
+        'descriptionService': "",
+        'status2': '',
+      }, SetOptions(merge: true));
+      await appointmentRef
+          .collection('citasDiagnostico')
+          .doc('Reparacion')
+          .set({
+        'progreso2': "",
+        'date_update': dateTime,
+        'reason2': "",
+        'costo': "",
+        'descriptionService': "",
+        'status2': '',
+      }, SetOptions(merge: true));
+      await appointmentRef.collection('citasDiagnostico').doc('Revision').set({
+        'progreso2': "",
+        'date_update': dateTime,
+        'reason2': "",
+        'costo': "",
+        'descriptionService': "",
+        'status2': '',
+      }, SetOptions(merge: true));
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

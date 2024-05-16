@@ -72,4 +72,34 @@ class AppointmentService {
     //refresa un future value de la lista de libros obtenida
     return Future.value(appointments);
   }
+
+  Future<List<Appointment>> getAllAppointments1(String userId) async {
+    var result = await appointmentRef.get();
+
+    List<Appointment> appointments = [];
+    for (var doc in result.docs) {
+      appointments.add(doc.data());
+    }
+    //refresa un future value de la lista de libros obtenida
+    return Future.value(appointments);
+  }
+
+  Future<Diagnostico> getAppointmentTraking(
+      String appointmentId, String diagnosticoId) async {
+    var result = await appointmentRef
+        .doc(appointmentId)
+        .collection("citasDiagnostico")
+        .doc(diagnosticoId)
+        .get();
+
+    if (result.exists) {
+      var data = result.data();
+      if (data != null) {
+        Diagnostico diagnostico = Diagnostico.fromJson(result.id, data);
+        return diagnostico;
+      }
+      throw Exception("Los datos de la cita están vacíos");
+    }
+    throw Exception("Cita no encontrada");
+  }
 }

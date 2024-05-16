@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
-import 'package:mechanictracking/screens/user/home.dart';
+import 'package:mechanictracking/screens/admin/homead.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
 
 import '../../user/scheduledetails.dart';
@@ -121,7 +121,7 @@ class _CardAppointmentState extends State<CardAppointment> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => HomePage(),
+        builder: (context) => HomePageAD(),
       ),
     );
   }
@@ -203,8 +203,8 @@ class _CardAppointmentState extends State<CardAppointment> {
                         ),
                       ),
                       const SizedBox(width: 5),
-                      const Text(
-                        "Pendiente",
+                      Text(
+                        _appointment!.status2,
                         style: TextStyle(color: Colors.black54),
                       ),
                     ],

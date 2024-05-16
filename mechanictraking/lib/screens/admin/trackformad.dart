@@ -1,11 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/model/appointment.dart';
+import 'package:mechanictracking/screens/admin/trackingad.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
 class TrackFormAD extends StatefulWidget {
   final Appointment _appointment;
-  TrackFormAD(this._appointment, {super.key});
+  final Diagnostico _diagnostico;
+  final Diagnostico _diagnostico2;
+  final Diagnostico _diagnostico3;
+
+  TrackFormAD(this._appointment, this._diagnostico, this._diagnostico2,
+      this._diagnostico3,
+      {super.key});
 
   @override
   State<TrackFormAD> createState() => _TrackFormADState();
@@ -23,62 +30,41 @@ class _TrackFormADState extends State<TrackFormAD> {
 
   late TextEditingController _progresoController;
   late TextEditingController _reasonController;
+  late TextEditingController _descriptionController;
+  late TextEditingController _costController;
 
   @override
   void initState() {
     super.initState();
     _progresoController = TextEditingController();
     _reasonController = TextEditingController();
+    _descriptionController = TextEditingController();
+    _costController = TextEditingController();
   }
 
   @override
   void dispose() {
     _progresoController.dispose();
     _reasonController.dispose();
+    _descriptionController.dispose();
+    _costController.dispose();
     super.dispose();
   }
 
-  Future<void> _selectDate() async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
-    );
-    if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-      });
-    }
-  }
-
-  Future<void> _selectTime() async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: _selectedTime,
-    );
-    if (picked != null && picked != _selectedTime) {
-      setState(() {
-        _selectedTime = picked;
-      });
-    }
-  }
-
   Future<void> _saveCite() async {
+    setState(() {});
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      final dateTime = _selectedDate.add(
-          Duration(hours: _selectedTime.hour, minutes: _selectedTime.minute));
-      await FirebaseFirestore.instance
-          .collection('citas')
-          .doc(widget._appointment.id)
-          .set({
-        'progreso': _progresoController.text,
-        //'date_update': dateTime,
-        'reason': _reasonController.text,
-        //'status': 'Pendiente',
-      }, SetOptions(merge: true));
-      Navigator.pop(context);
+      final dateTime = DateTime.now();
+      if (widget._appointment.status2 == 'Pendiente') {
+        _saveInfoAceptado(dateTime);
+      } else if (widget._appointment.status2 == 'Aceptado') {
+        _saveInfoRevision(dateTime);
+      } else if (widget._appointment.status2 == 'Diagnostico') {
+        _saveInfoReparacion(dateTime);
+      } else if (widget._appointment.status2 == 'Reparacion') {
+        _saveInfoCompletado(dateTime);
+      }
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('La cita se ha agendado correctamente'),
@@ -87,8 +73,141 @@ class _TrackFormADState extends State<TrackFormAD> {
     }
   }
 
+  Future<void> _saveInfoAceptado(DateTime dateTime) async {
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(widget._appointment.id)
+        .collection(
+            'citasDiagnostico') // Agregar una subcolección 'citasDiagnostico' dentro del documento
+        .doc(
+            'Aceptado') // Puedes usar un ID único o el mismo ID del documento principal
+        .set({
+      'progreso2': _progresoController.text,
+      'date_update': dateTime,
+      'reason2': _reasonController.text,
+      'costo': _costController.text,
+      'descriptionService': _descriptionController.text,
+      'status2': 'Aceptado',
+    }, SetOptions(merge: true));
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(widget._appointment.id)
+        .set({
+      'progreso2': _progresoController.text,
+      'date_update': dateTime,
+      'reason': _reasonController.text,
+      'status2': 'Aceptado',
+    }, SetOptions(merge: true));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TrackingPageAD()),
+    );
+  }
+
+  Future<void> _saveInfoRevision(DateTime dateTime) async {
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(widget._appointment.id)
+        .collection(
+            'citasDiagnostico') // Agregar una subcolección 'citasDiagnostico' dentro del documento
+        .doc(
+            'Revision') // Puedes usar un ID único o el mismo ID del documento principal
+        .set({
+      'progreso2': _progresoController.text,
+      'date_update': dateTime,
+      'reason2': _reasonController.text,
+      'costo': _costController.text,
+      'descriptionService': _descriptionController.text,
+      'status2': 'Diagnostico',
+    }, SetOptions(merge: true));
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(widget._appointment.id)
+        .set({
+      'progreso2': _progresoController.text,
+      'date_update': dateTime,
+      'reason2': _reasonController.text,
+      'costo': _costController.text,
+      'descriptionService': _descriptionController.text,
+      'status2': 'Diagnostico',
+    }, SetOptions(merge: true));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TrackingPageAD()),
+    );
+  }
+
+  Future<void> _saveInfoReparacion(DateTime dateTime) async {
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(widget._appointment.id)
+        .collection(
+            'citasDiagnostico') // Agregar una subcolección 'citasDiagnostico' dentro del documento
+        .doc(
+            'Reparacion') // Puedes usar un ID único o el mismo ID del documento principal
+        .set({
+      'progreso2': _progresoController.text,
+      'date_update': dateTime,
+      'reason2': _reasonController.text,
+      'costo': _costController.text,
+      'descriptionService': _descriptionController.text,
+      'status2': 'Reparacion',
+    }, SetOptions(merge: true));
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(widget._appointment.id)
+        .set({
+      'progreso': _progresoController.text,
+      'date_update': dateTime,
+      'reason': _reasonController.text,
+      'status2': 'Reparacion',
+    }, SetOptions(merge: true));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TrackingPageAD()),
+    );
+  }
+
+  Future<void> _saveInfoCompletado(DateTime dateTime) async {
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(widget._appointment.id)
+        .collection(
+            'citasDiagnostico') // Agregar una subcolección 'citasDiagnostico' dentro del documento
+        .doc(
+            'Completado') // Puedes usar un ID único o el mismo ID del documento principal
+        .set({
+      'progreso2': _progresoController.text,
+      'date_update': dateTime,
+      'reason2': _reasonController.text,
+      'costo': _costController.text,
+      'descriptionService': _descriptionController.text,
+      'status2': 'Completado',
+    }, SetOptions(merge: true));
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(widget._appointment.id)
+        .set({
+      'progreso': _progresoController.text,
+      'date_update': dateTime,
+      'reason': _reasonController.text,
+      'status': 'Completado',
+    }, SetOptions(merge: true));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TrackingPageAD()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool Diagnostico = false;
+    if (widget._appointment.status2 == 'Diagnostico') {
+      Diagnostico = true;
+    } else {
+      Diagnostico = false;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -164,27 +283,29 @@ class _TrackFormADState extends State<TrackFormAD> {
                   const SizedBox(
                     height: 24,
                   ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        const Text(
-                          "¿Incluye Diagnóstico?",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        Checkbox(
-                          value:
-                              _includeDiagnostic, // Add a boolean variable to store the checkbox state
-                          onChanged: (value) {
-                            setState(() {
-                              _includeDiagnostic = value!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                  Diagnostico
+                      ? Container(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            children: [
+                              const Text(
+                                "¿Incluye Diagnóstico?",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              Checkbox(
+                                value:
+                                    _includeDiagnostic, // Add a boolean variable to store the checkbox state
+                                onChanged: (value) {
+                                  setState(() {
+                                    _includeDiagnostic = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container(),
                   const SizedBox(
                     height: 30,
                   ),
@@ -271,7 +392,7 @@ class _TrackFormADState extends State<TrackFormAD> {
                                   }
                                   return null;
                                 },
-                                onSaved: (value) => _reason = value!,
+                                controller: _descriptionController,
                               ),
                               const SizedBox(
                                 height: 20,
@@ -298,7 +419,7 @@ class _TrackFormADState extends State<TrackFormAD> {
                                   }
                                   return null;
                                 },
-                                onSaved: (value) => _reason = value!,
+                                controller: _costController,
                               ),
                               const SizedBox(
                                 height: 20,
@@ -344,27 +465,6 @@ class _TrackFormADState extends State<TrackFormAD> {
                           ),
                         )
                       : Container(),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        const Text(
-                          "¿El servicio ha finalizado?",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        Checkbox(
-                          value:
-                              _includeDiagnostic, // Add a boolean variable to store the checkbox state
-                          onChanged: (value) {
-                            setState(() {
-                              _includeDiagnostic = value!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
                   const SizedBox(
                     height: 50,
                   ),
