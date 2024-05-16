@@ -284,29 +284,27 @@ class _TrackFormADState extends State<TrackFormAD> {
                   const SizedBox(
                     height: 24,
                   ),
-                  Diagnostico
-                      ? Container(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            children: [
-                              const Text(
-                                "¿Incluye Diagnóstico?",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                              Checkbox(
-                                value:
-                                    _includeDiagnostic, // Add a boolean variable to store the checkbox state
-                                onChanged: (value) {
-                                  setState(() {
-                                    _includeDiagnostic = value!;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        )
-                      : Container(),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        const Text(
+                          "¿Incluye Diagnóstico?",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Checkbox(
+                          value:
+                              _includeDiagnostic, // Add a boolean variable to store the checkbox state
+                          onChanged: (value) {
+                            setState(() {
+                              _includeDiagnostic = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -431,7 +429,7 @@ class _TrackFormADState extends State<TrackFormAD> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              Container(
+                             /* Container(
                                 alignment: Alignment.centerLeft,
                                 child: const Text(
                                   "Imagenes adjuntas:",
@@ -464,10 +462,7 @@ class _TrackFormADState extends State<TrackFormAD> {
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 50,
-                              ),
+                              ), */
                             ],
                           ),
                         )
