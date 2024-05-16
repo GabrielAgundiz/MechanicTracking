@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mechanictracking/model/appointment.dart';
-import 'package:mechanictracking/screens/admin/trackingad.dart';
+import 'package:mechanictracking/screens/admin/homead.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
 class TrackFormAD extends StatefulWidget {
@@ -101,7 +101,7 @@ class _TrackFormADState extends State<TrackFormAD> {
     }, SetOptions(merge: true));
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => TrackingPageAD()),
+      MaterialPageRoute(builder: (context) => HomePageAD()),
     );
   }
 
@@ -134,7 +134,7 @@ class _TrackFormADState extends State<TrackFormAD> {
     }, SetOptions(merge: true));
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => TrackingPageAD()),
+      MaterialPageRoute(builder: (context) => HomePageAD()),
     );
   }
 
@@ -165,7 +165,7 @@ class _TrackFormADState extends State<TrackFormAD> {
     }, SetOptions(merge: true));
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => TrackingPageAD()),
+      MaterialPageRoute(builder: (context) => HomePageAD()),
     );
   }
 
@@ -196,7 +196,7 @@ class _TrackFormADState extends State<TrackFormAD> {
     }, SetOptions(merge: true));
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => TrackingPageAD()),
+      MaterialPageRoute(builder: (context) => HomePageAD()),
     );
   }
 
@@ -284,27 +284,29 @@ class _TrackFormADState extends State<TrackFormAD> {
                   const SizedBox(
                     height: 24,
                   ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        const Text(
-                          "¿Incluye Diagnóstico?",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        Checkbox(
-                          value:
-                              _includeDiagnostic, // Add a boolean variable to store the checkbox state
-                          onChanged: (value) {
-                            setState(() {
-                              _includeDiagnostic = value!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                  Diagnostico
+                      ? Container(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            children: [
+                              const Text(
+                                "¿Incluye Diagnóstico?",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              Checkbox(
+                                value:
+                                    _includeDiagnostic, // Add a boolean variable to store the checkbox state
+                                onChanged: (value) {
+                                  setState(() {
+                                    _includeDiagnostic = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        )
+                      : Container(),
                   const SizedBox(
                     height: 30,
                   ),
@@ -429,7 +431,7 @@ class _TrackFormADState extends State<TrackFormAD> {
                               const SizedBox(
                                 height: 20,
                               ),
-                             /* Container(
+                              /* Container(
                                 alignment: Alignment.centerLeft,
                                 child: const Text(
                                   "Imagenes adjuntas:",
