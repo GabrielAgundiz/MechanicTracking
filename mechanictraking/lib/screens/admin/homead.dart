@@ -40,7 +40,7 @@ class _HomePageADState extends State<HomePageAD> {
         selectedItemColor: selectedColor,
         unselectedItemColor: unselectedColor,
         backgroundColor: Colors.white.withOpacity(1),
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
             label: 'Citas',

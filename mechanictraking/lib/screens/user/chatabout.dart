@@ -74,13 +74,13 @@ class AboutChatPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SizedBox(height: 15,),
+                        const SizedBox(height: 15,),
                         CircleAvatar(
                           radius: 35,
                           backgroundImage: NetworkImage(
                               "https://patiodeautos.com/wp-content/uploads/2018/09/6-consejos-para-convertirte-en-un-mejor-mecanico-de-autos.jpg"),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Text(
@@ -90,7 +90,7 @@ class AboutChatPage extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               color: Colors.white),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Text(
@@ -107,7 +107,7 @@ class AboutChatPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: Colors.green[300],
                                 shape: BoxShape.circle,
@@ -245,7 +245,7 @@ class AboutChatPage extends StatelessWidget {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 10,
                                   ),
@@ -285,7 +285,7 @@ class AboutChatPage extends StatelessWidget {
                       size: 30,
                       ),
                     ),
-                    title: Text("Centro Servicio 2, Monterrey, N.L.", style: TextStyle(fontWeight: FontWeight.bold),),
+                    title: Text("Centro Servicio 1, Monterrey, N.L.", style: TextStyle(fontWeight: FontWeight.bold),),
                     subtitle: Text("DIireccion del centrop de servicio"),
                   ),
                 ],

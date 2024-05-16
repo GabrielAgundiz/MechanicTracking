@@ -28,7 +28,7 @@ class ChatSampleAD extends StatelessWidget {
         Container(
           alignment: Alignment.centerRight,
           child: Padding(
-            padding: EdgeInsets.only(top: 20, left: 80),
+            padding: const EdgeInsets.only(top: 20, left: 80),
             child: ClipPath(
               clipper: LowerNipMessageClipper(MessageType.send),
               child: Container(

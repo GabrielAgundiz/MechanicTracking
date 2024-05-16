@@ -11,7 +11,7 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Platform.isAndroid
       ? await Firebase.initializeApp(
-          options: FirebaseOptions(
+          options: const FirebaseOptions(
               apiKey: "AIzaSyCY7i4LQoMNRIwM7EOdbnFhXZSDzwCqWQo",
               appId: "1:854986044418:android:75d49e31d147f9dc8ca31b",
               messagingSenderId: "854986044418",

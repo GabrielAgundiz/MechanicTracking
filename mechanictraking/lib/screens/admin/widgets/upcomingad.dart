@@ -205,7 +205,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                       const SizedBox(width: 5),
                       Text(
                         _appointment!.status2,
-                        style: TextStyle(color: Colors.black54),
+                        style: const TextStyle(color: Colors.black54),
                       ),
                     ],
                   ),

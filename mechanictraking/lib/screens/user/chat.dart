@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/chatabout.dart';
+import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/widgets/chatsample.dart';
 
 class ChatPage extends StatelessWidget {
@@ -9,10 +10,24 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65),
+        preferredSize: const Size.fromHeight(65),
         child: AppBar(
           backgroundColor: Colors.green[300],
           leadingWidth: 30,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        HomePage()), // Navega a la página de registro.
+              );
+            },
+          ),
           title: Padding(
             padding: const EdgeInsets.only(top: 5),
             child: Row(
@@ -34,13 +49,6 @@ class ChatPage extends StatelessWidget {
             ),
           ),
           actions: [
-            GestureDetector(
-              onTap: () {},
-              child: const Padding(
-                padding: EdgeInsets.only(top: 8, right: 20),
-                child: Icon(Icons.call, color: Colors.white, size: 26),
-              ),
-            ),
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -83,17 +91,16 @@ class ChatPage extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 8),
-              child: Icon(Icons.add, size: 30),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 30),
+              padding: const EdgeInsets.only(left: 30),
               child: Container(
                 alignment: Alignment.centerRight,
                 width: 270,
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: "Mensaje...", border: InputBorder.none),
                 ),
               ),

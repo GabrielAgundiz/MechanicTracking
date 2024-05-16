@@ -128,7 +128,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                 ListTile(
                   title: Text(
                     _appointment!.auto,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(_appointment!.motivo),
                   trailing: CircleAvatar(
@@ -147,7 +147,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Row(
+                    const Row(
                       children: [
                         SizedBox(
                           width: 10,
@@ -162,31 +162,31 @@ class _CardAppointmentState extends State<CardAppointment> {
                     ),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.calendar_month,
                           color: Colors.black54,
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
                           DateFormat('dd/MM/yyyy').format(_appointment!.date),
-                          style: TextStyle(color: Colors.black54),
+                          style: const TextStyle(color: Colors.black54),
                         ),
                       ],
                     ),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.access_time_filled,
                           color: Colors.black54,
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
                           DateFormat.jm().format(_appointment!.date),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black54,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                       ],
                     ),
                   ],
@@ -203,12 +203,12 @@ class _CardAppointmentState extends State<CardAppointment> {
                       },
                       child: Container(
                         width: 300,
-                        padding: EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
                         decoration: BoxDecoration(
                           color: Colors.green[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Ver detalles",
                             style: TextStyle(
