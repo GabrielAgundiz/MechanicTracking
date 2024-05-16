@@ -55,13 +55,22 @@ class _CancelledScheduleState extends State<CancelledSchedule> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                SingleChildScrollView(
-                  child: Column(
-                    children: appointments.map((appointment) {
-                      return CardAppointment(appointment.id, appointment);
-                    }).toList(),
-                  ),
-                ),
+                appointments.length > 0
+                    ? SingleChildScrollView(
+                        child: Column(
+                          children: appointments.map((appointment) {
+                            return CardAppointment(appointment.id, appointment);
+                          }).toList(),
+                        ),
+                      )
+                    : const Column(
+                        children: [
+                          Text(
+                            "No hay citas pendientes",
+                            style: TextStyle(color: Colors.black54),
+                          )
+                        ],
+                      ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -125,7 +134,7 @@ class _CardAppointmentState extends State<CardAppointment> {
             children: [
               ListTile(
                 title: Text(
-                  _appointment!.auto, //signo porque puede ser nulo
+                  _appointment!.auto,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: Text(_appointment!.motivo),
@@ -243,7 +252,7 @@ class _CardAppointmentState extends State<CardAppointment> {
           child: const Column(
             children: [
               Text(
-                "Aun no tiene citas canceladas",
+                "No hay citas pendientes",
                 style: TextStyle(color: Colors.black54),
               )
             ],

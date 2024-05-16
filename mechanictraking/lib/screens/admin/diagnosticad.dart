@@ -201,7 +201,7 @@ class _DiagnosticPageADState extends State<DiagnosticPageAD> {
               const SizedBox(
                 height: 18,
               ),
-              Row(
+              /*Row(
                 children: [
                   Expanded(
                     flex: 3,
@@ -242,7 +242,7 @@ class _DiagnosticPageADState extends State<DiagnosticPageAD> {
                     children: _imagesList(context),
                   ),
                 ),
-              ),
+              ),*/
             ],
           ),
         ),
