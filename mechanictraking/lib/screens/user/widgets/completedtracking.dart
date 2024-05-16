@@ -34,7 +34,7 @@ class _CompletedTrackingState extends State<CompletedTracking> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Appointment>>(
-      future: AppointmentService().getAllAppointmentId(userId, "Finalizado"),
+      future: AppointmentService().getAllAppointments(userId, "Completado"),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -105,7 +105,7 @@ class _CardAppointmentState extends State<CardAppointment> {
   Widget build(BuildContext context) {
     if (_appointment == null) {
       return const Center(child: CircularProgressIndicator());
-    } else if (_appointment!.status == "Finalizado") {
+    } else if (_appointment!.status == "Completado") {
       return Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Container(
@@ -168,25 +168,26 @@ class _CardAppointmentState extends State<CardAppointment> {
                         ),
                         SizedBox(width: 5),
                         Text(
-                          DateFormat('dd/MM/yyyy').format(_appointment!.date),
+                          DateFormat('dd/MM/yyyy')
+                              .format(_appointment!.dateUpdate),
                           style: TextStyle(color: Colors.black54),
                         ),
                       ],
                     ),
                     Row(
                       children: [
-                        Icon(
-                          Icons.access_time_filled,
-                          color: Colors.black54,
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          DateFormat.jm().format(_appointment!.date),
-                          style: TextStyle(
-                            color: Colors.black54,
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: const BoxDecoration(
+                            color: Colors.green,
+                            shape: BoxShape.circle,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 5),
+                        const Text(
+                          "Completado",
+                          style: TextStyle(color: Colors.black54),
+                        ),
                       ],
                     ),
                   ],
@@ -203,12 +204,12 @@ class _CardAppointmentState extends State<CardAppointment> {
                       },
                       child: Container(
                         width: 300,
-                        padding: EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
                         decoration: BoxDecoration(
                           color: Colors.green[300],
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Ver detalles",
                             style: TextStyle(

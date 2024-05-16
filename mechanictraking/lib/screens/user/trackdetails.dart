@@ -50,7 +50,8 @@ class _TrackDetailsPageState extends State<TrackDetailsPage> {
     elemento3 = await validacion(widget._appointment.id, "Reparacion");
     elemento4 = await validacion(widget._appointment.id, "Completado");
 
-    if (widget._appointment.status == 'Completado') {
+    if (widget._appointment.status == 'Pendiente' ||
+        widget._appointment.status == 'Completado') {
       if (elemento1.status2 == 'Aceptado') {
         paso1Cumplido = true;
         setState(() {

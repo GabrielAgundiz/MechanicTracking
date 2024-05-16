@@ -212,7 +212,7 @@ class _TrackFormADState extends State<TrackFormAD> {
       appBar: AppBar(
         title: Text(
           //'Actualizar',
-          widget._appointment.id,
+          widget._appointment.auto,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),

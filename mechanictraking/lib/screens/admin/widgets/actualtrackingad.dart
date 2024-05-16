@@ -114,12 +114,6 @@ class _CardAppointmentState extends State<CardAppointment> {
     });
   }
 
-  Future<List<Appointment>> _getAppointments(String userId) async {
-    var appointments =
-        await AppointmentService().getAllAppointments(userId, "Pendiente");
-    return appointments;
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Appointment> appointments = [];

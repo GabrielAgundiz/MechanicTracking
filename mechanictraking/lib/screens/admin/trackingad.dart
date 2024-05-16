@@ -13,8 +13,8 @@ class TrackingPageAD extends StatefulWidget {
 class _TrackingPageADState extends State<TrackingPageAD> {
   int _buttonIndex = 0;
   final _ScheduleWidgets = [
-    ActualTrackingAD(),
-    CompletedTrackingAD(),
+    const ActualTrackingAD(),
+    const CompletedTrackingAD(),
   ];
 
   @override

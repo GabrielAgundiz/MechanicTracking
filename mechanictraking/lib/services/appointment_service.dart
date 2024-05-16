@@ -61,6 +61,21 @@ class AppointmentService {
     return Future.value(appointments);
   }
 
+  Future<List<Appointment>> getAllAppointmentIdTraking(
+      String userId, String status) async {
+    var result = await appointmentRef
+        .where('userId', isEqualTo: userId)
+        .where('status', isEqualTo: status)
+        .get();
+
+    List<Appointment> appointments = [];
+    for (var doc in result.docs) {
+      appointments.add(doc.data());
+    }
+    //refresa un future value de la lista de libros obtenida
+    return Future.value(appointments);
+  }
+
   Future<List<Appointment>> getAllAppointments(
       String userId, String status) async {
     var result = await appointmentRef.where('status', isEqualTo: status).get();
