@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/admin/trackingad.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
@@ -415,11 +416,17 @@ class _TrackFormADState extends State<TrackFormAD> {
                                     hintStyle: TextStyle(fontSize: 14)),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Por favor, ingrese un motivo';
+                                    return 'Por favor, ingrese un costo';
                                   }
                                   return null;
                                 },
                                 controller: _costController,
+                                keyboardType: TextInputType.numberWithOptions(
+                                    decimal: true),
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+\.?\d{0,2}$')),
+                                ],
                               ),
                               const SizedBox(
                                 height: 20,

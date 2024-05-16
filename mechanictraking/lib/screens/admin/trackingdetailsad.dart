@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
+import 'package:mechanictracking/screens/admin/diagnosticad.dart';
 import 'package:mechanictracking/screens/admin/trackformad.dart';
-import 'package:mechanictracking/screens/user/diagnostic.dart';
 import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart'
     as step;
 import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart';
@@ -402,7 +402,7 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => DiagnosticPage(appointment!, _diagnostico!)),
+          builder: (context) => DiagnosticPageAD(appointment!, _diagnostico!)),
     );
   }
 }
