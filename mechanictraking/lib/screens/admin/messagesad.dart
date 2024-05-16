@@ -99,7 +99,7 @@ class MessagesPageAD extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const Padding(
+            /*  const Padding(
                 padding: EdgeInsets.all(8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -177,7 +177,7 @@ class MessagesPageAD extends StatelessWidget {
                     );
                   }),
                 ),
-              ),
+              ), */
               const SizedBox(
                 height: 10,
               ),

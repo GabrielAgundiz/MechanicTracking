@@ -104,7 +104,7 @@ class MessagesPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const Padding(
+             /* const Padding(
                 padding: EdgeInsets.all(8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,7 +122,7 @@ class MessagesPage extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+              ), 
               SizedBox(
                 height: 90,
                 child: ListView.builder(
@@ -182,7 +182,7 @@ class MessagesPage extends StatelessWidget {
                     );
                   }),
                 ),
-              ),
+              ), */
               const SizedBox(
                 height: 10,
               ),

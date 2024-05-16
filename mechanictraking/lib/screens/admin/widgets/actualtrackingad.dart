@@ -177,7 +177,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                           width: 10,
                         ),
                         Text(
-                          "Completado: ",
+                          "Actualizado: ",
                           style: TextStyle(
                             color: Colors.black54,
                           ),
