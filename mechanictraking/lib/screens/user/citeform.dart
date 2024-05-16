@@ -53,16 +53,72 @@ class _CiteFormState extends State<CiteForm> {
     }
   }
 
-  Future<void> _selectTime() async {
-    final TimeOfDay? picked = await showTimePicker(
+  void _selectTime() async {
+    final TimeOfDay? newTime = await showTimePicker(
       context: context,
       initialTime: _selectedTime,
     );
-    if (picked != null && picked != _selectedTime) {
-      setState(() {
-        _selectedTime = picked;
-      });
+
+    if (newTime != null) {
+      final DateTime selectedDateTime = DateTime(
+        _selectedDate.year,
+        _selectedDate.month,
+        _selectedDate.day,
+        newTime.hour,
+        newTime.minute,
+      );
+
+      // Verificar si la hora seleccionada está dentro del rango permitido
+      final TimeOfDay startTime = const TimeOfDay(hour: 9, minute: 0);
+      final TimeOfDay endTime = const TimeOfDay(hour: 17, minute: 0);
+
+      if (_isTimeInRange(newTime, startTime, endTime)) {
+        setState(() {
+          _selectedTime = newTime;
+          _selectedDate = selectedDateTime;
+        });
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Hora no válida'),
+              content: const Text(
+                  'Por favor, seleccione una hora entre las 9 am y las 5 pm.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
+  }
+
+  bool _isTimeInRange(TimeOfDay time, TimeOfDay startTime, TimeOfDay endTime) {
+    final int hour = time.hour;
+    final int minute = time.minute;
+
+    final int startHour = startTime.hour;
+    final int startMinute = startTime.minute;
+
+    final int endHour = endTime.hour;
+    final int endMinute = endTime.minute;
+
+    if (hour < startHour || (hour == startHour && minute < startMinute)) {
+      return false;
+    }
+
+    if (hour > endHour || (hour == endHour && minute > endMinute)) {
+      return false;
+    }
+
+    return true;
   }
 
   Future<String> IdCiti(String userId) async {
