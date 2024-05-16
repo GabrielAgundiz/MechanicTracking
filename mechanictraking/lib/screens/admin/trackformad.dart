@@ -67,7 +67,7 @@ class _TrackFormADState extends State<TrackFormAD> {
       }
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('La cita se ha agendado correctamente'),
+          content: Text('Cambios guardados correctamente'),
         ),
       );
     }

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/user/galleryscreen.dart';
+import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
 class DiagnosticPage extends StatefulWidget {
@@ -14,6 +16,50 @@ class DiagnosticPage extends StatefulWidget {
 }
 
 class _DiagnosticPageState extends State<DiagnosticPage> {
+  void setAppointment(Appointment appointment) {}
+
+  Future<void> _cancelCite() async {
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(widget._appointment!.id)
+        .update({'status': 'Cancelado'});
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('La cita se ha cancelado correctamente'),
+      ),
+    );
+    setState(() {});
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ),
+    );
+  }
+
+  Future<void> _acceptCite() async {
+    await FirebaseFirestore.instance
+        .collection('citas')
+        .doc(widget._appointment!.id)
+        .update({
+      'costo': "Aceptado",
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('La cotización se ha aceptado correctamente'),
+      ),
+    );
+    setState(() {});
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,6 +200,60 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
               ),
               const SizedBox(
                 height: 18,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      _cancelCite();
+                    },
+                    child: Container(
+                      width: 150,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Rechazar cotizacion",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      _acceptCite();
+                    },
+                    child: Container(
+                      width: 150,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.green[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Aceptar Cotización",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 14,
               ),
               Row(
                 children: [

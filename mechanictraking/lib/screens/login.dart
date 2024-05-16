@@ -27,17 +27,33 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> checkCurrentUser() async {
     final user = FirebaseAuth.instance.currentUser;
+
     if (user != null && await _isUserAuthenticated(user)) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      final credencial = user.uid;
+      final userDoc = await FirebaseFirestore.instance
+          .collection('admin')
+          .doc(credencial)
+          .get();
+      print(userDoc.id);
+
+      if (userDoc.exists) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => HomePageAD()),
+          (route) => false, // Elimina todas las rutas de navegación anteriores
+        );
+      } else {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+          (route) => false, // Elimina todas las rutas de navegación anteriores
+        );
+      }
     }
   }
 
   Future<bool> _isUserAuthenticated(User user) async {
     await user.reload();
-    user = FirebaseAuth.instance.currentUser!;
     return user
         .emailVerified; // Verifica si el correo electrónico del usuario ha sido verificado
   }

@@ -58,7 +58,15 @@ class _ActualTrackingADState extends State<ActualTrackingAD> {
                 SingleChildScrollView(
                   child: Column(
                     children: appointments.map((appointment) {
-                      return CardAppointment(appointment.id, appointment);
+                      if (appointment.costo == "Aceptado") {
+                        return CardAppointment(appointment.id, appointment);
+                      } else if (appointment.costo != "Aceptado" &&
+                          appointment.status2 != "Reparacion") {
+                        return CardAppointment(appointment.id,
+                            appointment); // O cualquier otro widget que no ocupe espacio
+                      } else {
+                        return SizedBox.shrink();
+                      }
                     }).toList(),
                   ),
                 ),
