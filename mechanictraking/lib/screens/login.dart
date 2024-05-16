@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al iniciar sesión, intente de nuevo')),
+          const SnackBar(content: Text('Error al iniciar sesión, intente de nuevo')),
         );
       }
     }
@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Accede',
                     style: TextStyle(
                       fontSize: 32,
@@ -223,10 +223,10 @@ class _LoginPageState extends State<LoginPage> {
                             builder: (context) => RecoverPasswordPage()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       '¿Olvidaste tu contraseña?',
                       style: TextStyle(
-                        color: const Color(0xFF5DB075),
+                        color:  Color(0xFF5DB075),
                       ),
                     ),
                   ),
@@ -239,7 +239,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     },
                     child: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         text: '¿Aún no tienes una cuenta? ',
                         style: TextStyle(
                           fontSize: 16,
@@ -250,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
                             text: 'Regístrate',
                             style: TextStyle(
                               fontSize: 16,
-                              color: const Color(0xFF5DB075),
+                              color: Color(0xFF5DB075),
                             ),
                           ),
                         ],

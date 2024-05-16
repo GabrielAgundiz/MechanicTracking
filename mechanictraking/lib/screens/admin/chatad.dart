@@ -9,12 +9,12 @@ class ChatPageAD extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65),
+        preferredSize: const Size.fromHeight(65),
         child: AppBar(
           backgroundColor: Colors.green[300],
           leadingWidth: 30,
-          title: Padding(
-            padding: const EdgeInsets.only(top: 5),
+          title: const Padding(
+            padding:  EdgeInsets.only(top: 5),
             child: Row(
               children: [
                 CircleAvatar(
@@ -93,7 +93,7 @@ class ChatPageAD extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 width: 270,
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: "Mensaje...", border: InputBorder.none),
                 ),
               ),

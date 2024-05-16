@@ -127,7 +127,7 @@ class _SchedulePageADState extends State<SchedulePageAD> {
                             )),
                       ),
                     ),
-                    SizedBox(width: 10), // Espaciado entre los botones
+                    const SizedBox(width: 10), // Espaciado entre los botones
                     InkWell(
                       onTap: () {
                         setState(() {

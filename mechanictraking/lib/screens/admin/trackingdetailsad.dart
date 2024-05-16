@@ -112,12 +112,12 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
                         height: 20,
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 60),
+                        padding: const EdgeInsets.symmetric(horizontal: 60),
                         child: Column(
                           children: [
                             Text(
                               widget._appointment.auto,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -131,7 +131,7 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
                         height: 20,
                       ),
                       if (steps.isEmpty)
-                        Text('No hay información')
+                        const Text('No hay información')
                       else
                         Column(
                           children: [_creacionStepper(steps)],
@@ -203,13 +203,13 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
                     Text(
                       DateFormat('dd/MM/yyyy').format(diagnostico.dateUpdate),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black54),
+                      style: const TextStyle(color: Colors.black54),
                     ),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 15),
                     Text(
                       DateFormat.jm().format(diagnostico.dateUpdate),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black54),
+                      style: const TextStyle(color: Colors.black54),
                     ),
                   ],
                 ),
@@ -247,13 +247,13 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
                     Text(
                       DateFormat('dd/MM/yyyy').format(diagnostico2.dateUpdate),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black54),
+                      style: const TextStyle(color: Colors.black54),
                     ),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 15),
                     Text(
                       DateFormat.jm().format(diagnostico2.dateUpdate),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black54),
+                      style: const TextStyle(color: Colors.black54),
                     ),
                   ],
                 ),
@@ -291,13 +291,13 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
                     Text(
                       DateFormat('dd/MM/yyyy').format(diagnostico3.dateUpdate),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black54),
+                      style: const TextStyle(color: Colors.black54),
                     ),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 15),
                     Text(
                       DateFormat.jm().format(diagnostico3.dateUpdate),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black54),
+                      style: const TextStyle(color: Colors.black54),
                     ),
                   ],
                 ),
@@ -367,13 +367,13 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
                     Text(
                       DateFormat('dd/MM/yyyy').format(diagnostico4.dateUpdate),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black54),
+                      style: const TextStyle(color: Colors.black54),
                     ),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 15),
                     Text(
                       DateFormat.jm().format(diagnostico4.dateUpdate),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black54),
+                      style: const TextStyle(color: Colors.black54),
                     ),
                   ],
                 ),

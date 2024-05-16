@@ -183,7 +183,7 @@ class MessagesPage extends StatelessWidget {
                   }),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               const Padding(
@@ -206,7 +206,7 @@ class MessagesPage extends StatelessWidget {
                 ),
               ),
               ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 6,
                 shrinkWrap: true,
                 itemBuilder: ((context, index) {

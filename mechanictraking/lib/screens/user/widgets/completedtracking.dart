@@ -128,7 +128,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                 ListTile(
                   title: Text(
                     _appointment!.auto,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(_appointment!.motivo),
                   trailing: CircleAvatar(
@@ -147,7 +147,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Row(
+                    const Row(
                       children: [
                         SizedBox(
                           width: 10,
@@ -162,15 +162,15 @@ class _CardAppointmentState extends State<CardAppointment> {
                     ),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.calendar_month,
                           color: Colors.black54,
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
                           DateFormat('dd/MM/yyyy')
                               .format(_appointment!.dateUpdate),
-                          style: TextStyle(color: Colors.black54),
+                          style: const TextStyle(color: Colors.black54),
                         ),
                       ],
                     ),
