@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
-import 'package:mechanictracking/screens/user/trackdetails.dart';
+import 'package:mechanictracking/screens/user/trackdetailsComplete.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
 
 class CompletedTracking extends StatefulWidget {
@@ -55,7 +55,7 @@ class _CompletedTrackingState extends State<CompletedTracking> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                 appointments.length > 0
+                appointments.length > 0
                     ? SingleChildScrollView(
                         child: Column(
                           children: appointments.map((appointment) {
@@ -278,7 +278,8 @@ class _CardAppointmentState extends State<CardAppointment> {
   void _openTrackingDetails(BuildContext context, Appointment? appointment) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => TrackDetailsPage(appointment!)),
+      MaterialPageRoute(
+          builder: (context) => TrackDetailsPageComplete(appointment!)),
     );
   }
 }
