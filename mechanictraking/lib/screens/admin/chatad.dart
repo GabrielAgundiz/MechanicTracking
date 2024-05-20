@@ -91,7 +91,7 @@ class ChatPageAD extends StatelessWidget {
               padding: const EdgeInsets.only(left: 30),
               child: Container(
                 alignment: Alignment.centerRight,
-                width: 270,
+                width: 250,
                 child: TextFormField(
                   decoration: const InputDecoration(
                       hintText: "Mensaje...", border: InputBorder.none),

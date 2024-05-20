@@ -77,7 +77,7 @@ class _TrackingPageState extends State<TrackingPage> {
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 60),
+                                vertical: 12, horizontal: 50),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               color: _buttonIndex == 0
@@ -102,7 +102,7 @@ class _TrackingPageState extends State<TrackingPage> {
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 50),
+                                vertical: 12, horizontal: 30),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               color: _buttonIndex == 1

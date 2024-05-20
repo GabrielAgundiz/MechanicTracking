@@ -83,7 +83,7 @@ class _TrackingPageADState extends State<TrackingPageAD> {
                                   ? Colors.green[300]
                                   : Colors.grey[100],
                             ),
-                            child: Text("Proximos",
+                            child: Text("Actuales",
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -101,7 +101,7 @@ class _TrackingPageADState extends State<TrackingPageAD> {
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 50),
+                                vertical: 12, horizontal: 30),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               color: _buttonIndex == 1

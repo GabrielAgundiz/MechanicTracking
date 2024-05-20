@@ -98,16 +98,16 @@ class ChatPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 30),
               child: Container(
                 alignment: Alignment.centerRight,
-                width: 270,
+                width: 250,
                 child: TextFormField(
                   decoration: const InputDecoration(
                       hintText: "Mensaje...", border: InputBorder.none),
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
-              padding: EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.only(right: 10),
               child: Icon(
                 Icons.send,
                 size: 30,

@@ -83,7 +83,7 @@ class _SchedulePageState extends State<SchedulePage> {
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 20),
+                            vertical: 12, horizontal: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: _buttonIndex == 0
@@ -100,7 +100,7 @@ class _SchedulePageState extends State<SchedulePage> {
                             )),
                       ),
                     ),
-                    const SizedBox(width: 10), // Espaciado entre los botones
+                    const SizedBox(width: 5), // Espaciado entre los botones
                     InkWell(
                       onTap: () {
                         setState(() {
@@ -109,7 +109,7 @@ class _SchedulePageState extends State<SchedulePage> {
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 20),
+                            vertical: 12, horizontal: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: _buttonIndex == 1
@@ -126,7 +126,7 @@ class _SchedulePageState extends State<SchedulePage> {
                             )),
                       ),
                     ),
-                    const SizedBox(width: 10), // Espaciado entre los botones
+                    const SizedBox(width: 5), // Espaciado entre los botones
                     InkWell(
                       onTap: () {
                         setState(() {
@@ -135,7 +135,7 @@ class _SchedulePageState extends State<SchedulePage> {
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 20),
+                            vertical: 12, horizontal: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: _buttonIndex == 2

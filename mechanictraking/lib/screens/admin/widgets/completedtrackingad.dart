@@ -198,27 +198,28 @@ class _CardAppointmentState extends State<CardAppointment> {
                           Icons.calendar_month,
                           color: Colors.black54,
                         ),
-                        const SizedBox(width: 5),
+                        const SizedBox(width: 3),
                         Text(
                           DateFormat('dd/MM/yyyy').format(_appointment!.date),
                           style: const TextStyle(color: Colors.black54),
                         ),
                       ],
                     ),
+                    const SizedBox(width: 3),
                     Row(
                       children: [
                         const Icon(
                           Icons.access_time_filled,
                           color: Colors.black54,
                         ),
-                        const SizedBox(width: 5),
+                        const SizedBox(width: 3),
                         Text(
                           DateFormat.jm().format(_appointment!.date),
                           style: const TextStyle(
                             color: Colors.black54,
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        
                       ],
                     ),
                   ],

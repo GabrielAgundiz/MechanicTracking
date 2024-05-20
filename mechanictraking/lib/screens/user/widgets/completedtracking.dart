@@ -206,22 +206,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: const BoxDecoration(
-                            color: Colors.green,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        const Text(
-                          "Completado",
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ],
-                    ),
+                    
                   ],
                 ),
                 const SizedBox(
