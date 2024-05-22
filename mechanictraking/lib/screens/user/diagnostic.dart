@@ -51,6 +51,16 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
     }
   }
 
+  Future<String> getUserEmailMecanico(String userId) async {
+    var userDoc =
+        await FirebaseFirestore.instance.collection('admin').doc(userId).get();
+    if (userDoc.exists) {
+      return userDoc.data()!['email'];
+    } else {
+      return '';
+    }
+  }
+
   Future<void> _acceptCite() async {
     await FirebaseFirestore.instance
         .collection('citas')
@@ -59,8 +69,13 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
       'costo': "Aceptado",
     });
     String userEmail = await getUserEmail(widget._appointment.userId);
+    //String userEmailMecanico = await getUserEmail(widget._appointment.userId);
     EmailSender.sendMailFromGmailDiagnostico(userEmail);
-
+    String userEmailMecanico =
+        await getUserEmailMecanico(widget._appointment.idMecanico);
+    EmailSender.sendMailFromGmailMecanico(
+        userEmailMecanico, widget._appointment.auto);
+    //EmailSender.sendMailFromGmailDiagnostico(userEmailMecanico);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('La cotización se ha aceptado correctamente'),
@@ -363,6 +378,26 @@ class EmailSender {
       ..subject = 'Confirmación de diagnostico'
       ..html =
           '<body style="text-align: center; font-family: Tahoma, Geneva, Verdana, sans-serif;"> <div style="margin:auto; border-radius: 10px; width: 300px; padding: 10px; box-shadow: 1px 1px 1px 1px rgb(174, 174, 174);"> <h2>Confirmacion de aceptación de diagnostico</h2> <p>Ha aceptado el diagnostico de reparacion de su vehiculo. El vehiculo entrará en la lista de reparación de inmediato</p><p>Este al pendiente de las actualizaciones del estatus de su vehiculo.</p></div></body>';
+
+    try {
+      final sendReport = await send(message, gmailSmtp);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
+
+  static Future<void> sendMailFromGmailMecanico(
+      String userEmail, String auto) async {
+    final message = Message()
+      ..from = Address(dotenv.env["GMAIL_EMAIL"]!, 'MechanicTracking')
+      ..recipients.add(userEmail)
+      ..subject = 'Confirmación de cita'
+      ..html =
+          '<body style="text-align: center; font-family: Tahoma, Geneva, Verdana, sans-serif;"> <div style="margin:auto; border-radius: 10px; width: 300px; padding: 10px; box-shadow: 1px 1px 1px 1px rgb(174, 174, 174);"> <h2>Nueva cotización aceptada</h2> <p>Hola,</p><p>Un nuevo cliente ha aceptado la cotizacipón propuesta.</p><p>Automovil de la cotización aceptada: $auto</p></div></body>';
 
     try {
       final sendReport = await send(message, gmailSmtp);

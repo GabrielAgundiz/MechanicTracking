@@ -13,6 +13,7 @@ class Appointment {
   final String progreso2;
   final String reason2;
   final String userId;
+  final String idMecanico;
 
   Appointment(
       this.id,
@@ -26,7 +27,8 @@ class Appointment {
       this.status2,
       this.progreso2,
       this.reason2,
-      this.userId);
+      this.userId,
+      this.idMecanico);
 
   factory Appointment.fromJson(String id, Map<String, dynamic> json) {
     return Appointment(
@@ -42,6 +44,7 @@ class Appointment {
       json['progreso2'] as String,
       json['reason2'] as String,
       json['userId'] as String,
+      json['idMecanico'] as String,
     );
   }
   toJson() {

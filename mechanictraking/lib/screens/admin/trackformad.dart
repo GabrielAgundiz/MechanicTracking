@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -32,6 +33,19 @@ class _TrackFormADState extends State<TrackFormAD> {
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = const TimeOfDay(hour: 8, minute: 0);
 
+  late String userId;
+
+  Future<void> getUserId() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        userId = user.uid;
+      });
+    } else {
+      userId = '';
+    }
+  }
+
   late TextEditingController _progresoController;
   late TextEditingController _reasonController;
   late TextEditingController _descriptionController;
@@ -50,6 +64,7 @@ class _TrackFormADState extends State<TrackFormAD> {
   @override
   void initState() {
     super.initState();
+    getUserId();
     _progresoController = TextEditingController();
     _reasonController = TextEditingController();
     _descriptionController = TextEditingController();
@@ -147,10 +162,13 @@ class _TrackFormADState extends State<TrackFormAD> {
       'costo': _costController.text,
       'descriptionService': _descriptionController.text,
       'status2': 'Diagnostico',
+      'idMecanico': userId,
     }, SetOptions(merge: true));
     // Obtener el email del usuario
     String userEmail = await getUserEmail(widget._appointment.userId);
+
     EmailSender.sendMailFromGmailRevision(userEmail);
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HomePageAD()),
@@ -173,6 +191,7 @@ class _TrackFormADState extends State<TrackFormAD> {
       'descriptionService': _descriptionController.text,
       'status2': 'Reparacion',
     }, SetOptions(merge: true));
+
     await FirebaseFirestore.instance
         .collection('citas')
         .doc(widget._appointment.id)
@@ -185,6 +204,7 @@ class _TrackFormADState extends State<TrackFormAD> {
     // Obtener el email del usuario
     String userEmail = await getUserEmail(widget._appointment.userId);
     EmailSender.sendMailFromGmailDiagnostico(userEmail);
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HomePageAD()),

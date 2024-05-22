@@ -159,6 +159,7 @@ class _CiteFormState extends State<CiteForm> {
         'progreso2': '',
         'date_update': dateTime,
         'costo': "",
+        'idMecanico': "",
         'descriptionService': "",
       });
 
