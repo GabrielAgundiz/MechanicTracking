@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/admin/homead.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
@@ -33,6 +36,16 @@ class _TrackFormADState extends State<TrackFormAD> {
   late TextEditingController _reasonController;
   late TextEditingController _descriptionController;
   late TextEditingController _costController;
+
+  Future<String> getUserEmail(String userId) async {
+    var userDoc =
+        await FirebaseFirestore.instance.collection('client').doc(userId).get();
+    if (userDoc.exists) {
+      return userDoc.data()!['email'];
+    } else {
+      return '';
+    }
+  }
 
   @override
   void initState() {
@@ -99,6 +112,9 @@ class _TrackFormADState extends State<TrackFormAD> {
       'reason': _reasonController.text,
       'status2': 'Aceptado',
     }, SetOptions(merge: true));
+    // Obtener el email del usuario
+    String userEmail = await getUserEmail(widget._appointment.userId);
+    EmailSender.sendMailFromGmailAceptado(userEmail);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HomePageAD()),
@@ -132,6 +148,9 @@ class _TrackFormADState extends State<TrackFormAD> {
       'descriptionService': _descriptionController.text,
       'status2': 'Diagnostico',
     }, SetOptions(merge: true));
+    // Obtener el email del usuario
+    String userEmail = await getUserEmail(widget._appointment.userId);
+    EmailSender.sendMailFromGmailRevision(userEmail);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HomePageAD()),
@@ -163,6 +182,9 @@ class _TrackFormADState extends State<TrackFormAD> {
       'reason': _reasonController.text,
       'status2': 'Reparacion',
     }, SetOptions(merge: true));
+    // Obtener el email del usuario
+    String userEmail = await getUserEmail(widget._appointment.userId);
+    EmailSender.sendMailFromGmailDiagnostico(userEmail);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HomePageAD()),
@@ -194,6 +216,9 @@ class _TrackFormADState extends State<TrackFormAD> {
       'reason': _reasonController.text,
       'status': 'Completado',
     }, SetOptions(merge: true));
+    // Obtener el email del usuario
+    String userEmail = await getUserEmail(widget._appointment.userId);
+    EmailSender.sendMailFromGmailCompletado(userEmail);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => HomePageAD()),
@@ -528,5 +553,105 @@ class _TrackFormADState extends State<TrackFormAD> {
         ),
       ),
     );
+  }
+}
+
+class EmailSender {
+  static final gmailSmtp =
+      gmail(dotenv.env["GMAIL_EMAIL"]!, dotenv.env["GMAIL_PASSWORD"]!);
+
+  static Future<void> sendMailFromGmailAceptado(String userEmail) async {
+    final message = Message()
+      ..from = Address(dotenv.env["GMAIL_EMAIL"]!, 'MechanicTracking')
+      ..recipients.add(userEmail)
+      ..subject = 'Confirmación de cita'
+      ..html =
+          '<body style="text-align: center; font-family: Tahoma, Geneva, Verdana, sans-serif;"> <div style="margin:auto; border-radius: 10px; width: 300px; padding: 10px; box-shadow: 1px 1px 1px 1px rgb(174, 174, 174);"> <h2>Cita aceptada</h2> <p>Hola<p>Su cita ha sido aceptada dentro del taller mecanico. Espere a nuevas actualizaciones para saber sobre el estatus de su vehiculo</p></div></body>';
+
+    try {
+      final sendReport = await send(message, gmailSmtp);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
+
+  static Future<void> sendMailFromGmailRevision(String userEmail) async {
+    final message = Message()
+      ..from = Address(dotenv.env["GMAIL_EMAIL"]!, 'MechanicTracking')
+      ..recipients.add(userEmail)
+      ..subject = 'Confirmación de cita'
+      ..html =
+          '<body style="text-align: center; font-family: Tahoma, Geneva, Verdana, sans-serif;"> <div style="margin:auto; border-radius: 10px; width: 300px; padding: 10px; box-shadow: 1px 1px 1px 1px rgb(174, 174, 174);"> <h2>Vehiculo en revision</h2> <p>Hola,</p><p>Su vehiculo ha entrado en el proceso de revision.</p><p> Espere a nuevas actualizaciones para saber sobre el estatus de su vehiculo.</p></div></body>';
+
+    try {
+      final sendReport = await send(message, gmailSmtp);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
+
+  static Future<void> sendMailFromGmailDiagnostico(String userEmail) async {
+    final message = Message()
+      ..from = Address(dotenv.env["GMAIL_EMAIL"]!, 'MechanicTracking')
+      ..recipients.add(userEmail)
+      ..subject = 'Confirmación de cita'
+      ..html =
+          '<body style="text-align: center; font-family: Tahoma, Geneva, Verdana, sans-serif;"> <div style="margin:auto; border-radius: 10px; width: 300px; padding: 10px; box-shadow: 1px 1px 1px 1px rgb(174, 174, 174);"> <h2>Vehiculo diagnosticado</h2> <p>Hola,</p><p>Su vehiculo ha sido diagnosticado.</p><p> Revise la cotización dentro de la aplicacion y acepte o rechace la misma.</p></div></body>';
+
+    try {
+      final sendReport = await send(message, gmailSmtp);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
+
+  static Future<void> sendMailFromGmailReparacion(String userEmail) async {
+    final message = Message()
+      ..from = Address(dotenv.env["GMAIL_EMAIL"]!, 'MechanicTracking')
+      ..recipients.add(userEmail)
+      ..subject = 'Confirmación de cita'
+      ..html =
+          '<body style="text-align: center; font-family: Tahoma, Geneva, Verdana, sans-serif;"> <div style="margin:auto; border-radius: 10px; width: 300px; padding: 10px; box-shadow: 1px 1px 1px 1px rgb(174, 174, 174);"> <h2>Vehiculo en reparacion</h2> <p>Hola,</p><p>Su vehiculo ha entrado en el proceso de reparacion.</p><p> Este al pendiente de las nuevas actualizaciones del estatus de su vehiculo.</p></div></body>';
+
+    try {
+      final sendReport = await send(message, gmailSmtp);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
+
+  static Future<void> sendMailFromGmailCompletado(String userEmail) async {
+    final message = Message()
+      ..from = Address(dotenv.env["GMAIL_EMAIL"]!, 'MechanicTracking')
+      ..recipients.add(userEmail)
+      ..subject = 'Confirmación de cita'
+      ..html =
+          '<body style="text-align: center; font-family: Tahoma, Geneva, Verdana, sans-serif;"> <div style="margin:auto; border-radius: 10px; width: 300px; padding: 10px; box-shadow: 1px 1px 1px 1px rgb(174, 174, 174);"> <h2>Reparación completada</h2> <p>Hola,</p><p>Su vehiculo ha terminado con el proceso de reparación. Por favor pase por el al taller mecanico</p></div></body>';
+
+    try {
+      final sendReport = await send(message, gmailSmtp);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
   }
 }

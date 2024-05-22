@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/user/galleryscreen.dart';
 import 'package:mechanictracking/screens/user/home.dart';
@@ -38,6 +41,16 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
     );
   }
 
+  Future<String> getUserEmail(String userId) async {
+    var userDoc =
+        await FirebaseFirestore.instance.collection('client').doc(userId).get();
+    if (userDoc.exists) {
+      return userDoc.data()!['email'];
+    } else {
+      return '';
+    }
+  }
+
   Future<void> _acceptCite() async {
     await FirebaseFirestore.instance
         .collection('citas')
@@ -45,6 +58,8 @@ class _DiagnosticPageState extends State<DiagnosticPage> {
         .update({
       'costo': "Aceptado",
     });
+    String userEmail = await getUserEmail(widget._appointment.userId);
+    EmailSender.sendMailFromGmailDiagnostico(userEmail);
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -336,3 +351,27 @@ List images = [
   "https://www.apeseg.org.pe/wp-content/uploads/2021/07/GettyImages-1306026621.jpg",
   "https://proautos.com.co/wp-content/uploads/2023/08/10-Ventajas-de-reparar-el-motor-de-tu-auto_1-1080x675.jpg",
 ];
+
+class EmailSender {
+  static final gmailSmtp =
+      gmail(dotenv.env["GMAIL_EMAIL"]!, dotenv.env["GMAIL_PASSWORD"]!);
+
+  static Future<void> sendMailFromGmailDiagnostico(String userEmail) async {
+    final message = Message()
+      ..from = Address(dotenv.env["GMAIL_EMAIL"]!, 'MechanicTracking')
+      ..recipients.add(userEmail)
+      ..subject = 'Confirmación de diagnostico'
+      ..html =
+          '<body style="text-align: center; font-family: Tahoma, Geneva, Verdana, sans-serif;"> <div style="margin:auto; border-radius: 10px; width: 300px; padding: 10px; box-shadow: 1px 1px 1px 1px rgb(174, 174, 174);"> <h2>Confirmacion de aceptación de diagnostico</h2> <p>Ha aceptado el diagnostico de reparacion de su vehiculo. El vehiculo entrará en la lista de reparación de inmediato</p><p>Este al pendiente de las actualizaciones del estatus de su vehiculo.</p></div></body>';
+
+    try {
+      final sendReport = await send(message, gmailSmtp);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
+}
