@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
@@ -50,6 +53,16 @@ class _CiteFormState extends State<CiteForm> {
       setState(() {
         _selectedDate = picked;
       });
+    }
+  }
+
+  Future<String> getUserEmail(String userId) async {
+    var userDoc =
+        await FirebaseFirestore.instance.collection('client').doc(userId).get();
+    if (userDoc.exists) {
+      return userDoc.data()!['email'];
+    } else {
+      return '';
     }
   }
 
@@ -146,10 +159,10 @@ class _CiteFormState extends State<CiteForm> {
         'progreso2': '',
         'date_update': dateTime,
         'costo': "",
+        'idMecanico': "",
         'descriptionService': "",
       });
 
-      // Crear la subcolección 'citasDiagnostico' dentro del documento de la nueva cita
       await appointmentRef.collection('citasDiagnostico').doc('Aceptado').set({
         'progreso2': "",
         'date_update': dateTime,
@@ -188,6 +201,10 @@ class _CiteFormState extends State<CiteForm> {
         'descriptionService': "",
         'status2': '',
       }, SetOptions(merge: true));
+// Obtener el email del usuario
+      String userEmail = await getUserEmail(userId);
+
+      EmailSender.sendMailFromGmail(userEmail);
 
       Navigator.pushReplacement(
         context,
@@ -345,6 +362,7 @@ class _CiteFormState extends State<CiteForm> {
                       InkWell(
                         onTap: () async {
                           await _saveCite();
+                          //sendMail();
                           setState(
                               () {}); // Actualiza la pantalla después de guardar la cita
                         },
@@ -376,5 +394,29 @@ class _CiteFormState extends State<CiteForm> {
         ),
       ),
     );
+  }
+}
+
+class EmailSender {
+  static final gmailSmtp =
+      gmail(dotenv.env["GMAIL_EMAIL"]!, dotenv.env["GMAIL_PASSWORD"]!);
+
+  static Future<void> sendMailFromGmail(String userEmail) async {
+    final message = Message()
+      ..from = Address(dotenv.env["GMAIL_EMAIL"]!, 'MechanicTracking')
+      ..recipients.add(userEmail)
+      ..subject = 'Confirmación de cita'
+      ..html =
+          '<body style="text-align: center; font-family: Tahoma, Geneva, Verdana, sans-serif;"> <div style="margin:auto; border-radius: 10px; width: 300px; padding: 10px; box-shadow: 1px 1px 1px 1px rgb(174, 174, 174);"> <h2>Hola, se ha agendado la cita en la lista de espera del taller mecanico</h2> <p>Espere a nuevas actualizaciones para saber sobre su estatus</p></div></body>';
+
+    try {
+      final sendReport = await send(message, gmailSmtp);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
   }
 }

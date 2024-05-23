@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mechanictracking/screens/login.dart';
 import 'package:mechanictracking/screens/user/home.dart';
 
 // Función principal que se ejecuta cuando se inicia la aplicación
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   Platform.isAndroid
       ? await Firebase.initializeApp(
           options: const FirebaseOptions(
@@ -17,6 +19,7 @@ Future main() async {
               messagingSenderId: "854986044418",
               projectId: "mechanictracking"))
       : await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
