@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/model/appointment.dart';
+import 'package:mechanictracking/screens/admin/widgets/whatsappbuttonad.dart';
 import 'package:mechanictracking/screens/user/galleryscreen.dart';
 import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
@@ -69,6 +70,7 @@ class _DiagnosticPageADState extends State<DiagnosticPageAD> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
+      bottomNavigationBar: WhatsappButtonAD(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
