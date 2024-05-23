@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mechanictracking/screens/user/chat.dart';
+//import 'package:mechanictracking/screens/user/chat.dart';
 //import 'package:mechanictracking/screens/user/feed.dart'; // Importando la pantalla de alimentación
-import 'package:mechanictracking/screens/user/messages.dart';
+//import 'package:mechanictracking/screens/user/messages.dart';
 import 'package:mechanictracking/screens/user/profile2.dart';
 import 'package:mechanictracking/screens/user/schedule.dart';
 import 'package:mechanictracking/screens/user/tracking.dart'; // Importando la pantalla de perfil
