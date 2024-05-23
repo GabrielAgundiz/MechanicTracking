@@ -114,27 +114,30 @@ class _TrackDetailsPageState extends State<TrackDetailsPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 60),
-                        child: Column(
-                          children: [
-                            Text(
-                              widget._appointment.auto,
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 60),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                widget._appointment.auto,
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(widget._appointment.motivo),
-                          ],
+                              Text(widget._appointment.motivo),
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       if (steps.isEmpty)
-                        const Text('No hay información')
+                        const Center(child: Text('No hay información'))
                       else
                         Column(
                           children: [_creacionStepper(steps)],
