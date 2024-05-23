@@ -14,6 +14,7 @@ class ActualTrackingAD extends StatefulWidget {
 
 class _ActualTrackingADState extends State<ActualTrackingAD> {
   late String userId;
+
   @override
   void initState() {
     super.initState();
@@ -65,7 +66,7 @@ class _ActualTrackingADState extends State<ActualTrackingAD> {
                         return CardAppointment(appointment.id,
                             appointment); // O cualquier otro widget que no ocupe espacio
                       } else {
-                        return SizedBox.shrink();
+                        return Container();
                       }
                     }).toList(),
                   ),
@@ -145,8 +146,7 @@ class _CardAppointmentState extends State<CardAppointment> {
               ),
             ],
           ),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
+          
             child: Column(
               children: [
                 ListTile(
@@ -155,7 +155,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(_appointment!.motivo),
-                  trailing: CircleAvatar(
+                  trailing: const CircleAvatar(
                     radius: 25,
                     backgroundImage: NetworkImage(
                         "https://patiodeautos.com/wp-content/uploads/2018/09/6-consejos-para-convertirte-en-un-mejor-mecanico-de-autos.jpg"),
@@ -252,20 +252,13 @@ class _CardAppointmentState extends State<CardAppointment> {
               ],
             ),
           ),
-        ),
+     
       );
     } else {
       if (appointments.isEmpty) {
-        return const Column(
-          children: [
-            Text(
-              "",
-              style: TextStyle(color: Colors.black54),
-            )
-          ],
-        );
+        return Container();
       } else {
-        return const SizedBox.shrink(); //
+        return Container(); //
       }
     }
   }
