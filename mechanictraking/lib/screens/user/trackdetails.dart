@@ -271,8 +271,7 @@ class _TrackDetailsPageState extends State<TrackDetailsPage> {
     if (diagnostico3 != null && condicion == diagnostico3.progreso2) {
       steps.add(step.Step(
         //shimmer: false,
-        title:
-            'Vehiculo en ' + diagnostico3.id + " : " + diagnostico3.progreso2,
+        title: 'Vehiculo Diagnosticado : ' + diagnostico3.progreso2,
         iconStyle: iconStyle,
         content: Align(
           alignment: Alignment.centerLeft,
