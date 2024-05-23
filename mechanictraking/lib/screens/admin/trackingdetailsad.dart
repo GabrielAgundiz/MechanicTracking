@@ -11,6 +11,7 @@ import 'package:mechanictracking/services/appointment_service.dart';
 
 class TrackDetailsPageAD extends StatefulWidget {
   final Appointment _appointment;
+
   TrackDetailsPageAD(this._appointment, {super.key});
 
   @override
@@ -27,6 +28,7 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
   bool paso2Cumplido = false;
   bool paso3Cumplido = false;
   bool paso4Cumplido = false;
+  String? userPhoneNumber;
 
   Future<Diagnostico> validacion(
       String appointmentId, String diagnosticoId) async {
@@ -39,10 +41,16 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
   void initState() {
     super.initState();
     _initializeSteps();
+    _getUserPhoneNumber();
     paso1Cumplido = false;
     paso2Cumplido = false;
     paso3Cumplido = false;
     paso4Cumplido = false;
+  }
+
+  Future<void> _getUserPhoneNumber() async {
+    userPhoneNumber = await getUserPhoneNumber(widget._appointment.userId);
+    setState(() {}); // To trigger a rebuild with the updated phone number
   }
 
   Future<void> _initializeSteps() async {
@@ -105,7 +113,8 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ), // Título de la barra de aplicación
               ),
-              bottomNavigationBar: const WhatsappButtonAD(),
+              bottomNavigationBar: WhatsappButtonAD(widget._appointment.id,
+                  widget._appointment.auto, userPhoneNumber!),
               body: SafeArea(
                 child: SingleChildScrollView(
                   child: Column(
@@ -158,7 +167,6 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.endDocked,
             );
-            
           }
         });
   }

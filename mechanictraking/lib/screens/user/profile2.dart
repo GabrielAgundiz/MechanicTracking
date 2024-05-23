@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mechanictracking/screens/user/home.dart';
-import 'package:mechanictracking/screens/user/notifies.dart';
+//import 'package:mechanictracking/screens/user/homer/widgets/profiledata.dart';
 import 'package:mechanictracking/screens/user/widgets/circularimage.dart';
 import 'package:mechanictracking/screens/user/widgets/profiledata.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
@@ -57,7 +56,7 @@ class _ProfilePage2State extends State<ProfilePage2> {
         //      )
         //     ],
       ),
-      bottomNavigationBar: const WhatsappButton(),
+      bottomNavigationBar: WhatsappButtonPerfil(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

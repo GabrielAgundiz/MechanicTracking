@@ -17,7 +17,7 @@ class ScheduleDetailsPage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      bottomNavigationBar: const WhatsappButton(),
+      bottomNavigationBar: WhatsappButton(_appointment.id, _appointment.auto),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(

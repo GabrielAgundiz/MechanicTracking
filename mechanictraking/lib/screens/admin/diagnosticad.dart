@@ -6,6 +6,8 @@ import 'package:mechanictracking/screens/user/galleryscreen.dart';
 import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
+import '../../services/appointment_service.dart';
+
 class DiagnosticPageAD extends StatefulWidget {
   final Appointment _appointment;
   final Diagnostico _diagnostico;
@@ -18,6 +20,18 @@ class DiagnosticPageAD extends StatefulWidget {
 
 class _DiagnosticPageADState extends State<DiagnosticPageAD> {
   void setAppointment(Appointment appointment) {}
+  String? userPhoneNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserPhoneNumber();
+  }
+
+  Future<void> _getUserPhoneNumber() async {
+    userPhoneNumber = await getUserPhoneNumber(widget._appointment.userId);
+    setState(() {}); // To trigger a rebuild with the updated phone number
+  }
 
   Future<void> _cancelCite() async {
     await FirebaseFirestore.instance
@@ -70,7 +84,8 @@ class _DiagnosticPageADState extends State<DiagnosticPageAD> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      bottomNavigationBar: WhatsappButtonAD(),
+      bottomNavigationBar: WhatsappButtonAD(
+          widget._appointment.id, widget._appointment.auto, userPhoneNumber!),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),

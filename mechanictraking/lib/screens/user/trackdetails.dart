@@ -106,7 +106,8 @@ class _TrackDetailsPageState extends State<TrackDetailsPage> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ), // Título de la barra de aplicación
               ),
-              bottomNavigationBar: const WhatsappButton(),
+              bottomNavigationBar: WhatsappButton(
+                  widget._appointment.id, widget._appointment.auto),
               body: SafeArea(
                 child: SingleChildScrollView(
                   child: Column(

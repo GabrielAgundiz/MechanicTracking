@@ -4,10 +4,31 @@ import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/admin/widgets/whatsappbuttonad.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
-class ScheduleDetailsPageAD extends StatelessWidget {
+import '../../services/appointment_service.dart';
+
+class ScheduleDetailsPageAD extends StatefulWidget {
   final Appointment _appointment;
 
   const ScheduleDetailsPageAD(this._appointment, {super.key});
+
+  @override
+  State<ScheduleDetailsPageAD> createState() => _ScheduleDetailsPageADState();
+}
+
+class _ScheduleDetailsPageADState extends State<ScheduleDetailsPageAD> {
+  @override
+  void initState() {
+    super.initState();
+    _getUserPhoneNumber();
+  }
+
+  String? userPhoneNumber;
+
+  Future<void> _getUserPhoneNumber() async {
+    userPhoneNumber = await getUserPhoneNumber(widget._appointment.userId);
+    setState(() {}); // To trigger a rebuild with the updated phone number
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +38,8 @@ class ScheduleDetailsPageAD extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      bottomNavigationBar: const WhatsappButtonAD(),
+      bottomNavigationBar: WhatsappButtonAD(
+          widget._appointment.id, widget._appointment.auto, userPhoneNumber!),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
@@ -48,7 +70,7 @@ class ScheduleDetailsPageAD extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      _appointment.auto,
+                      widget._appointment.auto,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -78,7 +100,7 @@ class ScheduleDetailsPageAD extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       maxLines: 20,
-                      _appointment.motivo,
+                      widget._appointment.motivo,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -108,7 +130,7 @@ class ScheduleDetailsPageAD extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      DateFormat('dd/MM/yyyy').format(_appointment.date),
+                      DateFormat('dd/MM/yyyy').format(widget._appointment.date),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -138,7 +160,7 @@ class ScheduleDetailsPageAD extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      DateFormat.jm().format(_appointment.date),
+                      DateFormat.jm().format(widget._appointment.date),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -168,7 +190,7 @@ class ScheduleDetailsPageAD extends StatelessWidget {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      _appointment.status,
+                      widget._appointment.status,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium

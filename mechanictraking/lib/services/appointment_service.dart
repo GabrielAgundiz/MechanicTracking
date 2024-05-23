@@ -118,3 +118,18 @@ class AppointmentService {
     throw Exception("Cita no encontrada");
   }
 }
+
+Future<String?> getUserPhoneNumber(String userId) async {
+  try {
+    DocumentSnapshot userDoc =
+        await FirebaseFirestore.instance.collection('client').doc(userId).get();
+    if (userDoc.exists) {
+      var data = userDoc.data() as Map<String, dynamic>?;
+      return data?['phone'] as String?;
+    }
+    return null;
+  } catch (e) {
+    print('Error al obtener el número de teléfono: $e');
+    return null;
+  }
+}
