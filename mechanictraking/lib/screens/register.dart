@@ -199,15 +199,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     const SizedBox(height: 40.0),
-                    CheckboxListTile(
-                      title: const Text('Registrarse como administrador'),
-                      value: _isAdmin,
-                      onChanged: (value) {
-                        setState(() {
-                          _isAdmin = value!;
-                        });
-                      },
-                    ),
+                   // CheckboxListTile(
+                 //     title: const Text('Registrarse como administrador'),
+                //      value: _isAdmin,
+                //      onChanged: (value) {
+                //        setState(() {
+                //          _isAdmin = value!;
+              //          });
+               //       },
+              //      ),
                     const SizedBox(height: 40.0),
                     ElevatedButton(
                       // Botón para registrarse.

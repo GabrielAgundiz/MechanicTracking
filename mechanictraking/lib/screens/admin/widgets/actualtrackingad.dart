@@ -14,6 +14,7 @@ class ActualTrackingAD extends StatefulWidget {
 
 class _ActualTrackingADState extends State<ActualTrackingAD> {
   late String userId;
+  
   @override
   void initState() {
     super.initState();
@@ -61,18 +62,15 @@ class _ActualTrackingADState extends State<ActualTrackingAD> {
                       if (appointment.costo == "Aceptado") {
                         return CardAppointment(appointment.id, appointment);
                       } else if (appointment.costo != "Aceptado" &&
-                          appointment.status2 != "Reparacion") {
-                        return CardAppointment(appointment.id,
-                            appointment); // O cualquier otro widget que no ocupe espacio
+                                 appointment.status2 != "Reparacion") {
+                        return CardAppointment(appointment.id, appointment);
                       } else {
-                        return SizedBox.shrink();
+                        return Container();
                       }
                     }).toList(),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
               ],
             ),
           );
@@ -85,17 +83,23 @@ class _ActualTrackingADState extends State<ActualTrackingAD> {
 class CardAppointment extends StatefulWidget {
   final String appointmentId;
   final Appointment appointment_1;
+  
   const CardAppointment(this.appointmentId, this.appointment_1, {super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return _CardAppointmentState();
-  }
+  State<StatefulWidget> createState() => _CardAppointmentState();
 }
 
 class _CardAppointmentState extends State<CardAppointment> {
-  Appointment? _appointment; //state local
+  Appointment? _appointment;
   late String userId;
+
+  @override
+  void initState() {
+    super.initState();
+    _getAppointment(widget.appointmentId);
+    getUserId();
+  }
 
   Future<void> getUserId() async {
     final User? user = FirebaseAuth.instance.currentUser;
@@ -108,13 +112,6 @@ class _CardAppointmentState extends State<CardAppointment> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _getAppointment(widget.appointmentId);
-    getUserId();
-  }
-
   void _getAppointment(String appointmentId) async {
     var appointment = await AppointmentService().getAppointment(appointmentId);
     setState(() {
@@ -124,12 +121,9 @@ class _CardAppointmentState extends State<CardAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    List<Appointment> appointments = [];
-
     if (_appointment == null) {
       return const Center(child: CircularProgressIndicator());
     } else if (_appointment!.status == "Pendiente") {
-      appointments.add(_appointment!);
       return Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Container(
@@ -145,128 +139,84 @@ class _CardAppointmentState extends State<CardAppointment> {
               ),
             ],
           ),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                ListTile(
-                  title: Text(
-                    _appointment!.auto,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+          child: Column(
+            children: [
+              ListTile(
+                title: Text(
+                  _appointment!.auto,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(_appointment!.motivo),
+                trailing: const CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                      "https://patiodeautos.com/wp-content/uploads/2018/09/6-consejos-para-convertirte-en-un-mejor-mecanico-de-autos.jpg"),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Divider(thickness: 1, height: 20),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text(
+                    "Actualizado: ",
+                    style: TextStyle(color: Colors.black54),
                   ),
-                  subtitle: Text(_appointment!.motivo),
-                  trailing: CircleAvatar(
-                    radius: 25,
-                    backgroundImage: NetworkImage(
-                        "https://patiodeautos.com/wp-content/uploads/2018/09/6-consejos-para-convertirte-en-un-mejor-mecanico-de-autos.jpg"),
+                  Row(
+                    children: [
+                      const Icon(Icons.calendar_month, color: Colors.black54),
+                      const SizedBox(width: 5),
+                      Text(
+                        DateFormat('dd/MM/yyyy').format(_appointment!.date),
+                        style: const TextStyle(color: Colors.black54),
+                      ),
+                    ],
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Divider(
-                    thickness: 1,
-                    height: 20,
+                  Row(
+                    children: [
+                      const Icon(Icons.access_time_filled, color: Colors.black54),
+                      const SizedBox(width: 5),
+                      Text(
+                        DateFormat.jm().format(_appointment!.date),
+                        style: const TextStyle(color: Colors.black54),
+                      ),
+                    ],
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                   const  Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Actualizado: ",
-                          style: TextStyle(
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                       const  Icon(
-                          Icons.calendar_month,
-                          color: Colors.black54,
-                        ),
-                       const SizedBox(width: 5),
-                        Text(
-                          DateFormat('dd/MM/yyyy').format(_appointment!.date),
-                          style: const TextStyle(color: Colors.black54),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                       const Icon(
-                          Icons.access_time_filled,
-                          color: Colors.black54,
-                        ),
-                       const SizedBox(width: 5),
-                        Text(
-                          DateFormat.jm().format(_appointment!.date),
-                          style: const TextStyle(
-                            color: Colors.black54,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        _openTrackingDetails(context, _appointment);
-                      },
-                      child: Container(
-                        width: 300,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                          color: Colors.green[300],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Ver detalles",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              InkWell(
+                onTap: () {
+                  _openTrackingDetails(context, _appointment);
+                },
+                child: Container(
+                  width: 300,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.green[300],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "Ver detalles",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
                       ),
                     ),
-                  ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 15),
+            ],
           ),
         ),
       );
     } else {
-      if (appointments.isEmpty) {
-        return const Column(
-          children: [
-            Text(
-              "",
-              style: TextStyle(color: Colors.black54),
-            )
-          ],
-        );
-      } else {
-        return const SizedBox.shrink(); //
-      }
+      return Container(); // Retorna un contenedor vacío si no se cumplen las condiciones.
     }
   }
 
