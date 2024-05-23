@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/user/chat.dart';
 import 'package:mechanictracking/screens/user/home.dart';
@@ -30,6 +32,8 @@ class MessagesPage extends StatelessWidget {
     },
   ];
 
+  MessagesPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +45,7 @@ class MessagesPage extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      HomePage()), // Navega a la página de registro.
+                      const HomePage()), // Navega a la página de registro.
             );
           },
         ),
@@ -216,7 +220,7 @@ class MessagesPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ChatPage(),
+                            builder: (context) => const ChatPage(),
                           ));
                     },
                     leading: CircleAvatar(
@@ -225,20 +229,20 @@ class MessagesPage extends StatelessWidget {
                         imgs[index]["url"],
                       ),
                     ),
-                    title: Text(
+                    title: const Text(
                       "Mecanico Nombre",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    subtitle: Text(
+                    subtitle: const Text(
                       "Hola, voy a ser tu mecanico.",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 15, color: Colors.black54),
                     ),
-                    trailing: Text(
+                    trailing: const Text(
                       "12:30",
                       style: TextStyle(fontSize: 14, color: Colors.black54),
                     ),
