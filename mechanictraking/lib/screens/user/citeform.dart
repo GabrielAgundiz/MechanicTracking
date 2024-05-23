@@ -143,8 +143,13 @@ class _CiteFormState extends State<CiteForm> {
   Future<void> _saveCite() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      final dateTime = _selectedDate.add(
-          Duration(hours: _selectedTime.hour, minutes: _selectedTime.minute));
+      final DateTime dateTime = DateTime(
+        _selectedDate.year,
+        _selectedDate.month,
+        _selectedDate.day,
+        _selectedTime.hour,
+        _selectedTime.minute,
+      );
       DocumentReference appointmentRef =
           await FirebaseFirestore.instance.collection('citas').add({
         'userId': userId,
