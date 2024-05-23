@@ -13,9 +13,9 @@ class TrackingPage extends StatefulWidget {
 class _TrackingPageState extends State<TrackingPage> {
   int _buttonIndex = 0;
   final _ScheduleWidgets = [
-    ActualTracking(),
+    const ActualTracking(),
     //CompletedWidget
-    CompletedTracking(),
+    const CompletedTracking(),
   ];
 
   @override
@@ -29,7 +29,7 @@ class _TrackingPageState extends State<TrackingPage> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      HomePage()), // Navega a la página de registro.
+                      const HomePage()), // Navega a la página de registro.
             );
           },
         ),
@@ -64,7 +64,7 @@ class _TrackingPageState extends State<TrackingPage> {
                 width: MediaQuery.of(context).size.width,
                 child: ListView(
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

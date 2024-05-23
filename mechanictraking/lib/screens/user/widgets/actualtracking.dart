@@ -163,7 +163,7 @@ class _CardAppointmentState extends State<CardAppointment> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(_appointment!.motivo),
-                  trailing: CircleAvatar(
+                  trailing: const CircleAvatar(
                     radius: 25,
                     backgroundImage: NetworkImage(
                         "https://patiodeautos.com/wp-content/uploads/2018/09/6-consejos-para-convertirte-en-un-mejor-mecanico-de-autos.jpg"),

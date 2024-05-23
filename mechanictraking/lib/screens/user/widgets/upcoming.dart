@@ -152,7 +152,7 @@ class _CardAppointmentState extends State<CardAppointment> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => HomePage(),
+        builder: (context) => const HomePage(),
       ),
     );
   }

@@ -74,7 +74,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 width: MediaQuery.of(context).size.width,
                 child: ListView(
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -185,7 +185,7 @@ class _SchedulePageState extends State<SchedulePage> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      CiteForm()), // Crea una ruta para la página de notificaciones
+                      const CiteForm()), // Crea una ruta para la página de notificaciones
             );
           },
           child: const Icon(Icons.add, color: Colors.white),

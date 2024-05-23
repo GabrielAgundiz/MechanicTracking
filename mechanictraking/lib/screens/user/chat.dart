@@ -24,12 +24,12 @@ class ChatPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        HomePage()), // Navega a la página de registro.
+                        const HomePage()), // Navega a la página de registro.
               );
             },
           ),
-          title: Padding(
-            padding: const EdgeInsets.only(top: 5),
+          title: const Padding(
+            padding: EdgeInsets.only(top: 5),
             child: Row(
               children: [
                 CircleAvatar(
@@ -74,7 +74,7 @@ class ChatPage extends StatelessWidget {
             right: 15,
             bottom: 80,
           ),
-          itemBuilder: (context, index) => ChatSample(),
+          itemBuilder: (context, index) => const ChatSample(),
         ),
       ),
       bottomSheet: Container(

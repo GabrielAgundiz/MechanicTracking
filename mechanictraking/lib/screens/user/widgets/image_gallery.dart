@@ -4,7 +4,7 @@ import 'package:photo_view/photo_view.dart';
 class ImageGallery extends StatefulWidget {
   final List<String> imageUrls;
 
-  const ImageGallery({required this.imageUrls, Key? key}) : super(key: key);
+  const ImageGallery({required this.imageUrls, super.key});
 
   @override
   _ImageGalleryState createState() => _ImageGalleryState();
@@ -51,7 +51,7 @@ class _ImageGalleryState extends State<ImageGallery> {
 class ImageViewer extends StatelessWidget {
   final String imageUrl;
 
-  const ImageViewer({required this.imageUrl, Key? key}) : super(key: key);
+  const ImageViewer({required this.imageUrl, super.key});
 
   @override
   Widget build(BuildContext context) {
