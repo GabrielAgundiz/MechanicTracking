@@ -19,7 +19,7 @@ class _HomePageADState extends State<HomePageAD> {
   final screens = [
     SchedulePageAD(),
     TrackingPageAD(),
-    MessagesPageAD(),
+    // MessagesPageAD(),
   ];
 
   @override
@@ -49,10 +49,10 @@ class _HomePageADState extends State<HomePageAD> {
             icon: Icon(Icons.content_paste_search),
             label: 'Seguimiento',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Mensajes',
-          ),
+          //  BottomNavigationBarItem(
+          //     icon: Icon(Icons.message),
+          //     label: 'Mensajes',
+          //    ),
         ],
       ),
     );

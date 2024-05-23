@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/admin/homead.dart';
+import 'package:mechanictracking/screens/admin/scheduledetailsad.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
 
 import '../../user/scheduledetails.dart';
@@ -318,7 +319,7 @@ class _CardAppointmentState extends State<CardAppointment> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => ScheduleDetailsPage(appointment!)),
+          builder: (context) => ScheduleDetailsPageAD(appointment!)),
     );
   }
 }

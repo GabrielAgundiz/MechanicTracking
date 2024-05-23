@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/admin/diagnosticad.dart';
 import 'package:mechanictracking/screens/admin/trackformad.dart';
+import 'package:mechanictracking/screens/admin/widgets/whatsappbuttonad.dart';
 import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart'
     as step;
 import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart';
@@ -104,6 +105,7 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ), // Título de la barra de aplicación
               ),
+              bottomNavigationBar: WhatsappButtonAD(),
               body: SafeArea(
                 child: SingleChildScrollView(
                   child: Column(
@@ -111,20 +113,22 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 60),
-                        child: Column(
-                          children: [
-                            Text(
-                              widget._appointment.auto,
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 60),
+                          child: Column(
+                            children: [
+                              Text(
+                                widget._appointment.auto,
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(widget._appointment.motivo),
-                          ],
+                              Text(widget._appointment.motivo),
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -154,6 +158,7 @@ class _TrackDetailsPageADState extends State<TrackDetailsPageAD> {
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.endDocked,
             );
+            
           }
         });
   }

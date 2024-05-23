@@ -113,20 +113,22 @@ class _TrackDetailsPageCompleteState extends State<TrackDetailsPageComplete> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 60),
-                        child: Column(
-                          children: [
-                            Text(
-                              widget._appointment.auto,
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 60),
+                          child: Column(
+                            children: [
+                              Text(
+                                widget._appointment.auto,
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(widget._appointment.motivo),
-                          ],
+                              Text(widget._appointment.motivo),
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(

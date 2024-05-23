@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:mechanictracking/model/appointment.dart';
+import 'package:mechanictracking/screens/admin/widgets/whatsappbuttonad.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
 
-class ScheduleDetailsPageAD extends StatefulWidget {
-  const ScheduleDetailsPageAD({super.key});
+class ScheduleDetailsPageAD extends StatelessWidget {
+  final Appointment _appointment;
 
-  @override
-  State<ScheduleDetailsPageAD> createState() => _ScheduleDetailsPageADState();
-}
-
-class _ScheduleDetailsPageADState extends State<ScheduleDetailsPageAD> {
+  const ScheduleDetailsPageAD(this._appointment, {super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +17,7 @@ class _ScheduleDetailsPageADState extends State<ScheduleDetailsPageAD> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
+      bottomNavigationBar: const WhatsappButtonAD(),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
@@ -36,7 +36,7 @@ class _ScheduleDetailsPageADState extends State<ScheduleDetailsPageAD> {
                   Expanded(
                     flex: 3,
                     child: Text(
-                      "Automovil:",
+                      "Modelo",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -48,7 +48,7 @@ class _ScheduleDetailsPageADState extends State<ScheduleDetailsPageAD> {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      "Modelo del automovil",
+                      _appointment.auto,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -78,7 +78,7 @@ class _ScheduleDetailsPageADState extends State<ScheduleDetailsPageAD> {
                     flex: 5,
                     child: Text(
                       maxLines: 20,
-                      "Descripcion del motivo",
+                      _appointment.motivo,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -108,7 +108,7 @@ class _ScheduleDetailsPageADState extends State<ScheduleDetailsPageAD> {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      "12/01/2023",
+                      DateFormat('dd/MM/yyyy').format(_appointment.date),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -138,7 +138,7 @@ class _ScheduleDetailsPageADState extends State<ScheduleDetailsPageAD> {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      "10:30 AM",
+                      DateFormat.jm().format(_appointment.date),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -168,7 +168,7 @@ class _ScheduleDetailsPageADState extends State<ScheduleDetailsPageAD> {
                     flex: 5,
                     child: Text(
                       maxLines: 2,
-                      "Confirmado",
+                      _appointment.status,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
