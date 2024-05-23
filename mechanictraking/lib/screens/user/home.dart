@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       //   FeedPage(),
       SchedulePage(),
       TrackingPage(),
-      ChatPage(),
+      //ChatPage(),
       ProfilePage2()
     ];
 
@@ -69,10 +69,10 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.content_paste_search), // Icono del elemento
             label: 'Seguimiento', // Etiqueta del elemento
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Mensajes',
-          ),
+          //     BottomNavigationBarItem(
+          //      icon: Icon(Icons.message),
+          //      label: 'Mensajes',
+          //     ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Perfil',

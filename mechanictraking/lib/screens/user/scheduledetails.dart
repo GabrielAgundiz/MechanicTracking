@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mechanictracking/model/appointment.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
+import 'package:mechanictracking/screens/user/widgets/whatsappbutton.dart';
 
 class ScheduleDetailsPage extends StatelessWidget {
   final Appointment _appointment;
@@ -16,6 +17,7 @@ class ScheduleDetailsPage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
+      bottomNavigationBar: const WhatsappButton(),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(

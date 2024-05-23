@@ -6,6 +6,7 @@ import 'package:mechanictracking/screens/user/diagnostic.dart';
 import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart'
     as step;
 import 'package:mechanictracking/screens/user/widgets/verticalstepper.dart';
+import 'package:mechanictracking/screens/user/widgets/whatsappbutton.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
 
 class TrackDetailsPage extends StatefulWidget {
@@ -105,6 +106,7 @@ class _TrackDetailsPageState extends State<TrackDetailsPage> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ), // Título de la barra de aplicación
               ),
+              bottomNavigationBar: const WhatsappButton(),
               body: SafeArea(
                 child: SingleChildScrollView(
                   child: Column(

@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mechanictracking/screens/user/home.dart';
 import 'package:mechanictracking/screens/user/notifies.dart';
 import 'package:mechanictracking/screens/user/widgets/circularimage.dart';
 import 'package:mechanictracking/screens/user/widgets/profiledata.dart';
 import 'package:mechanictracking/screens/user/widgets/sectionheading.dart';
+import 'package:mechanictracking/screens/user/widgets/whatsappbutton.dart';
 
 class ProfilePage2 extends StatefulWidget {
   ProfilePage2({super.key});
@@ -43,18 +45,19 @@ class _ProfilePage2State extends State<ProfilePage2> {
           'Perfil',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotifiesPage()),
-              );
-            },
-          )
-        ],
+        //   actions: <Widget>[
+        //     IconButton(
+        //        icon: const Icon(Icons.notifications),
+        //       onPressed: () {
+        //          Navigator.push(
+        //           context,
+        //            MaterialPageRoute(builder: (context) => NotifiesPage()),
+        //          );
+        //        },
+        //      )
+        //     ],
       ),
+      bottomNavigationBar: const WhatsappButton(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
