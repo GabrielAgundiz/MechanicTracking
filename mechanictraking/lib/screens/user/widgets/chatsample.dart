@@ -18,7 +18,7 @@ class ChatSample extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.grey[200],
               ),
-              child: Text(
+              child: const Text(
                 "Hola, que puedo hacer por ti?",
                 style: TextStyle(fontSize: 16),
               ),
@@ -35,7 +35,7 @@ class ChatSample extends StatelessWidget {
                 padding:
                     const EdgeInsets.only(left: 20, top: 10, bottom: 25, right: 20),
                 decoration: BoxDecoration(color: Colors.green[200]),
-                child: Text("Buenas tardes, me gustaria saber el estatus de mi auto", style: TextStyle(fontSize: 16),),
+                child: const Text("Buenas tardes, me gustaria saber el estatus de mi auto", style: TextStyle(fontSize: 16),),
               ),
             ),
           ),

@@ -21,7 +21,7 @@ class _DiagnosticPageADState extends State<DiagnosticPageAD> {
   Future<void> _cancelCite() async {
     await FirebaseFirestore.instance
         .collection('citas')
-        .doc(widget._appointment!.id)
+        .doc(widget._appointment.id)
         .update({'status': 'Cancelado'});
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -33,7 +33,7 @@ class _DiagnosticPageADState extends State<DiagnosticPageAD> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => HomePage(),
+        builder: (context) => const HomePage(),
       ),
     );
   }
@@ -41,7 +41,7 @@ class _DiagnosticPageADState extends State<DiagnosticPageAD> {
   Future<void> _acceptCite() async {
     await FirebaseFirestore.instance
         .collection('citas')
-        .doc(widget._appointment!.id)
+        .doc(widget._appointment.id)
         .update({
       'costo': "Aceptado",
     });
@@ -55,7 +55,7 @@ class _DiagnosticPageADState extends State<DiagnosticPageAD> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => HomePage(),
+        builder: (context) => const HomePage(),
       ),
     );
   }

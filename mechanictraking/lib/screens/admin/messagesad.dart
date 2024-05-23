@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:mechanictracking/screens/admin/chatad.dart';
 import 'package:mechanictracking/screens/admin/homead.dart';
@@ -30,6 +32,8 @@ class MessagesPageAD extends StatelessWidget {
     },
   ];
 
+  MessagesPageAD({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +45,7 @@ class MessagesPageAD extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      HomePageAD()), // Navega a la página de registro.
+                      const HomePageAD()), // Navega a la página de registro.
             );
           },
         ),
@@ -201,7 +205,7 @@ class MessagesPageAD extends StatelessWidget {
                 ),
               ),
               ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 6,
                 shrinkWrap: true,
                 itemBuilder: ((context, index) {
@@ -211,7 +215,7 @@ class MessagesPageAD extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ChatPageAD(),
+                            builder: (context) => const ChatPageAD(),
                           ));
                     },
                     leading: CircleAvatar(
@@ -220,20 +224,20 @@ class MessagesPageAD extends StatelessWidget {
                         imgs[index]["url"],
                       ),
                     ),
-                    title: Text(
+                    title: const Text(
                       "Mecanico Nombre",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    subtitle: Text(
+                    subtitle: const Text(
                       "Hola, voy a ser tu mecanico.",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 15, color: Colors.black54),
                     ),
-                    trailing: Text(
+                    trailing: const Text(
                       "12:30",
                       style: TextStyle(fontSize: 14, color: Colors.black54),
                     ),

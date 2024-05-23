@@ -7,8 +7,6 @@ import 'package:mechanictracking/screens/admin/homead.dart';
 import 'package:mechanictracking/screens/admin/scheduledetailsad.dart';
 import 'package:mechanictracking/services/appointment_service.dart';
 
-import '../../user/scheduledetails.dart';
-
 class UpcomingScheduleAD extends StatefulWidget {
   const UpcomingScheduleAD({super.key});
 

@@ -15,11 +15,11 @@ class SchedulePageAD extends StatefulWidget {
 class _SchedulePageADState extends State<SchedulePageAD> {
   int _buttonIndex = 0;
   final _ScheduleWidgets = [
-    UpcomingScheduleAD(),
+    const UpcomingScheduleAD(),
     //CompletedWidget
-    CompletedScheduleAD(),
+    const CompletedScheduleAD(),
     //CanceledWidget
-    CancelledScheduleAD(),
+    const CancelledScheduleAD(),
   ];
 
   @override

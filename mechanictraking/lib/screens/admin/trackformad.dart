@@ -207,7 +207,7 @@ class _TrackFormADState extends State<TrackFormAD> {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HomePageAD()),
+      MaterialPageRoute(builder: (context) => const HomePageAD()),
     );
   }
 
@@ -241,7 +241,7 @@ class _TrackFormADState extends State<TrackFormAD> {
     EmailSender.sendMailFromGmailCompletado(userEmail);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HomePageAD()),
+      MaterialPageRoute(builder: (context) => const HomePageAD()),
     );
   }
 
@@ -466,7 +466,7 @@ class _TrackFormADState extends State<TrackFormAD> {
                                   return null;
                                 },
                                 controller: _costController,
-                                keyboardType: TextInputType.numberWithOptions(
+                                keyboardType: const TextInputType.numberWithOptions(
                                     decimal: true),
                                 inputFormatters: <TextInputFormatter>[
                                   FilteringTextInputFormatter.allow(

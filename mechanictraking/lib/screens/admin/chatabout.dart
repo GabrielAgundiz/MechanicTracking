@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class AboutChatPageAD extends StatelessWidget {
@@ -27,6 +29,8 @@ class AboutChatPageAD extends StatelessWidget {
           "https://st4.depositphotos.com/13194036/20469/i/450/depositphotos_204690268-stock-photo-smiling-workman-posing-crossed-arms.jpg"
     },
   ];
+
+  AboutChatPageAD({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +78,10 @@ class AboutChatPageAD extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const SizedBox(height: 15,),
-                        CircleAvatar(
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const CircleAvatar(
                           radius: 35,
                           backgroundImage: NetworkImage(
                               "https://patiodeautos.com/wp-content/uploads/2018/09/6-consejos-para-convertirte-en-un-mejor-mecanico-de-autos.jpg"),
@@ -83,7 +89,7 @@ class AboutChatPageAD extends StatelessWidget {
                         const SizedBox(
                           height: 15,
                         ),
-                        Text(
+                        const Text(
                           "Juan",
                           style: TextStyle(
                               fontSize: 28,
@@ -93,7 +99,7 @@ class AboutChatPageAD extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                        Text(
+                        const Text(
                           "Mecanico",
                           style: TextStyle(
                               color: Colors.white,
@@ -230,12 +236,12 @@ class AboutChatPageAD extends StatelessWidget {
                                       imgs[index]["url"],
                                     ),
                                   ),
-                                  title: Text(
+                                  title: const Text(
                                     "Servicio",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  subtitle: Text("Hace un dia"),
+                                  subtitle: const Text("Hace un dia"),
                                   trailing: const Row(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -280,13 +286,17 @@ class AboutChatPageAD extends StatelessWidget {
                         color: Colors.grey[200],
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(Icons.location_on,
-                      color: Colors.green[300],
-                      size: 30,
+                      child: Icon(
+                        Icons.location_on,
+                        color: Colors.green[300],
+                        size: 30,
                       ),
                     ),
-                    title: Text("Centro Servicio 2, Monterrey, N.L.", style: TextStyle(fontWeight: FontWeight.bold),),
-                    subtitle: Text("DIireccion del centrop de servicio"),
+                    title: const Text(
+                      "Centro Servicio 2, Monterrey, N.L.",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: const Text("DIireccion del centrop de servicio"),
                   ),
                 ],
               ),
