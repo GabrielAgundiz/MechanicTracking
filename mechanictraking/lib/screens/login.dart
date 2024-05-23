@@ -25,37 +25,48 @@ class _LoginPageState extends State<LoginPage> {
     checkCurrentUser();
   }
 
-  Future<void> checkCurrentUser() async {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user != null && await _isUserAuthenticated(user)) {
-      final credencial = user.uid;
-      final userDoc = await FirebaseFirestore.instance
-          .collection('admin')
-          .doc(credencial)
-          .get();
-      print(userDoc.id);
-
-      if (userDoc.exists) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => HomePageAD()),
-          (route) => false, // Elimina todas las rutas de navegación anteriores
-        );
-      } else {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-          (route) => false, // Elimina todas las rutas de navegación anteriores
-        );
-      }
-    }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    checkCurrentUser();
   }
 
   Future<bool> _isUserAuthenticated(User user) async {
     await user.reload();
     return user
         .emailVerified; // Verifica si el correo electrónico del usuario ha sido verificado
+  }
+
+  Future<void> checkCurrentUser() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null && await _isUserAuthenticated(user)) {
+      final credencial = user.uid;
+      print(credencial);
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(credencial)
+          .get();
+
+      if (userDoc.exists) {
+        final isAdmin = userDoc.data()?['isAdmin'] ?? false;
+        if (isAdmin) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => HomePageAD()),
+            (route) =>
+                false, // Elimina todas las rutas de navegación anteriores
+          );
+        } else {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+            (route) =>
+                false, // Elimina todas las rutas de navegación anteriores
+          );
+        }
+      }
+    }
   }
 
   Future<void> signIn() async {
@@ -125,7 +136,8 @@ class _LoginPageState extends State<LoginPage> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Error al iniciar sesión, intente de nuevo')),
+          const SnackBar(
+              content: Text('Error al iniciar sesión, intente de nuevo')),
         );
       }
     }
@@ -242,7 +254,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: const Text(
                       '¿Olvidaste tu contraseña?',
                       style: TextStyle(
-                        color:  Color(0xFF5DB075),
+                        color: Color(0xFF5DB075),
                       ),
                     ),
                   ),
